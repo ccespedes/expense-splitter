@@ -6,9 +6,6 @@ export default function Header() {
   const { handleSetModal } = UseDataContext();
   return (
     <div className="flex h-[180px] flex-col bg-primary pb-1 pt-[40px] text-white">
-      <div className="text-center text-[40px] font-extrabold uppercase">
-        Let&rsquo;s Split It
-      </div>
       <nav className="m-auto w-full max-w-4xl px-4">
         <div className="flex justify-between gap-2">
           <NavLink to="/home">

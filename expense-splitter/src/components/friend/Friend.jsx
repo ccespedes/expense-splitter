@@ -9,7 +9,7 @@ import GetStarted from "../widgets/GetStarted";
 
 const Friend = () => {
   const navigate = useNavigate();
-  const { user, handleSetModal, modal, friends } = UseDataContext();
+  const { user, friends } = UseDataContext();
 
   const [inputText, setInputText] = useState("");
 
@@ -26,28 +26,21 @@ const Friend = () => {
   }, [user]);
 
   return (
-    !modal.show && (
-      <>
-        <h1 className="text-center">Friends</h1>
-        <div className="mb-2">
-          {friends.length > 3 && (
-            <SearchBar input={inputText} inputHandler={inputHandler} />
-          )}
-        </div>
-        <FriendList input={inputText} />
-        <ButtonFooter>
-          <Button
-            className="bg-primary"
-            onClick={() => {
-              handleSetModal("FriendForm");
-            }}
-          >
-            Add Friend
-          </Button>
-        </ButtonFooter>
-        <GetStarted />
-      </>
-    )
+    <>
+      <h1 className="text-center">Friends</h1>
+      <div className="mb-2">
+        {friends.length > 3 && (
+          <SearchBar input={inputText} inputHandler={inputHandler} />
+        )}
+      </div>
+      <FriendList input={inputText} />
+      <ButtonFooter>
+        <Button className="bg-primary" onClick={() => navigate("/friends/add")}>
+          Add Friend
+        </Button>
+      </ButtonFooter>
+      <GetStarted />
+    </>
   );
 };
 

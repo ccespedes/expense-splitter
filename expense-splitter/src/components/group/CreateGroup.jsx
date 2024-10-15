@@ -50,7 +50,7 @@ export default function CreateGroup() {
     //call setState to render the component
     setGroupData(db.queryAll("groups"));
     //close form after submit
-    handleSetModal();
+    // handleSetModal();
     navigate(`/groups/${id}`);
   };
 
@@ -121,7 +121,7 @@ export default function CreateGroup() {
         <div className="flex gap-8">
           <Button
             type="button"
-            onClick={handleSetModal}
+            onClick={() => navigate(-1)}
             className="w-full md:w-auto"
           >
             Cancel

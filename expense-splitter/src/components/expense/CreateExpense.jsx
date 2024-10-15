@@ -5,23 +5,21 @@ import { UseDataContext } from "../context/SiteContext";
 import { nanoid } from "nanoid";
 import db from "../../utils/localstoragedb";
 import { categories } from "../../utils/dummyData";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Icon, IconButton, Tooltip } from "@mui/material";
 
 export default function CreateExpense() {
-  const {
-    groupData,
-    setExpenses,
-    setGroupData,
-    handleSetModal,
-    friends,
-    modal,
-  } = UseDataContext();
+  const { groupData, setExpenses, setGroupData, friends, modal } =
+    UseDataContext();
 
   const navigate = useNavigate();
 
   const [allFriends, setAllFriends] = useState([]);
   const [weightTotal, setWeightTotal] = useState(0);
+
+  const queryParams = new URLSearchParams(location.search);
+  const params = Object.fromEntries(queryParams.entries());
+  console.log("params", params);
 
   const {
     handleSubmit,
@@ -36,9 +34,9 @@ export default function CreateExpense() {
 
   //run when expense is created inside a group
   useEffect(() => {
-    if (modal.id) {
+    if (params.groupId) {
       //set the default value for group to set up the initial values of friends cotribution
-      setValue("group", modal.id);
+      setValue("group", params.groupId);
     }
   }, []);
 
@@ -253,7 +251,6 @@ export default function CreateExpense() {
     db.commit();
     // update expenses state with new db values
     setExpenses(db.queryAll("expenses"));
-    handleSetModal();
     navigate(`/expenses/${id}`);
   };
 
@@ -407,7 +404,7 @@ export default function CreateExpense() {
         <div className="flex gap-8">
           <Button
             type="button"
-            onClick={handleSetModal}
+            onClick={() => navigate(-1)}
             className="w-full md:w-auto"
           >
             Cancel

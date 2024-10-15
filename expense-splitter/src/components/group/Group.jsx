@@ -66,18 +66,14 @@ export default function Group() {
               title="There are no groups to display"
               subtitle="Get started by creating a group."
               btnText="Create a Group"
-              onClick={() => {
-                handleSetModal("CreateGroup");
-              }}
+              onClick={() => navigate("/groups/add")}
             />
           )}
         </div>
         <ButtonFooter>
           <Button
             className="bg-primary"
-            onClick={() => {
-              handleSetModal("CreateGroup");
-            }}
+            onClick={() => navigate("/groups/add")}
           >
             Create Group
           </Button>

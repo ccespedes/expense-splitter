@@ -7,6 +7,7 @@ import { UseDataContext } from "../context/SiteContext";
 import db from "../../utils/localstoragedb";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Define schema for optional email
 const optionalEmail = z.union([z.string().trim().email(), z.literal("")]);
@@ -21,9 +22,10 @@ const schema = z.object({
 
 const FriendForm = ({ id }) => {
   // Grab data from context
-  const { handleSetModal, friends, setFriends } = UseDataContext();
+  const { friends, setFriends } = UseDataContext();
   // Retrieve friend from state
   const currentFriend = friends.find((friend) => friend.id === id);
+  const navigate = useNavigate();
 
   // Destructure useForm hook
   const {
@@ -65,7 +67,7 @@ const FriendForm = ({ id }) => {
     // Save friend to local storage
     db.insertOrUpdate("friends", { id }, newFriend);
     db.commit();
-    handleSetModal();
+    navigate("/friends");
   };
 
   return (
@@ -108,11 +110,10 @@ const FriendForm = ({ id }) => {
           // Associate email imput with useForm
           {...register("email")}
         />
-        {/* Disable button if waiting on async funciton */}
         <div className="mt-3 flex gap-8">
           <Button
             type="button"
-            onClick={handleSetModal}
+            onClick={() => navigate(-1)}
             className="w-full md:w-auto"
           >
             Cancel

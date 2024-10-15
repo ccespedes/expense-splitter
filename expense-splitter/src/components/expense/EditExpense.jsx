@@ -4,13 +4,17 @@ import Button from "../ui/Button";
 import { UseDataContext } from "../context/SiteContext";
 import db from "../../utils/localstoragedb";
 import { categories } from "../../utils/dummyData";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function CreateExpense() {
-  const { groupData, friends, expenses, setExpenses, modal, handleSetModal } =
-    UseDataContext();
+  const { groupData, friends, expenses, setExpenses } = UseDataContext();
   const [currentExpense, setCurrentExpense] = useState({});
   const [allFriends, setAllFriends] = useState([]);
   const [weightTotal, setWeightTotal] = useState(0);
+
+  const navigate = useNavigate();
+  const { groupId } = useParams();
+  console.log("groupId", groupId);
 
   const {
     handleSubmit,
@@ -25,7 +29,9 @@ export default function CreateExpense() {
 
   // load current expense and friends in state on initial render
   useEffect(() => {
-    const initialExpense = expenses.find((expense) => expense.ID === modal.id);
+    const initialExpense = expenses.find(
+      (expense) => expense.ID === parseInt(groupId),
+    );
     setCurrentExpense(initialExpense);
 
     const friendIdsArr = initialExpense.weight?.map(
@@ -230,7 +236,7 @@ export default function CreateExpense() {
     db.commit();
     // update expenses state with new db values
     setExpenses(db.queryAll("expenses"));
-    handleSetModal();
+    navigate(-1);
   };
 
   return (
@@ -366,7 +372,7 @@ export default function CreateExpense() {
         <div className="flex gap-8">
           <Button
             type="button"
-            onClick={handleSetModal}
+            onClick={() => navigate(-1)}
             className="w-full md:w-auto"
           >
             Cancel

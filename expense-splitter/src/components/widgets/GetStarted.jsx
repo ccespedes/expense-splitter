@@ -2,11 +2,12 @@ import { useEffect, useRef } from "react";
 import { UseDataContext } from "../context/SiteContext";
 import Button from "../ui/Button";
 import Dialog from "../ui/Dialog";
+import { useNavigate } from "react-router-dom";
 
 const GetStarted = () => {
-  const { friends, groupData, handleSetModal } = UseDataContext();
+  const { friends, groupData } = UseDataContext();
 
-  console.log(groupData);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (friends.length < 2) {
@@ -37,7 +38,7 @@ const GetStarted = () => {
           </p>
           <Button
             className="w-full sm:w-48"
-            onClick={() => handleSetModal("FriendForm")}
+            onClick={() => navigate("/friends/add")}
           >
             Add Friend
           </Button>
@@ -50,7 +51,7 @@ const GetStarted = () => {
           </p>
           <Button
             className="w-full sm:w-48"
-            onClick={() => handleSetModal("CreateGroup")}
+            onClick={() => navigate("/groups/add")}
           >
             Add a Group
           </Button>

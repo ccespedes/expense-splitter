@@ -53,44 +53,41 @@ export default function Expense() {
   });
 
   return (
-    // if modal is not showing then display the following
-    !modal.show && (
-      <>
-        <h1 className="text-center">Expenses</h1>
-        <div className="mb-2">
-          {expenses.length > 3 && (
-            <SearchBar input={inputText} inputHandler={inputHandler} />
-          )}
-        </div>
-        {expenseDisplay.length < 1 ? (
-          <NoDataPlaceholder
-            title="There are no expenses to display"
-            subtitle="Get started by creating a new expense"
-            btnText="Create an Expense"
-            onClick={() => handleSetModal("CreateExpense")}
-          />
-        ) : filteredExpenses.length > 0 ? (
-          filteredExpenses
-        ) : (
-          <NoDataPlaceholder
-            title="There are no expenses matching this search"
-            subtitle="Would you like to create a new expense?"
-            btnText="Create an Expense"
-            onClick={() => {
-              handleSetModal("CreateExpense");
-            }}
-          />
+    <>
+      <h1 className="text-center">Expenses</h1>
+      <div className="mb-2">
+        {expenses.length > 3 && (
+          <SearchBar input={inputText} inputHandler={inputHandler} />
         )}
-        <ButtonFooter>
-          <Button
-            className="bg-primary"
-            onClick={() => handleSetModal("CreateExpense")}
-          >
-            Create Expense
-          </Button>
-        </ButtonFooter>
-        <GetStarted />
-      </>
-    )
+      </div>
+      {expenseDisplay.length < 1 ? (
+        <NoDataPlaceholder
+          title="There are no expenses to display"
+          subtitle="Get started by creating a new expense"
+          btnText="Create an Expense"
+          onClick={() => navigate("/expenses/add")}
+        />
+      ) : filteredExpenses.length > 0 ? (
+        filteredExpenses
+      ) : (
+        <NoDataPlaceholder
+          title="There are no expenses matching this search"
+          subtitle="Would you like to create a new expense?"
+          btnText="Create an Expense"
+          onClick={() => {
+            navigate(-1);
+          }}
+        />
+      )}
+      <ButtonFooter>
+        <Button
+          className="bg-primary"
+          onClick={() => navigate("/expenses/add")}
+        >
+          Create Expense
+        </Button>
+      </ButtonFooter>
+      <GetStarted />
+    </>
   );
 }

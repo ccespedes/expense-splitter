@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -6,10 +6,13 @@ import Button from "../ui/Button";
 import { UseDataContext } from "../context/SiteContext";
 import MultiSelectDropdown from "../ui/MultiSelectDropdown";
 import db from "../../utils/localstoragedb";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditGroup() {
   const { friends, setGroupData, groupData, modal, handleSetModal } =
     UseDataContext();
+  const { groupId } = useParams();
+  const navigate = useNavigate();
 
   // Define validation schema and error messages
   const schema = z.object({
@@ -33,7 +36,9 @@ export default function EditGroup() {
   });
 
   //form properties
-  const currentGroupData = groupData.find((group) => group.ID === modal.id);
+  const currentGroupData = groupData.find(
+    (group) => group.ID === parseInt(groupId),
+  );
 
   //save the list of friends
   const editFriends = currentGroupData.friendIDs;
@@ -59,7 +64,7 @@ export default function EditGroup() {
         friendIDs: currentGroupData.friendIDs || "",
       });
     }
-  }, [currentGroupData]);
+  }, [currentGroupData, reset]);
 
   //onSubmit
   const onSubmit = (values) => {
@@ -68,8 +73,7 @@ export default function EditGroup() {
     db.commit();
     //call setState to render the component
     setGroupData(db.queryAll("groups"));
-    //close the modal
-    handleSetModal();
+    navigate(-1);
   };
 
   return (
@@ -136,7 +140,7 @@ export default function EditGroup() {
         <div className="flex gap-8">
           <Button
             type="button"
-            onClick={handleSetModal}
+            onClick={() => navigate(-1)}
             className="w-full md:w-auto"
           >
             Cancel
