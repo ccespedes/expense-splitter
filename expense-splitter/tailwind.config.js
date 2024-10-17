@@ -4,13 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#05299e",
+        // primary: "#05299e",
+        primary: "#1c2536",
         secondary: "#070d0d",
-        accent: "#72a1e5",
-        "card-bg": "#D4E2F7",
+        kush: "#893773",
+        accent: "#184eb4",
+        "card-bg": "#f4f4f4",
       },
       fontFamily: {
-        sans: ["Outfit", "sans-serif"],
+        sans: ["Rubik", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
       },
     },

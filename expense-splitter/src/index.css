@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    /* @apply bg-gray-50; */
+    @apply bg-gray-200;
   }
   h1 {
     @apply mb-4 text-[32px] font-medium;
@@ -29,7 +29,16 @@
   }
 }
 
+.header-background {
+  background-image: url("./assets/gradient.png");
+  /* background-repeat: no-repeat; */
+  background-size: cover;
+  background-position: 208px 21px;
+}
+
+/* manually add active class to the active button */
 .active > button {
   background: white;
-  color: #05299e;
+  /* color: #1c2536; */
+  color: #184eb4;
 }
