@@ -144,15 +144,3 @@ export default function Home() {
     </div>
   );
 }
-
-// const totalSpent = () => {
-//   let total = 0;
-//   expenseIds.forEach((id) =>
-//     expenses.find((expense) => {
-//       if (id === expense.id) {
-//         total += parseFloat(expense.amount);
-//       }
-//     }),
-//   );
-//   return total;
-// };

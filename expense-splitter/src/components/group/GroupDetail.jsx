@@ -51,10 +51,10 @@ function GroupDetail() {
   useEffect(() => {
     let barColor;
     switch (true) {
-      case expensePercentage <= 50:
+      case expensePercentage <= 70:
         barColor = "#1d9e05"; //green
         break;
-      case expensePercentage > 50 && expensePercentage <= 75:
+      case expensePercentage <= 85:
         barColor = "#de6000"; //orange
         break;
       default:

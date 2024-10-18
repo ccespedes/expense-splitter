@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const HomeCard = ({
@@ -12,12 +13,44 @@ const HomeCard = ({
   budget,
   hasButtons,
 }) => {
+  const [progressBarStyle, setProgressBarStyle] = useState({
+    width: 0,
+    color: "#D4E2F7",
+  });
   const navigate = useNavigate();
   const handleInteract = (e) => {
     if (e.code === "Space" || e.code === "Enter" || e.type === "click") {
       navigate(`/${type}s/${id}`);
     }
   };
+
+  // figure out the width of the expense percentage bar
+  // max it out at 100 to avoid growing outside the div
+  const expensePercentage =
+    ((totalSpent / budget) * 100).toFixed() >= 100
+      ? 100
+      : ((totalSpent / budget) * 100).toFixed();
+
+  // set the percentage and color to state and disply as style
+  // tailwind is bad at rendering dynamically
+  useEffect(() => {
+    let barColor;
+    switch (true) {
+      case expensePercentage <= 70:
+        barColor = "#1d9e05"; //green
+        break;
+      case expensePercentage <= 85:
+        barColor = "#de6000"; //orange
+        break;
+      default:
+        barColor = "#d20000"; //red
+    }
+    setProgressBarStyle((prev) => ({
+      ...prev,
+      width: expensePercentage,
+      color: barColor,
+    }));
+  }, [expensePercentage]);
 
   return (
     <div
@@ -65,10 +98,10 @@ const HomeCard = ({
               <div
                 className={`absolute h-3 rounded-[.3rem] transition-all duration-500 ease-out`}
                 style={{
-                  // width: `${progressBarStyle.width}%`,
-                  // background: `${progressBarStyle.color}`,
-                  width: `80%`,
-                  background: `green`,
+                  width: `${progressBarStyle.width}%`,
+                  background: `${progressBarStyle.color}`,
+                  //   width: `80%`,
+                  //   background: `green`,
                 }}
               ></div>
               <div className="h-3 w-full rounded-[.3rem] bg-primary"></div>
