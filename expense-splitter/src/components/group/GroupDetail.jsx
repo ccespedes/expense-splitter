@@ -17,15 +17,8 @@ function GroupDetail() {
     width: 0,
     color: "#D4E2F7",
   });
-  const {
-    groupData,
-    setGroupData,
-    friends,
-    expenses,
-    setExpenses,
-    handleSetModal,
-    modal,
-  } = UseDataContext();
+  const { groupData, setGroupData, friends, expenses, setExpenses } =
+    UseDataContext();
 
   // Create reference to dom elements
   const deleteDialogRef = useRef(null);
@@ -58,14 +51,11 @@ function GroupDetail() {
   useEffect(() => {
     let barColor;
     switch (true) {
-      case expensePercentage <= 25:
+      case expensePercentage <= 50:
         barColor = "#1d9e05"; //green
         break;
-      case expensePercentage > 25 && expensePercentage <= 50:
-        barColor = "#FFA600"; //yellow
-        break;
       case expensePercentage > 50 && expensePercentage <= 75:
-        barColor = "#de8200"; //orange
+        barColor = "#de6000"; //orange
         break;
       default:
         barColor = "#d20000"; //red
