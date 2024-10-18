@@ -443,12 +443,13 @@ export const dummyGroups = [
 // ];
 
 export const categories = [
-  { name: "entertainment", icon: "fa-hotdog" },
+  { name: "entertainment", icon: "fa-wand-magic-sparkles" },
   { name: "gift", icon: "fa-gift" },
   { name: "groceries", icon: "fa-cart-shopping" },
   { name: "restaurant", icon: "fa-utensils" },
   { name: "shopping", icon: "fa-bag-shopping" },
-  { name: "trip", icon: "fa-suitcase-rolling" },
+  // { name: "trip", icon: "fa-suitcase-rolling" },
+  { name: "trip", icon: "fa-plane" },
   { name: "utilities", icon: "fa-toolbox" },
   { name: "other", icon: "fa-circle-dot" },
 ];
