@@ -12,7 +12,8 @@ export default {
         "card-bg": "#f4f4f4",
       },
       fontFamily: {
-        sans: ["Rubik", "sans-serif"],
+        sans: ["Poppins", "sans-serif"], // sans becomes default app font
+        rubik: ["Rubik", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
       },
     },
