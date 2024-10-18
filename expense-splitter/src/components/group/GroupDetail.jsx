@@ -216,7 +216,7 @@ function GroupDetail() {
                 background: `${progressBarStyle.color}`,
               }}
             ></div>
-            <div className="h-8 w-full rounded-lg bg-accent"></div>
+            <div className="h-8 w-full rounded-lg bg-primary"></div>
           </div>
           <p className="text-center font-normal">
             <span className="font-bold">Budget spending this month:</span> $
