@@ -4,6 +4,8 @@ import { UseDataContext } from "./context/SiteContext";
 import Card from "./ui/Card";
 import NoDataPlaceholder from "./ui/NoDataPlaceholder";
 import GetStarted from "./widgets/GetStarted";
+import HomeCard from "./ui/HomeCard";
+import { categories } from "../utils/dummyData";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -58,38 +60,99 @@ export default function Home() {
       }
     });
 
+  const heroDisplay = expenses
+    .sort((a, b) => b.ID - a.ID) // show latest expense up top
+    .map((expense, i) => {
+      // get the category icon
+      const catIcon = categories.find(
+        (category) => category.name === expense.category,
+      ).icon;
+      // get the group associated with this expense
+      const expenseGroup = groupData.find(
+        (group) => group.id === expense.groupId,
+      );
+
+      // calculate total spent
+      const expenseIds = expenseGroup.expenseIDs;
+      const totalSpent = () => {
+        let total = 0;
+        expenseIds.forEach((id) =>
+          expenses.find((expense) => {
+            if (id === expense.id) {
+              total += parseFloat(expense.amount);
+            }
+          }),
+        );
+        return Math.round(total * 100) / 100;
+      };
+
+      return (
+        <HomeCard
+          key={expense.id}
+          id={expense.id}
+          type={"expense"}
+          catIcon={catIcon}
+          expenseName={expense.name}
+          expenseAmount={expense.amount}
+          groupName={expenseGroup.name}
+          groupCount={expenseGroup.friendIDs.length}
+          totalSpent={totalSpent()}
+          budget={expenseGroup.budget}
+        />
+      );
+    });
+
   return (
     <div>
-      <h1 className="text-center">Welcome, {user}!</h1>
-      <div className="mb-8">
-        <h2 className="mb-4 text-2xl font-medium">Recent Groups</h2>
-        {groupData.length > 0 ? (
-          <>{groupDisplay}</>
-        ) : (
-          <NoDataPlaceholder
-            title="There are no groups to display"
-            subtitle="Get started by creating a group."
-            btnText="Create a Group"
-            onClick={() => navigate("/groups/add")}
-          />
-        )}
+      {/* <h1 className="text-center">Welcome, {user}!</h1> */}
+      <div className="relative -top-[110px]">
+        <div className="-ml-4 -mr-4 mb-4 flex overflow-x-auto pr-4">
+          {/* <HomeCard />
+          <HomeCard /> */}
+          {heroDisplay}
+        </div>
+        <div className="mb-8">
+          <h2 className="mb-4 font-medium">Recent Groups</h2>
+          {groupData.length > 0 ? (
+            <>{groupDisplay}</>
+          ) : (
+            <NoDataPlaceholder
+              title="There are no groups to display"
+              subtitle="Get started by creating a group."
+              btnText="Create a Group"
+              onClick={() => navigate("/groups/add")}
+            />
+          )}
+        </div>
+
+        <>
+          <h2 className="mb-4 font-medium">Recent Expenses</h2>
+          {expenses.length > 0 ? (
+            <>{expenseDisplay}</>
+          ) : (
+            <NoDataPlaceholder
+              title="There are no expenses to display"
+              subtitle="Get started by creating an expense."
+              btnText="Create Expense"
+              onClick={() => navigate("/expenses/add")}
+            />
+          )}
+        </>
       </div>
 
-      <>
-        <h2 className="mb-4 text-2xl font-medium">Recent Expenses</h2>
-        {expenses.length > 0 ? (
-          <>{expenseDisplay}</>
-        ) : (
-          <NoDataPlaceholder
-            title="There are no expenses to display"
-            subtitle="Get started by creating an expense."
-            btnText="Create Expense"
-            onClick={() => navigate("/expenses/add")}
-          />
-        )}
-      </>
       <GetStarted />
-      {/* <FooterHome /> // remove footer from home until we establish outlets*/}
     </div>
   );
 }
+
+// const totalSpent = () => {
+//   let total = 0;
+//   expenseIds.forEach((id) =>
+//     expenses.find((expense) => {
+//       if (id === expense.id) {
+//         total += parseFloat(expense.amount);
+//       }
+//     }),
+//   );
+//   return total;
+// };
