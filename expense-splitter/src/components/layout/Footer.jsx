@@ -1,9 +1,7 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import IconButton from "../ui/IconButton";
 
 const Footer = () => {
-  const navigate = useNavigate();
-
   return (
     <>
       <div className="over fixed bottom-0 left-1/2 z-40 flex h-[100px] w-full -translate-x-1/2 flex-col rounded-t-3xl bg-white text-primary/40">

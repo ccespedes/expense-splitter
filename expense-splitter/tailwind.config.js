@@ -9,7 +9,7 @@ export default {
         secondary: "#070d0d",
         kush: "#893773",
         accent: "#184eb4",
-        "card-bg": "#f4f4f4",
+        "card-bg": "#f8f8f8",
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"], // sans becomes default app font
