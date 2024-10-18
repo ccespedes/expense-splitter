@@ -19,7 +19,6 @@ export default function CreateExpense() {
 
   const queryParams = new URLSearchParams(location.search);
   const params = Object.fromEntries(queryParams.entries());
-  console.log("params", params);
 
   const {
     handleSubmit,
@@ -304,8 +303,8 @@ export default function CreateExpense() {
           >
             <option value=""></option>
             {categories.map((category) => (
-              <option key={category} value={category}>
-                {category.replace(/^\w/, (char) => char.toUpperCase())}
+              <option key={category.name} value={category.name}>
+                {category.name.replace(/^\w/, (char) => char.toUpperCase())}
               </option>
             ))}
           </select>

@@ -287,8 +287,8 @@ export default function CreateExpense() {
           >
             <option value=""></option>
             {categories.map((category) => (
-              <option key={category} value={category}>
-                {category.replace(/^\w/, (char) => char.toUpperCase())}
+              <option key={category.name} value={category.name}>
+                {category.name.replace(/^\w/, (char) => char.toUpperCase())}
               </option>
             ))}
           </select>
