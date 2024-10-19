@@ -10,7 +10,7 @@ import GetStarted from "../widgets/GetStarted";
 
 export default function Group() {
   const navigate = useNavigate();
-  const { user, handleSetModal, modal, groupData } = UseDataContext();
+  const { user, groupData } = UseDataContext();
 
   const [inputText, setInputText] = useState("");
 
@@ -49,37 +49,31 @@ export default function Group() {
   });
 
   return (
-    // if modal is not showing then display the following
-    !modal.show && (
-      <>
-        <h1 className="text-center">Groups</h1>
-        <div className="mb-2">
-          {groupData.length > 3 && (
-            <SearchBar input={inputText} inputHandler={inputHandler} />
-          )}
-        </div>
-        <div>
-          {filteredData.length > 0 ? (
-            <>{filteredData}</>
-          ) : (
-            <NoDataPlaceholder
-              title="There are no groups to display"
-              subtitle="Get started by creating a group."
-              btnText="Create a Group"
-              onClick={() => navigate("/groups/add")}
-            />
-          )}
-        </div>
-        <ButtonFooter>
-          <Button
-            className="bg-primary"
+    <>
+      <h1 className="text-center">Groups</h1>
+      <div className="mb-2">
+        {groupData.length > 3 && (
+          <SearchBar input={inputText} inputHandler={inputHandler} />
+        )}
+      </div>
+      <div>
+        {filteredData.length > 0 ? (
+          <>{filteredData}</>
+        ) : (
+          <NoDataPlaceholder
+            title="There are no groups to display"
+            subtitle="Get started by creating a group."
+            btnText="Create a Group"
             onClick={() => navigate("/groups/add")}
-          >
-            Create Group
-          </Button>
-        </ButtonFooter>
-        <GetStarted />
-      </>
-    )
+          />
+        )}
+      </div>
+      <ButtonFooter>
+        <Button className="bg-primary" onClick={() => navigate("/groups/add")}>
+          Create Group
+        </Button>
+      </ButtonFooter>
+      <GetStarted />
+    </>
   );
 }
