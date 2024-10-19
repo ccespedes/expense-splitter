@@ -1,6 +1,8 @@
 # Expense Splitter
 
-![Screenshot](expense-splitter/expense-splitter.png)
+[https://exsplitter.netlify.app/](https://exsplitter.netlify.app/)
+
+![Screenshot](expense-splitter/expense-splitter.jpg)
 
 ## Overview:
 
@@ -58,7 +60,7 @@ React, Tailwind, React Hook Forms, Firebase, html2pdf, Local Storage DB, Zod, Na
 
 ## Deployed
 
-[https://expensesplittermain.netlify.app/](https://expensesplittermain.netlify.app/)
+[https://exsplitter.netlify.app/](https://exsplitter.netlify.app/)
 
 ## Meet the Creators
 

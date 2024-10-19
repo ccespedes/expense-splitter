@@ -1,7 +1,8 @@
 # Expense Splitter
 
+[https://exsplitter.netlify.app/](https://exsplitter.netlify.app/)
 
-![Screenshot](expense-splitter.png)
+![Screenshot](expense-splitter.jpg)
 
 ## Overview:
 
