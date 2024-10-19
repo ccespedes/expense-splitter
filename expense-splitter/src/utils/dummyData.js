@@ -450,6 +450,7 @@ export const categories = [
   { name: "shopping", icon: "fa-bag-shopping" },
   // { name: "trip", icon: "fa-suitcase-rolling" },
   { name: "trip", icon: "fa-plane" },
+  { name: "lodging", icon: "fa-hotel" },
   { name: "utilities", icon: "fa-toolbox" },
   { name: "other", icon: "fa-circle-dot" },
 ];
