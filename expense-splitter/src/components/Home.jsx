@@ -106,9 +106,7 @@ export default function Home() {
     <div>
       {/* <h1 className="text-center">Welcome, {user}!</h1> */}
       <div className="relative -top-[110px]">
-        <div className="-ml-4 -mr-4 mb-4 flex overflow-x-auto pr-4">
-          {/* <HomeCard />
-          <HomeCard /> */}
+        <div className="-ml-4 -mr-4 mb-8 flex overflow-x-auto pr-4">
           {heroDisplay}
         </div>
         <div className="mb-8">

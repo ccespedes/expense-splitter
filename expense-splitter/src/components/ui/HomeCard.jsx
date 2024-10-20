@@ -100,8 +100,6 @@ const HomeCard = ({
                 style={{
                   width: `${progressBarStyle.width}%`,
                   background: `${progressBarStyle.color}`,
-                  //   width: `80%`,
-                  //   background: `green`,
                 }}
               ></div>
               <div className="h-3 w-full rounded-[.3rem] bg-primary"></div>
