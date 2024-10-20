@@ -94,6 +94,7 @@ export default function Home() {
           catIcon={catIcon}
           expenseName={expense.name}
           expenseAmount={expense.amount}
+          expenseDate={expense.date}
           groupName={expenseGroup.name}
           groupCount={expenseGroup.friendIDs.length}
           totalSpent={totalSpent()}
@@ -104,7 +105,6 @@ export default function Home() {
 
   return (
     <div>
-      {/* <h1 className="text-center">Welcome, {user}!</h1> */}
       <div className="relative -top-[110px]">
         <div className="-ml-4 -mr-4 mb-8 flex overflow-x-auto pr-4">
           {heroDisplay}

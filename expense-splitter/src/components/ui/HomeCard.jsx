@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import formatDate from "../../utils/formatDate";
 
 const HomeCard = ({
   id,
@@ -7,6 +8,7 @@ const HomeCard = ({
   catIcon,
   expenseName,
   expenseAmount,
+  expenseDate,
   groupName,
   groupCount,
   totalSpent,
@@ -66,13 +68,13 @@ const HomeCard = ({
               ></i>
             </div>
             <div>
-              <h2 className="text-kush text-xl tracking-tighter">
+              <h2 className="text-xl tracking-tighter text-kush">
                 {expenseName}
               </h2>
               <p className="text-sm opacity-90">
                 <span className="font-medium">Expense:</span> ${expenseAmount}
               </p>
-              <p className="text-xs opacity-70">October 15, 2024</p>
+              <p className="text-xs opacity-70">{formatDate(expenseDate)}</p>
             </div>
           </div>
           <div className="flex w-full items-center rounded-xl bg-primary/5 p-2 px-[1rem]">

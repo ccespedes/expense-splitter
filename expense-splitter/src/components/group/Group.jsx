@@ -31,9 +31,6 @@ export default function Group() {
     .sort((a, b) => b.ID - a.ID)
     .map((group, i) => {
       // latest group gets TopCard
-      console.log("group", group);
-      console.log("expenses", expenses);
-      console.log("friends", friends);
       // use reduce to add up associated expense amounts
       const totalSpent = () => {
         return expenses
