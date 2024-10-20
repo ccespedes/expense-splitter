@@ -43,7 +43,7 @@ export default function Card({
             <div className="flex items-center gap-2">{children}</div>
           ) : (
             <div>
-              <i className="fa-solid fa-chevron-right mr-2 text-3xl text-accent"></i>
+              {/* <i className="fa-solid fa-chevron-right mr-2 text-3xl text-accent"></i> */}
             </div>
           )}
         </div>
