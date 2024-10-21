@@ -46,14 +46,12 @@ export default function Group() {
       // get the participants
       const participants = () => {
         return friends.reduce((total, friend, i) => {
-          console.log("friend i", friend, i);
           if (group.friendIDs.includes(friend.id)) {
             return (total += `${friend.name.split(" ")[0]}${i === friends.length - 1 ? "" : ", "}`);
           }
           return total;
         }, "");
       };
-      console.log("participants", participants());
 
       if (i === 0) {
         return (
