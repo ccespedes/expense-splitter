@@ -10,6 +10,7 @@ import NoDataPlaceholder from "../ui/NoDataPlaceholder";
 import ButtonFooter from "../ui/ButtonFooter";
 import { ref, deleteObject } from "firebase/storage";
 import { storage } from "../../utils/firebase";
+import { categories } from "../../utils/dummyData";
 
 function GroupDetail() {
   const [seeMore, setSeeMore] = useState(false);
@@ -164,12 +165,15 @@ function GroupDetail() {
   const expenseDisplay = groupExpenses
     .sort((a, b) => b.ID - a.ID) // show latest expense up top
     .map((expense, i) => {
+      const catIcon = categories.find(
+        (cat) => cat.name === expense.category,
+      ).icon;
       return (
         <Card
           key={expense.id}
           id={expense.id}
           type={"expense"}
-          icon={"fa-money-check-dollar"}
+          icon={catIcon}
           title={expense.name}
           price={expense.amount}
         />
@@ -224,7 +228,6 @@ function GroupDetail() {
             title="There are no expenses to display"
             subtitle="Get started by creating an expense."
             btnText="Create an Expense"
-            // onClick={() => handleSetModal("CreateExpense", singleGroup.id)}
             onClick={() => navigate(`/expenses/add?groupId=${singleGroup.id}`)}
           />
         )}

@@ -46,12 +46,16 @@ export default function Home() {
           (group) => group.id === expense.groupId,
         );
 
+        const catIcon = categories.find(
+          (cat) => cat.name === expense.category,
+        ).icon;
+
         return (
           <Card
             key={expense.id}
             id={expense.id}
             type={"expense"}
-            icon={"fa-money-check-dollar"}
+            icon={catIcon}
             title={expense.name}
             subtitle={expenseGroup?.name}
             price={expense.amount}
@@ -65,7 +69,7 @@ export default function Home() {
     .map((expense, i) => {
       // get the category icon
       const catIcon = categories.find(
-        (category) => category.name === expense.category,
+        (cat) => cat.name === expense.category,
       ).icon;
       // get the group associated with this expense
       const expenseGroup = groupData.find(

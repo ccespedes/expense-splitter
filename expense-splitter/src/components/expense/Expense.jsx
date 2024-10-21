@@ -7,6 +7,7 @@ import ButtonFooter from "../ui/ButtonFooter";
 import Card from "../ui/Card";
 import NoDataPlaceholder from "../ui/NoDataPlaceholder";
 import GetStarted from "../widgets/GetStarted";
+import { categories } from "../../utils/dummyData";
 
 export default function Expense() {
   const navigate = useNavigate();
@@ -29,17 +30,24 @@ export default function Expense() {
   // Sort expenses by db ID
   const expenseDisplay = expenses
     .sort((a, b) => b.ID - a.ID)
-    .map((expense) => (
-      <Card
-        key={expense.id}
-        id={expense.id}
-        type={"expense"}
-        icon={"fa-money-check-dollar"}
-        title={expense.name}
-        subtitle={expense.description}
-        price={expense.amount}
-      />
-    ));
+    .map((expense) => {
+      console.log(expense.category);
+      const catIcon = categories.find(
+        (cat) => cat.name === expense.category,
+      ).icon;
+
+      return (
+        <Card
+          key={expense.id}
+          id={expense.id}
+          type={"expense"}
+          icon={catIcon}
+          title={expense.name}
+          subtitle={expense.description}
+          price={expense.amount}
+        />
+      );
+    });
 
   const filteredExpenses = expenseDisplay.filter((search) => {
     if (inputText === "") {

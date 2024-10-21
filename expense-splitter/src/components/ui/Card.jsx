@@ -26,8 +26,8 @@ export default function Card({
     >
       <div className="relative flex w-full items-center justify-between">
         <div className="flex items-center">
-          <div className="mr-4 flex w-[60px] rounded-xl bg-primary p-3">
-            <i className={`fa-solid ${icon} mx-auto text-3xl text-white`}></i>
+          <div className="mr-4 flex w-[56px] rounded-xl bg-primary p-3">
+            <i className={`fa-solid ${icon} mx-auto text-2xl text-white`}></i>
           </div>
           <div>
             <h2 className="leading-5">{title}</h2>
