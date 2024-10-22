@@ -6,7 +6,7 @@ const TopCard = ({
   type,
   catIcon,
   groupName,
-  participants,
+  groupMembers,
   totalSpent,
   budget,
   hasButtons,
@@ -68,8 +68,8 @@ const TopCard = ({
                 {groupName}
               </h2>
               <p className="text-sm opacity-90">
-                <span className="font-medium">Participants: </span>
-                {participants}
+                <span className="font-medium">Group Members: </span>
+                {groupMembers}
               </p>
             </div>
           </div>

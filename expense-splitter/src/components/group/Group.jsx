@@ -43,8 +43,8 @@ export default function Group() {
           .toFixed(2);
       };
 
-      // get the participants
-      const participants = () => {
+      // get the groupMembers
+      const groupMembers = () => {
         return friends.reduce((total, friend, i) => {
           if (group.friendIDs.includes(friend.id)) {
             return (total += `${friend.name.split(" ")[0]}${i === friends.length - 1 ? "" : ", "}`);
@@ -63,7 +63,7 @@ export default function Group() {
             groupName={group.name}
             expenseName={group.name}
             expenseAmount={group.amount}
-            participants={participants()}
+            groupMembers={groupMembers()}
             totalSpent={totalSpent()}
             budget={group.budget}
           />
