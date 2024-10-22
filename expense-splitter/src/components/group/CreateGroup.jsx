@@ -7,6 +7,7 @@ import { UseDataContext } from "../context/SiteContext";
 import MultiSelectDropdown from "../ui/MultiSelectDropdown";
 import db from "../../utils/localstoragedb";
 import { useNavigate } from "react-router-dom";
+import PlainSection from "../layout/PlainSection";
 
 export default function CreateGroup() {
   const { friends, setGroupData, handleSetModal } = UseDataContext();
@@ -55,7 +56,7 @@ export default function CreateGroup() {
   };
 
   return (
-    <div className="mb-5">
+    <PlainSection>
       <h1 className="text-center">Create a Group</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-5 flex flex-col">
@@ -129,6 +130,6 @@ export default function CreateGroup() {
           <Button className="w-full bg-primary md:w-auto">Submit</Button>
         </div>
       </form>
-    </div>
+    </PlainSection>
   );
 }

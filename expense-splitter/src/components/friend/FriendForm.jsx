@@ -8,6 +8,7 @@ import db from "../../utils/localstoragedb";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import PlainSection from "../layout/PlainSection";
 
 // Define schema for optional email
 const optionalEmail = z.union([z.string().trim().email(), z.literal("")]);
@@ -72,8 +73,8 @@ const FriendForm = ({ id }) => {
 
   return (
     // Pass onSubmit function to useForm submit handler
-    <>
-      <h1 className="text-center">Add Friend</h1>
+    <PlainSection>
+      <h1 className="text-center">Add a Friend</h1>
       <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">
           Name*
@@ -127,7 +128,7 @@ const FriendForm = ({ id }) => {
           </Button>
         </div>
       </form>
-    </>
+    </PlainSection>
   );
 };
 
