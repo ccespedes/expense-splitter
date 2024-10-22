@@ -7,6 +7,7 @@ import ButtonFooter from "../ui/ButtonFooter";
 import Card from "../ui/Card";
 import NoDataPlaceholder from "../ui/NoDataPlaceholder";
 import { categories } from "../../utils/dummyData";
+import PlainSection from "../layout/PlainSection";
 
 export default function Expense() {
   const navigate = useNavigate();
@@ -60,8 +61,7 @@ export default function Expense() {
   });
 
   return (
-    <>
-      <h1 className="text-center">Expenses</h1>
+    <PlainSection>
       <div className="mb-2">
         {expenses.length > 3 && (
           <SearchBar input={inputText} inputHandler={inputHandler} />
@@ -91,9 +91,9 @@ export default function Expense() {
           className="bg-primary"
           onClick={() => navigate("/expenses/add")}
         >
-          Create Expense
+          Create an Expense
         </Button>
       </ButtonFooter>
-    </>
+    </PlainSection>
   );
 }

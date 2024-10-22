@@ -7,6 +7,7 @@ import Card from "../ui/Card";
 import NoDataPlaceholder from "../ui/NoDataPlaceholder";
 import ButtonFooter from "../ui/ButtonFooter";
 import TopCard from "../ui/TopCard";
+import PlainSection from "../layout/PlainSection";
 
 export default function Group() {
   const navigate = useNavigate();
@@ -89,36 +90,28 @@ export default function Group() {
     }
   });
 
-  return (
-    <>
-      <div className="relative -top-[110px]">
-        {/* <h1 className="text-center">Groups</h1> */}
-        {groupData.length > 3 && (
-          <div className="mb-2">
-            <SearchBar input={inputText} inputHandler={inputHandler} />
-          </div>
-        )}
-        <div>
-          {filteredData.length > 0 ? (
-            <>{filteredData}</>
-          ) : (
-            <NoDataPlaceholder
-              title="There are no groups to display"
-              subtitle="Get started by creating a group."
-              btnText="Create a Group"
-              onClick={() => navigate("/groups/add")}
-            />
-          )}
+  return groupData.length > 0 ? (
+    <div className="relative -top-[110px]">
+      {groupData.length > 3 && (
+        <div className="mb-2">
+          <SearchBar input={inputText} inputHandler={inputHandler} />
         </div>
-        <ButtonFooter>
-          <Button
-            className="bg-primary"
-            onClick={() => navigate("/groups/add")}
-          >
-            Create Group
-          </Button>
-        </ButtonFooter>
-      </div>
-    </>
+      )}
+      <div>{filteredData.length > 0 && <>{filteredData}</>}</div>
+      <ButtonFooter>
+        <Button className="bg-primary" onClick={() => navigate("/groups/add")}>
+          Create a Group
+        </Button>
+      </ButtonFooter>
+    </div>
+  ) : (
+    <PlainSection>
+      <NoDataPlaceholder
+        title="There are no groups to display"
+        subtitle="Get started by creating a group."
+        btnText="Create a Group"
+        onClick={() => navigate("/groups/add")}
+      />
+    </PlainSection>
   );
 }

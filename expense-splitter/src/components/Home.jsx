@@ -5,6 +5,7 @@ import Card from "./ui/Card";
 import NoDataPlaceholder from "./ui/NoDataPlaceholder";
 import HomeCard from "./ui/HomeCard";
 import { categories } from "../utils/dummyData";
+import PlainSection from "./layout/PlainSection";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -106,8 +107,11 @@ export default function Home() {
       );
     });
 
+  console.log(heroDisplay);
+
   return (
-    <div>
+    // if heroDisplay exists (at least one group and one expense exists)
+    heroDisplay.length > 0 ? (
       <div className="relative -top-[110px]">
         <div className="-ml-4 -mr-4 mb-8 flex overflow-x-auto pr-4">
           {heroDisplay}
@@ -140,6 +144,36 @@ export default function Home() {
           )}
         </>
       </div>
-    </div>
+    ) : (
+      <PlainSection>
+        <div className="mb-8">
+          <h2 className="mb-4 font-medium">Recent Groups</h2>
+          {groupData.length > 0 ? (
+            <>{groupDisplay}</>
+          ) : (
+            <NoDataPlaceholder
+              title="There are no groups to display"
+              subtitle="Get started by creating a group."
+              btnText="Create a Group"
+              onClick={() => navigate("/groups/add")}
+            />
+          )}
+        </div>
+
+        <>
+          <h2 className="mb-4 font-medium">Recent Expenses</h2>
+          {expenses.length > 0 ? (
+            <>{expenseDisplay}</>
+          ) : (
+            <NoDataPlaceholder
+              title="There are no expenses to display"
+              subtitle="Get started by creating an expense."
+              btnText="Create an Expense"
+              onClick={() => navigate("/expenses/add")}
+            />
+          )}
+        </>
+      </PlainSection>
+    )
   );
 }

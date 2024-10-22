@@ -5,6 +5,7 @@ import SearchBar from "../ui/SearchBar";
 import Button from "../ui/Button";
 import FriendList from "./FriendList";
 import ButtonFooter from "../ui/ButtonFooter";
+import PlainSection from "../layout/PlainSection";
 
 const Friend = () => {
   const navigate = useNavigate();
@@ -26,18 +27,23 @@ const Friend = () => {
 
   return (
     <>
-      <h1 className="text-center">Friends</h1>
-      <div className="mb-2">
+      {/* <div className="mb-2">
         {friends.length > 3 && (
           <SearchBar input={inputText} inputHandler={inputHandler} />
         )}
-      </div>
-      <FriendList input={inputText} />
-      <ButtonFooter>
-        <Button className="bg-primary" onClick={() => navigate("/friends/add")}>
-          Add Friend
-        </Button>
-      </ButtonFooter>
+      </div> */}
+
+      <PlainSection>
+        <FriendList input={inputText} />
+        <ButtonFooter>
+          <Button
+            className="bg-primary"
+            onClick={() => navigate("/friends/add")}
+          >
+            Add a Friend
+          </Button>
+        </ButtonFooter>
+      </PlainSection>
     </>
   );
 };
