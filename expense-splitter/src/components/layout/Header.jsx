@@ -57,7 +57,7 @@ export default function Header() {
         <RoundButton>
           <img src={ProfilePic} className="h-8 w-8 rounded-full object-cover" />
         </RoundButton>
-        <h1 className="mx-auto mb-0 opacity-100 transition-opacity duration-500">
+        <h1 className="mx-auto mb-0 opacity-100 transition-all duration-500">
           {currentPath.replace(/^\w/, (char) => char.toUpperCase())}
         </h1>
         <RoundButton>
@@ -73,7 +73,7 @@ export default function Header() {
         <RoundButton>
           <i className="fa-solid fa-chevron-left opacity-70"></i>
         </RoundButton>
-        <h1 className="mx-auto mb-0 opacity-100 transition-opacity duration-500">
+        <h1 className="mx-auto mb-0 opacity-100 transition-all duration-500">
           {currentPath.replace(/^\w/, (char) => char.toUpperCase())}
         </h1>
         <RoundButton>

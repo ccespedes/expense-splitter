@@ -7,11 +7,13 @@
     @apply bg-gray-200 tracking-tight;
   }
   h1 {
-    @apply mb-4 text-3xl font-medium;
+    @apply mb-4 font-sans text-2xl font-medium;
   }
-  h2,
+  h2 {
+    @apply text-xl font-semibold;
+  }
   label {
-    @apply text-lg font-semibold;
+    @apply text-lg font-normal;
   }
   p {
     @apply font-light;
