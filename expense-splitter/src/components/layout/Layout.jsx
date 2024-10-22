@@ -1,6 +1,7 @@
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
+import GetStarted from "../widgets/GetStarted";
 
 const Layout = () => {
   return (
@@ -10,6 +11,7 @@ const Layout = () => {
       <div className="mx-auto mb-36 max-w-4xl">
         <div className="mx-4">
           <Outlet />
+          <GetStarted />
         </div>
       </div>
       <Footer />

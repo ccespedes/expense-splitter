@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { UseDataContext } from "./context/SiteContext";
 import Card from "./ui/Card";
 import NoDataPlaceholder from "./ui/NoDataPlaceholder";
-import GetStarted from "./widgets/GetStarted";
 import HomeCard from "./ui/HomeCard";
 import { categories } from "../utils/dummyData";
 
@@ -141,8 +140,6 @@ export default function Home() {
           )}
         </>
       </div>
-
-      <GetStarted />
     </div>
   );
 }

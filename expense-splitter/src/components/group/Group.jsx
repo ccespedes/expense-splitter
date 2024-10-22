@@ -6,7 +6,6 @@ import { UseDataContext } from "../context/SiteContext";
 import Card from "../ui/Card";
 import NoDataPlaceholder from "../ui/NoDataPlaceholder";
 import ButtonFooter from "../ui/ButtonFooter";
-import GetStarted from "../widgets/GetStarted";
 import TopCard from "../ui/TopCard";
 
 export default function Group() {
@@ -119,7 +118,6 @@ export default function Group() {
             Create Group
           </Button>
         </ButtonFooter>
-        <GetStarted />
       </div>
     </>
   );

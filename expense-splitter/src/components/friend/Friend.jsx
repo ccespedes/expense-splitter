@@ -5,7 +5,6 @@ import SearchBar from "../ui/SearchBar";
 import Button from "../ui/Button";
 import FriendList from "./FriendList";
 import ButtonFooter from "../ui/ButtonFooter";
-import GetStarted from "../widgets/GetStarted";
 
 const Friend = () => {
   const navigate = useNavigate();
@@ -39,7 +38,6 @@ const Friend = () => {
           Add Friend
         </Button>
       </ButtonFooter>
-      <GetStarted />
     </>
   );
 };
