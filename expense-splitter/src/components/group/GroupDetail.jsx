@@ -11,6 +11,7 @@ import ButtonFooter from "../ui/ButtonFooter";
 import { ref, deleteObject } from "firebase/storage";
 import { storage } from "../../utils/firebase";
 import { categories } from "../../utils/dummyData";
+import PlainSection from "../layout/PlainSection";
 
 function GroupDetail() {
   const [seeMore, setSeeMore] = useState(false);
@@ -181,93 +182,98 @@ function GroupDetail() {
     });
 
   return (
-    <div className="mb-8">
-      <div className="mb-4 flex items-center">
-        <i
-          onClick={() => navigate("/groups")}
-          className="fa-solid fa-chevron-left cursor-pointer text-3xl text-accent"
-        ></i>
-        <h1 className="mx-auto mb-0">{singleGroup.name}</h1>
-        <i className="fa-solid fa-chevron-right text-3xl text-accent opacity-0"></i>
-      </div>
-      <p className="mb-2">{singleGroup.description}</p>
-      <p className="mb-4">
-        <span className="font-bold">Group Members: </span>
-        {friendsDisplay}
-      </p>
-      {groupExpenses.length < 1 ? (
-        <p className="text-center font-normal">
-          <span className="font-bold">Budget this month:</span> $
-          {singleGroup.budget}
+    <PlainSection>
+      <div className="mb-24">
+        <div className="mb-4 flex items-center">
+          <i
+            onClick={() => navigate("/groups")}
+            className="fa-solid fa-chevron-left cursor-pointer text-3xl text-accent"
+          ></i>
+          <h2 className="mx-auto mb-0">{singleGroup.name}</h2>
+          <i className="fa-solid fa-chevron-right text-3xl text-accent opacity-0"></i>
+        </div>
+        <p className="mb-2">{singleGroup.description}</p>
+        <p className="mb-4">
+          <span className="font-semibold">Group Members: </span>
+          {friendsDisplay}
         </p>
-      ) : (
-        <>
-          <div className="relative mb-2 flex">
-            <div
-              className={`absolute h-8 rounded-lg transition-all duration-500 ease-out`}
-              style={{
-                width: `${progressBarStyle.width}%`,
-                background: `${progressBarStyle.color}`,
-              }}
-            ></div>
-            <div className="h-8 w-full rounded-lg bg-primary"></div>
-          </div>
+        {groupExpenses.length < 1 ? (
           <p className="text-center font-normal">
-            <span className="font-bold">Budget spending this month:</span> $
-            {totalExpenseAmount} / ${parseFloat(singleGroup.budget).toFixed(2)}
+            <span className="font-semibold">Budget this month:</span> $
+            {singleGroup.budget}
           </p>
-          <PieChart label={"Categories"} pieData={pieData()} />
-        </>
-      )}
-
-      <div className="mt-8">
-        {groupExpenses.length > 0 ? (
-          <>{expenseDisplay}</>
         ) : (
-          <NoDataPlaceholder
-            title="There are no expenses to display"
-            subtitle="Get started by creating an expense."
-            btnText="Create an Expense"
-            onClick={() => navigate(`/expenses/add?groupId=${singleGroup.id}`)}
-          />
+          <>
+            <div className="relative mb-2 flex">
+              <div
+                className={`absolute h-8 rounded-lg transition-all duration-500 ease-out`}
+                style={{
+                  width: `${progressBarStyle.width}%`,
+                  background: `${progressBarStyle.color}`,
+                }}
+              ></div>
+              <div className="h-8 w-full rounded-lg bg-primary"></div>
+            </div>
+            <p className="text-center font-normal">
+              <span className="font-semibold">Budget spending this month:</span>{" "}
+              ${totalExpenseAmount} / $
+              {parseFloat(singleGroup.budget).toFixed(2)}
+            </p>
+            <PieChart label={"Categories"} pieData={pieData()} />
+          </>
         )}
+
+        <div className="mt-8">
+          {groupExpenses.length > 0 ? (
+            <>{expenseDisplay}</>
+          ) : (
+            <NoDataPlaceholder
+              title="There are no expenses to display"
+              subtitle="Get started by creating an expense."
+              btnText="Create an Expense"
+              onClick={() =>
+                navigate(`/expenses/add?groupId=${singleGroup.id}`)
+              }
+            />
+          )}
+        </div>
+
+        <ButtonFooter>
+          <Button
+            className="bg-red-700"
+            onClick={() => {
+              toggleDialog(deleteDialogRef);
+            }}
+          >
+            Delete
+          </Button>
+          <Button
+            className="bg-primary"
+            onClick={() => navigate(`/groups/edit/${singleGroup.ID}`)}
+          >
+            Edit
+          </Button>
+          <Button
+            className="bg-primary"
+            onClick={() => navigate(`/expenses/add?groupId=${singleGroup.id}`)}
+          >
+            Create Expense
+          </Button>
+        </ButtonFooter>
+
+        <Dialog
+          dialogRef={deleteDialogRef}
+          cancelOnClick={() => toggleDialog(deleteDialogRef)}
+          confirmOnClick={() => handleDelete(groupId)}
+        >
+          <p className="text-center">
+            Deleting this group will also delete all associated expenses.
+            <br />
+            Are you sure you want to delete this group?
+          </p>
+        </Dialog>
       </div>
-
-      <ButtonFooter>
-        <Button
-          className="bg-red-700"
-          onClick={() => {
-            toggleDialog(deleteDialogRef);
-          }}
-        >
-          Delete
-        </Button>
-        <Button
-          className="bg-primary"
-          onClick={() => navigate(`/groups/edit/${singleGroup.ID}`)}
-        >
-          Edit
-        </Button>
-        <Button
-          className="bg-primary"
-          onClick={() => navigate(`/expenses/add?groupId=${singleGroup.id}`)}
-        >
-          Create Expense
-        </Button>
-      </ButtonFooter>
-
-      <Dialog
-        dialogRef={deleteDialogRef}
-        cancelOnClick={() => toggleDialog(deleteDialogRef)}
-        confirmOnClick={() => handleDelete(groupId)}
-      >
-        <p className="text-center">
-          Deleting this group will also delete all associated expenses.
-          <br />
-          Are you sure you want to delete this group?
-        </p>
-      </Dialog>
-    </div>
+    </PlainSection>
   );
 }
 
