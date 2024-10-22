@@ -19,7 +19,7 @@
   input,
   select,
   .field {
-    @apply rounded-lg bg-accent/10 p-5 font-light placeholder:text-accent;
+    @apply rounded-lg bg-primary/10 p-5 font-roboto font-light placeholder:text-primary/50;
   }
   .error-text {
     @apply font-normal text-red-500;

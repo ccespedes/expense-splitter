@@ -32,10 +32,10 @@ export default function MultiSelectDropdown({
   return (
     <div ref={ref}>
       <div
-        className={`flex cursor-pointer items-center justify-between rounded-lg bg-accent/10 px-4 py-3 font-roboto font-light ${errors ? "border-red-500 outline-red-500" : "border-transparent"}`}
+        className={`flex cursor-pointer items-center justify-between rounded-lg bg-primary/10 px-4 py-3 font-roboto font-light ${errors ? "border-red-500 outline-red-500" : "border-transparent"}`}
         onClick={toggleDropdown}
       >
-        <div className="text-accent">Select Friends</div>
+        <div className="text-primary/50">Select Friends</div>
         <i className="fa-solid fa-chevron-down text-3xl text-accent"></i>
       </div>
       {isOpen && (
