@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import { UseDataContext } from "./context/SiteContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import PlainSection from "./layout/PlainSection";
 
 export default function Login() {
   const { user, handleSetUser, setFriends } = UseDataContext();
@@ -36,34 +37,38 @@ export default function Login() {
   }, [user]);
 
   return (
-    <div className="mb-5">
-      <h1 className="text-center">Login</h1>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="mx-auto flex max-w-md flex-col"
-      >
-        <div className="mb-5 flex flex-col">
-          <input
-            placeholder="Name"
-            {...register("name", { required: "name is required" })}
-          />
-          <div className="error-text">{errors.name && errors.name.message}</div>
-        </div>
-
-        <div className="mb-8 flex flex-col">
-          <input
-            placeholder="Email"
-            {...register("email", { required: "email is required" })}
-          />
-          <div className="error-text">
-            {errors.email && errors.email.message}
+    <PlainSection>
+      <div className="mb-5">
+        <h1 className="text-center">Login</h1>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="mx-auto flex max-w-md flex-col"
+        >
+          <div className="mb-5 flex flex-col">
+            <input
+              placeholder="Name"
+              {...register("name", { required: "name is required" })}
+            />
+            <div className="error-text">
+              {errors.name && errors.name.message}
+            </div>
           </div>
-        </div>
 
-        <Button className="mx-auto h-14 w-[200px] bg-primary">
-          Get Started
-        </Button>
-      </form>
-    </div>
+          <div className="mb-8 flex flex-col">
+            <input
+              placeholder="Email"
+              {...register("email", { required: "email is required" })}
+            />
+            <div className="error-text">
+              {errors.email && errors.email.message}
+            </div>
+          </div>
+
+          <Button className="mx-auto h-14 w-[200px] bg-primary">
+            Get Started
+          </Button>
+        </form>
+      </div>
+    </PlainSection>
   );
 }
