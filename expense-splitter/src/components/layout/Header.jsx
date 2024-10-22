@@ -2,6 +2,7 @@ import RoundButton from "../ui/RoundButton";
 import ProfilePic from "../../assets/ironman-headshot.png";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import Logo from "../../assets/splitter-logo.png";
 
 export default function Header() {
   const location = useLocation();
@@ -9,36 +10,15 @@ export default function Header() {
     location.pathname.split("/")[1],
   );
   const [view, setView] = useState(null);
-  console.log(currentPath);
 
-  const standardView = () => {
-    return (
-      <div className="mb-4 flex items-center">
-        <RoundButton>
-          <img src={ProfilePic} className="h-8 w-8 rounded-full object-cover" />
-        </RoundButton>
-        <h1 className="mx-auto mb-0 opacity-100 transition-opacity duration-1000">
-          Groups
-        </h1>
-        <RoundButton>
-          <i className="fa-solid fa-magnifying-glass opacity-70"></i>
-        </RoundButton>
-      </div>
-    );
-  };
+  // console.log("location", location);
+  // console.log("currentPath", currentPath);
 
-  const arrowBackView = () => {
+  const loginView = () => {
     return (
-      <div className="mb-4 flex items-center">
-        <RoundButton>
-          <i className="fa-solid fa-chevron-left opacity-70"></i>
-        </RoundButton>
-        <h1 className="mx-auto mb-0">Groups</h1>
-        <div className="opacity-0">
-          <RoundButton>
-            <i className="fa-solid fa-chevron-right opacity-7"></i>
-          </RoundButton>
-        </div>
+      <div className="mt-8 flex items-center justify-center text-center text-[12px] font-extralight uppercase tracking-[1rem] opacity-70">
+        <img src={Logo} className="mr-4 h-12 w-auto" />
+        <div>Expense Splitter</div>
       </div>
     );
   };
@@ -58,7 +38,7 @@ export default function Header() {
             <div className="text-sm opacity-80">Carlos Cespedes!</div>
           </div>
         </div>
-        <h1 className="mx-auto mb-0 w-[1px] opacity-0">Groups</h1>
+        <h1 className="mx-auto mb-0 w-0 opacity-0">{currentPath}</h1>
         <div className="flex gap-2">
           <RoundButton>
             <i className="fa-solid fa-magnifying-glass opacity-70"></i>
@@ -71,16 +51,50 @@ export default function Header() {
     );
   };
 
+  const standardView = () => {
+    return (
+      <div className="mb-4 flex items-center">
+        <RoundButton>
+          <img src={ProfilePic} className="h-8 w-8 rounded-full object-cover" />
+        </RoundButton>
+        <h1 className="mx-auto mb-0 opacity-100 transition-opacity duration-500">
+          {currentPath.replace(/^\w/, (char) => char.toUpperCase())}
+        </h1>
+        <RoundButton>
+          <i className="fa-solid fa-magnifying-glass opacity-70"></i>
+        </RoundButton>
+      </div>
+    );
+  };
+
+  const arrowBackView = () => {
+    return (
+      <div className="mb-4 flex items-center">
+        <RoundButton>
+          <i className="fa-solid fa-chevron-left opacity-70"></i>
+        </RoundButton>
+        <h1 className="mx-auto mb-0 opacity-100 transition-opacity duration-500">
+          {currentPath.replace(/^\w/, (char) => char.toUpperCase())}
+        </h1>
+        <RoundButton>
+          <i className="fa-solid fa-magnifying-glass opacity-70"></i>
+        </RoundButton>
+      </div>
+    );
+  };
+
   useEffect(() => {
     setCurrentPath(location.pathname.split("/")[1]);
     const getView = () => {
       switch (currentPath) {
         case "groups":
           return standardView();
-        case "friend":
+        case "friends":
+          return arrowBackView();
+        case "expenses":
           return standardView();
-        case "expense":
-          return standardView();
+        case "":
+          return loginView();
         default:
           return defaultView();
       }
@@ -91,9 +105,12 @@ export default function Header() {
   return (
     <div className="header-background flex h-[230px] flex-col bg-primary font-rubik text-white">
       <div className="mx-4">
-        <h2 className="mb-5 text-center text-[10px] font-extralight uppercase tracking-[0.5rem] opacity-70">
-          Expense | Splitter
-        </h2>
+        {/* don't show this on login page */}
+        {currentPath !== "" && (
+          <h2 className="mb-5 text-center text-[10px] font-extralight uppercase tracking-[0.5rem] opacity-70">
+            Expense | Splitter
+          </h2>
+        )}
         <div className="mx-auto max-w-4xl">{view}</div>
       </div>
     </div>
