@@ -10,6 +10,7 @@ const GetStarted = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname.split("/")[1];
+  console.log("currentPath", currentPath);
 
   useEffect(() => {
     if (friends.length < 2) {
@@ -33,7 +34,7 @@ const GetStarted = () => {
   const addGroupDialogRef = useRef(null);
   return (
     <>
-      {currentPath !== "friends" && (
+      {currentPath !== "friends" && currentPath !== "" && (
         <Dialog isCustom={true} dialogRef={addFriendDialogRef}>
           <div className="flex flex-col items-center justify-center">
             <p className="mb-6 text-center">
@@ -48,7 +49,7 @@ const GetStarted = () => {
           </div>
         </Dialog>
       )}
-      {currentPath !== "groups" && (
+      {currentPath !== "groups" && currentPath !== "friends" && (
         <Dialog isCustom={true} dialogRef={addGroupDialogRef}>
           <div className="flex flex-col items-center justify-center">
             <p className="mb-6 text-center">
