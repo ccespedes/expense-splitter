@@ -103,13 +103,13 @@ function ExpenseDetail() {
   return (
     <PlainSection>
       <div ref={downloadRef} className="mb-20">
-        <div className="mb-4 flex items-center">
+        <div className="mb-2 flex items-center">
           <i
             data-html2canvas-ignore
             onClick={() => navigate("/expenses")}
             className="fa-solid fa-chevron-left cursor-pointer text-3xl text-accent"
           ></i>
-          <h2 className="mx-auto mb-0">{expenseDetails.name}</h2>
+          <h2 className="mx-auto mb-0 text-3xl">{expenseDetails.name}</h2>
           <i className="fa-solid fa-chevron-right text-3xl text-accent opacity-0"></i>
         </div>
         <div className="flex flex-col gap-2">

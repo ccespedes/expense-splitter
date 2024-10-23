@@ -76,7 +76,9 @@ const FriendForm = () => {
   return (
     // Pass onSubmit function to useForm submit handler
     <PlainSection>
-      <h1 className="text-center">Add a Friend</h1>
+      <h2 className="text-center text-3xl">
+        {id ? "Edit Friend" : "Add Friend"}
+      </h2>
       <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">
           Name*

@@ -189,7 +189,7 @@ function GroupDetail() {
             onClick={() => navigate("/groups")}
             className="fa-solid fa-chevron-left cursor-pointer text-3xl text-accent"
           ></i>
-          <h2 className="mx-auto mb-0">{singleGroup.name}</h2>
+          <h2 className="mx-auto mb-0 text-3xl">{singleGroup.name}</h2>
           <i className="fa-solid fa-chevron-right text-3xl text-accent opacity-0"></i>
         </div>
         <p className="mb-2">{singleGroup.description}</p>
