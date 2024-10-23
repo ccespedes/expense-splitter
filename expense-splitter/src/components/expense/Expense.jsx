@@ -62,38 +62,40 @@ export default function Expense() {
 
   return (
     <PlainSection>
-      {/* <div className="mb-2">
+      <div className="pb-8">
+        {/* <div className="mb-2">
         {expenses.length > 3 && (
           <SearchBar input={inputText} inputHandler={inputHandler} />
         )}
       </div> */}
-      {expenseDisplay.length < 1 ? (
-        <NoDataPlaceholder
-          title="There are no expenses to display"
-          subtitle="Get started by creating a new expense"
-          btnText="Create an Expense"
-          onClick={() => navigate("/expenses/add")}
-        />
-      ) : filteredExpenses.length > 0 ? (
-        filteredExpenses
-      ) : (
-        <NoDataPlaceholder
-          title="There are no expenses matching this search"
-          subtitle="Would you like to create a new expense?"
-          btnText="Create an Expense"
-          onClick={() => {
-            navigate(-1);
-          }}
-        />
-      )}
-      <ButtonFooter>
-        <Button
-          className="bg-primary"
-          onClick={() => navigate("/expenses/add")}
-        >
-          Create an Expense
-        </Button>
-      </ButtonFooter>
+        {expenseDisplay.length < 1 ? (
+          <NoDataPlaceholder
+            title="There are no expenses to display"
+            subtitle="Get started by creating a new expense"
+            btnText="Create an Expense"
+            onClick={() => navigate("/expenses/add")}
+          />
+        ) : filteredExpenses.length > 0 ? (
+          filteredExpenses
+        ) : (
+          <NoDataPlaceholder
+            title="There are no expenses matching this search"
+            subtitle="Would you like to create a new expense?"
+            btnText="Create an Expense"
+            onClick={() => {
+              navigate(-1);
+            }}
+          />
+        )}
+        <ButtonFooter>
+          <Button
+            className="bg-primary"
+            onClick={() => navigate("/expenses/add")}
+          >
+            Create an Expense
+          </Button>
+        </ButtonFooter>
+      </div>
     </PlainSection>
   );
 }

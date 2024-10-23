@@ -5,6 +5,7 @@ import { UseDataContext } from "../context/SiteContext";
 import db from "../../utils/localstoragedb";
 import { categories } from "../../utils/dummyData";
 import { useNavigate, useParams } from "react-router-dom";
+import PlainSection from "../layout/PlainSection";
 
 export default function CreateExpense() {
   const { groupData, friends, expenses, setExpenses } = UseDataContext();
@@ -240,7 +241,7 @@ export default function CreateExpense() {
   };
 
   return (
-    <>
+    <PlainSection>
       <h1 className="text-center">Edit Expense </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-5 flex flex-col">
@@ -389,6 +390,6 @@ export default function CreateExpense() {
           )}
         </div>
       </form>
-    </>
+    </PlainSection>
   );
 }

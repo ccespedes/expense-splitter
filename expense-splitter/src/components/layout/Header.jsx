@@ -90,7 +90,7 @@ export default function Header() {
         case "groups":
           return standardView();
         case "friends":
-          return arrowBackView();
+          return standardView();
         case "expenses":
           return standardView();
         case "":

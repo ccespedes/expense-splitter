@@ -12,6 +12,7 @@ import formatDate from "../../utils/formatDate";
 import ReceiptUpload from "../upload/ReceiptUpload";
 import DisplayReceipt from "../upload/DisplayReceipt";
 import deleteReceiptFromStorage from "../../utils/deleteReceipt";
+import PlainSection from "../layout/PlainSection";
 
 function ExpenseDetail() {
   const { expenses, groupData, friends, setExpenses } = UseDataContext();
@@ -100,83 +101,90 @@ function ExpenseDetail() {
   });
 
   return (
-    <div ref={downloadRef} className="mb-8">
-      <div className="mb-4 flex items-center">
-        <i
-          data-html2canvas-ignore
-          onClick={() => navigate("/expenses")}
-          className="fa-solid fa-chevron-left cursor-pointer text-3xl text-accent"
-        ></i>
-        <h1 className="mx-auto mb-0">{expenseDetails.name}</h1>
-        <i className="fa-solid fa-chevron-right text-3xl text-accent opacity-0"></i>
-      </div>
-      <div className="flex flex-col gap-2">
-        <h2 className="p-2 text-center text-[32px] font-medium">
-          ${expenseAmount}
-        </h2>
-        <p>{expenseDetails.description}</p>
-        <p>
-          <span className="mr-1 font-bold">Category:</span>
-          {expenseDetails.category.replace(/^\w/, (char) => char.toUpperCase())}
-        </p>
-        <p>
-          <span className="mr-1 font-bold">Date:</span>
-          {expenseDate}
-        </p>
-      </div>
+    <PlainSection>
+      <div ref={downloadRef} className="mb-20">
+        <div className="mb-4 flex items-center">
+          <i
+            data-html2canvas-ignore
+            onClick={() => navigate("/expenses")}
+            className="fa-solid fa-chevron-left cursor-pointer text-3xl text-accent"
+          ></i>
+          <h2 className="mx-auto mb-0">{expenseDetails.name}</h2>
+          <i className="fa-solid fa-chevron-right text-3xl text-accent opacity-0"></i>
+        </div>
+        <div className="flex flex-col gap-2">
+          <h2 className="p-2 text-center text-4xl font-semibold tracking-tighter text-green-900">
+            ${expenseAmount}
+          </h2>
+          <p>{expenseDetails.description}</p>
+          <p>
+            <span className="mr-1 font-semibold">Category:</span>
+            {expenseDetails.category.replace(/^\w/, (char) =>
+              char.toUpperCase(),
+            )}
+          </p>
+          <p>
+            <span className="mr-1 font-semibold">Date:</span>
+            {expenseDate}
+          </p>
+        </div>
 
-      <PieChart label="Amount Owed" pieData={pieChartData} />
-      <div className="mb-2 flex justify-between">
-        <DownloadPDF filename={expenseDetails.name} contentRef={downloadRef} />
-        <Button
-          onClick={() => {
-            navigate(`/groups/${expenseGroup.id}`);
-          }}
+        <PieChart label="Amount Owed" pieData={pieChartData} />
+        <div className="mb-2 flex justify-between">
+          <DownloadPDF
+            filename={expenseDetails.name}
+            contentRef={downloadRef}
+          />
+          <Button
+            onClick={() => {
+              navigate(`/groups/${expenseGroup.id}`);
+            }}
+          >
+            {expenseGroup.name}
+          </Button>
+        </div>
+
+        <div className={"html2pdf__page-break"}></div>
+
+        <div>
+          <>{memberDisplay}</>
+        </div>
+        {expenseDetails.receipt_URL ? (
+          <DisplayReceipt expense={expenseDetails} setExpenses={setExpenses} />
+        ) : (
+          <ReceiptUpload
+            expenseDetails={expenseDetails}
+            setExpenses={setExpenses}
+            expenses={expenses}
+          />
+        )}
+
+        <ButtonFooter>
+          <Button
+            className="min-w-32 bg-red-700"
+            onClick={() => {
+              setDeleteID(expenseDetails.ID);
+              toggleDialog(deleteDialogRef);
+            }}
+          >
+            Delete
+          </Button>
+          <Button
+            className="min-w-32 bg-primary"
+            onClick={() => navigate(`/expenses/edit/${expenseDetails.ID}`)}
+          >
+            Edit
+          </Button>
+        </ButtonFooter>
+        <Dialog
+          dialogRef={deleteDialogRef}
+          cancelOnClick={() => toggleDialog(deleteDialogRef)}
+          confirmOnClick={() => handleDelete()}
         >
-          {expenseGroup.name}
-        </Button>
+          <p>Are you sure you want to delete this expense?</p>
+        </Dialog>
       </div>
-
-      <div className={"html2pdf__page-break"}></div>
-
-      <div>
-        <>{memberDisplay}</>
-      </div>
-      {expenseDetails.receipt_URL ? (
-        <DisplayReceipt expense={expenseDetails} setExpenses={setExpenses} />
-      ) : (
-        <ReceiptUpload
-          expenseDetails={expenseDetails}
-          setExpenses={setExpenses}
-          expenses={expenses}
-        />
-      )}
-
-      <ButtonFooter>
-        <Button
-          className="min-w-32 bg-red-700"
-          onClick={() => {
-            setDeleteID(expenseDetails.ID);
-            toggleDialog(deleteDialogRef);
-          }}
-        >
-          Delete
-        </Button>
-        <Button
-          className="min-w-32 bg-primary"
-          onClick={() => navigate(`/expenses/edit/${expenseDetails.ID}`)}
-        >
-          Edit
-        </Button>
-      </ButtonFooter>
-      <Dialog
-        dialogRef={deleteDialogRef}
-        cancelOnClick={() => toggleDialog(deleteDialogRef)}
-        confirmOnClick={() => handleDelete()}
-      >
-        <p>Are you sure you want to delete this expense?</p>
-      </Dialog>
-    </div>
+    </PlainSection>
   );
 }
 

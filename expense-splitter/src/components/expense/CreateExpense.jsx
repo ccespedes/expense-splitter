@@ -7,6 +7,7 @@ import db from "../../utils/localstoragedb";
 import { categories } from "../../utils/dummyData";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Icon, IconButton, Tooltip } from "@mui/material";
+import PlainSection from "../layout/PlainSection";
 
 export default function CreateExpense() {
   const { groupData, setExpenses, setGroupData, friends, modal } =
@@ -257,8 +258,8 @@ export default function CreateExpense() {
     "Expenses are split evenly by default. Assign a percentage and the remaining 0's will divided evenly from the remaning balance.";
 
   return (
-    <>
-      <h1 className="text-center">Create an Expense </h1>
+    <PlainSection>
+      <h2 className="text-center">Create an Expense </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-5 flex flex-col">
           <label className="mb-1" aria-required="true" htmlFor="name">
@@ -420,6 +421,6 @@ export default function CreateExpense() {
           )}
         </div>
       </form>
-    </>
+    </PlainSection>
   );
 }

@@ -7,6 +7,7 @@ import { UseDataContext } from "../context/SiteContext";
 import MultiSelectDropdown from "../ui/MultiSelectDropdown";
 import db from "../../utils/localstoragedb";
 import { useNavigate, useParams } from "react-router-dom";
+import PlainSection from "../layout/PlainSection";
 
 export default function EditGroup() {
   const { friends, setGroupData, groupData, modal, handleSetModal } =
@@ -77,77 +78,79 @@ export default function EditGroup() {
   };
 
   return (
-    <div className="mb-5">
-      <h1 className="text-center">Edit a group</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-5 flex flex-col">
-          <label htmlFor="name" autoComplete="on" className="mb-1">
-            Name
-          </label>
-          <input
-            id="name"
-            placeholder="Name"
-            className={`border ${errors.name ? "border-red-500 outline-red-500" : "border-transparent"} `}
-            {...register("name")}
-          />
-          {errors.name && (
-            <span className="error-text">{errors.name.message}</span>
-          )}
-        </div>
+    <PlainSection>
+      <div className="mb-5">
+        <h1 className="text-center">Edit Group</h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="mb-5 flex flex-col">
+            <label htmlFor="name" autoComplete="on" className="mb-1">
+              Name
+            </label>
+            <input
+              id="name"
+              placeholder="Name"
+              className={`border ${errors.name ? "border-red-500 outline-red-500" : "border-transparent"} `}
+              {...register("name")}
+            />
+            {errors.name && (
+              <span className="error-text">{errors.name.message}</span>
+            )}
+          </div>
 
-        <div className="mb-5 flex flex-col">
-          <label htmlFor="description" autoComplete="on" className="mb-1">
-            Description
-          </label>
-          <input
-            id="description"
-            placeholder="What is this group about"
-            className={`border ${errors.description ? "border-red-500 outline-red-500" : "border-transparent"} `}
-            {...register("description")}
-          />
-          {errors.description && (
-            <span className="error-text">{errors.description.message}</span>
-          )}
-        </div>
+          <div className="mb-5 flex flex-col">
+            <label htmlFor="description" autoComplete="on" className="mb-1">
+              Description
+            </label>
+            <input
+              id="description"
+              placeholder="What is this group about"
+              className={`border ${errors.description ? "border-red-500 outline-red-500" : "border-transparent"} `}
+              {...register("description")}
+            />
+            {errors.description && (
+              <span className="error-text">{errors.description.message}</span>
+            )}
+          </div>
 
-        <div className="mb-5 flex flex-col">
-          <label htmlFor="budget" autoComplete="on" className="mb-1">
-            Budget
-          </label>
-          <input
-            id="budget"
-            placeholder="Enter a value"
-            className={`border ${errors.budget ? "border-red-500 outline-red-500" : "border-transparent"} `}
-            {...register("budget")}
-          />
-          {errors.budget && (
-            <span className="error-text">{errors.budget.message}</span>
-          )}
-        </div>
+          <div className="mb-5 flex flex-col">
+            <label htmlFor="budget" autoComplete="on" className="mb-1">
+              Budget
+            </label>
+            <input
+              id="budget"
+              placeholder="Enter a value"
+              className={`border ${errors.budget ? "border-red-500 outline-red-500" : "border-transparent"} `}
+              {...register("budget")}
+            />
+            {errors.budget && (
+              <span className="error-text">{errors.budget.message}</span>
+            )}
+          </div>
 
-        <div className="mb-5 flex flex-col">
-          <label htmlFor="friends" className="mr-2">
-            Friends
-          </label>
-          <MultiSelectDropdown
-            friends={friends}
-            control={control}
-            editFriends={editFriends}
-            errors={errors.friendIDs}
-          />
-        </div>
+          <div className="mb-5 flex flex-col">
+            <label htmlFor="friends" className="mr-2">
+              Friends
+            </label>
+            <MultiSelectDropdown
+              friends={friends}
+              control={control}
+              editFriends={editFriends}
+              errors={errors.friendIDs}
+            />
+          </div>
 
-        <div className="flex gap-8">
-          <Button
-            type="button"
-            onClick={() => navigate(-1)}
-            className="w-full md:w-auto"
-          >
-            Cancel
-          </Button>
-          <Button className="w-full bg-primary md:w-auto">Submit</Button>
-        </div>
-      </form>
-    </div>
+          <div className="flex gap-8">
+            <Button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="w-full md:w-auto"
+            >
+              Cancel
+            </Button>
+            <Button className="w-full bg-primary md:w-auto">Submit</Button>
+          </div>
+        </form>
+      </div>
+    </PlainSection>
   );
 }
