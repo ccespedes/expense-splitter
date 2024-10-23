@@ -16,7 +16,7 @@ export default function Header() {
 
   const loginView = () => {
     return (
-      <div className="mt-8 flex items-center justify-center text-center text-[12px] font-extralight uppercase tracking-[1rem] opacity-70">
+      <div className="mt-8 flex items-center justify-center text-center text-[12px] font-extralight uppercase tracking-[.6rem] opacity-70">
         <img src={Logo} className="mr-4 h-12 w-auto" />
         <div>Expense Splitter</div>
       </div>
