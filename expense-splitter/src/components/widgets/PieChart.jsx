@@ -29,7 +29,7 @@ export default function PieChart({ label, pieData }) {
     };
 
     const configPie = {
-      type: "pie",
+      type: "doughnut",
       data: dataPie,
       options: {},
     };
