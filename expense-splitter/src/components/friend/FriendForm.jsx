@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -6,8 +8,6 @@ import Button from "../ui/Button";
 import { UseDataContext } from "../context/SiteContext";
 import db from "../../utils/localstoragedb";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import PlainSection from "../layout/PlainSection";
 
 // Define schema for optional email
@@ -21,8 +21,10 @@ const schema = z.object({
   email: optionalEmail,
 });
 
-const FriendForm = ({ id }) => {
+const FriendForm = () => {
+  const params = useParams();
   // Grab data from context
+  const id = params.friendId;
   const { friends, setFriends } = UseDataContext();
   // Retrieve friend from state
   const currentFriend = friends.find((friend) => friend.id === id);

@@ -1,5 +1,4 @@
 import { createRoot } from "react-dom/client";
-// import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { DataProvider } from "./components/context/SiteContext";
 import "./index.css";
@@ -33,6 +32,7 @@ const router = createBrowserRouter([
       { path: "groups/edit/:groupId", element: <EditGroup /> },
       { path: "friends", element: <Friend /> },
       { path: "friends/add", element: <FriendForm /> },
+      { path: "friends/edit/:friendId", element: <FriendForm /> },
       { path: "expenses", element: <Expense /> },
       { path: "expenses/add", element: <CreateExpense /> },
       { path: "expenses/:expenseId", element: <ExpenseDetail /> },
@@ -47,9 +47,3 @@ createRoot(document.getElementById("root")).render(
     <RouterProvider router={router} />
   </DataProvider>,
 );
-
-// import { createRoot } from 'react-dom/client'
-// import App from './App.jsx'
-// import './index.css'
-
-// createRoot(document.getElementById('root')).render(<App />)

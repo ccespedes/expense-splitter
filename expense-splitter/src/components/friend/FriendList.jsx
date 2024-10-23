@@ -1,13 +1,15 @@
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { UseDataContext } from "../context/SiteContext";
 import Button from "../ui/Button";
 import db from "../../utils/localstoragedb";
-import { useRef, useState } from "react";
 import Dialog from "../ui/Dialog";
 import Card from "../ui/Card";
 
 const FriendList = (props) => {
   const { friends, groupData, expenses, setFriends, handleSetModal } =
     UseDataContext();
+  const navigate = useNavigate();
 
   // Create reference to dom element
   const deleteDialogRef = useRef(null);
@@ -84,7 +86,8 @@ const FriendList = (props) => {
           <Button
             variant={"small"}
             onClick={() => {
-              handleSetModal("FriendForm", friend.id);
+              // handleSetModal("FriendForm", friend.id);
+              navigate(`/friends/edit/${friend.id}`);
             }}
           >
             <i className="fa-solid fa-pen-to-square"></i>
