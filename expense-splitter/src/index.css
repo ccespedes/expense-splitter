@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-gray-200 tracking-tight;
+    @apply bg-gray-200 tracking-tight text-primary;
   }
   h1 {
     @apply mb-4 font-sans text-2xl font-medium;
