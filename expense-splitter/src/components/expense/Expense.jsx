@@ -31,7 +31,6 @@ export default function Expense() {
   const expenseDisplay = expenses
     .sort((a, b) => b.ID - a.ID)
     .map((expense) => {
-      console.log(expense.category);
       const catIcon = categories.find(
         (cat) => cat.name === expense.category,
       ).icon;

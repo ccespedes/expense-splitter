@@ -102,51 +102,65 @@ function ExpenseDetail() {
 
   return (
     <PlainSection>
-      <div ref={downloadRef} className="mb-20">
-        <div className="mb-2 flex items-center">
-          <i
-            data-html2canvas-ignore
-            onClick={() => navigate("/expenses")}
-            className="fa-solid fa-chevron-left cursor-pointer text-3xl text-accent"
-          ></i>
-          <h2 className="mx-auto mb-0 text-3xl">{expenseDetails.name}</h2>
-          <i className="fa-solid fa-chevron-right text-3xl text-accent opacity-0"></i>
-        </div>
-        <div className="flex flex-col gap-2">
-          <h2 className="p-2 text-center text-4xl font-semibold tracking-tighter text-green-900">
-            ${expenseAmount}
-          </h2>
-          <p>{expenseDetails.description}</p>
-          <p>
-            <span className="mr-1 font-semibold">Category:</span>
-            {expenseDetails.category.replace(/^\w/, (char) =>
-              char.toUpperCase(),
-            )}
-          </p>
-          <p>
-            <span className="mr-1 font-semibold">Date:</span>
-            {expenseDate}
-          </p>
+      <div ref={downloadRef} className="mb-28">
+        <div className="mb-4 rounded-2xl bg-card-bg px-4 pb-4 pt-4">
+          <div className="mb-2 flex items-center">
+            <i
+              data-html2canvas-ignore
+              onClick={() => navigate("/expenses")}
+              className="fa-solid fa-chevron-left ml-2 cursor-pointer text-3xl text-accent"
+            ></i>
+            <h2 className="mx-auto mb-0 text-3xl tracking-tighter">
+              {expenseDetails.name}
+            </h2>
+            <i className="fa-solid fa-chevron-right mr-2 text-3xl text-accent opacity-0"></i>
+          </div>
+          <div className="flex flex-col gap-2">
+            <h2 className="p-2 text-center text-4xl font-semibold tracking-tighter text-green-900">
+              ${expenseAmount}
+            </h2>
+            <p>
+              <span className="mr-1 font-semibold">Description:</span>{" "}
+              {expenseDetails.description}
+            </p>
+            <p>
+              <span className="mr-1 font-semibold">Category:</span>
+              {expenseDetails.category.replace(/^\w/, (char) =>
+                char.toUpperCase(),
+              )}
+            </p>
+            <p className="mb-2">
+              <span className="mr-1 font-semibold">Date:</span>
+              {expenseDate}
+            </p>
+            <div className="flex items-center justify-between">
+              <Button
+                variant="small"
+                className="rounded-xl bg-primary/10 px-4 py-2 hover:bg-primary/20"
+                onClick={() => {
+                  navigate(`/groups/${expenseGroup.id}`);
+                }}
+              >
+                <div className="flex items-center">
+                  <i
+                    className={`fa-solid fa-user-group mx-auto mr-3 text-xl text-primary/90`}
+                  ></i>
+                  <p className="text-sm text-primary">{expenseGroup.name}</p>
+                </div>
+              </Button>
+              <DownloadPDF
+                filename={expenseDetails.name}
+                contentRef={downloadRef}
+              />
+            </div>
+          </div>
         </div>
 
         <PieChart label="Amount Owed" pieData={pieChartData} />
-        <div className="mb-2 flex justify-between">
-          <DownloadPDF
-            filename={expenseDetails.name}
-            contentRef={downloadRef}
-          />
-          <Button
-            onClick={() => {
-              navigate(`/groups/${expenseGroup.id}`);
-            }}
-          >
-            {expenseGroup.name}
-          </Button>
-        </div>
 
         <div className={"html2pdf__page-break"}></div>
 
-        <div>
+        <div className="mt-4">
           <>{memberDisplay}</>
         </div>
         {expenseDetails.receipt_URL ? (
