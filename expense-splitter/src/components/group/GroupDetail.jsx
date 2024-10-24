@@ -184,43 +184,54 @@ function GroupDetail() {
   return (
     <PlainSection>
       <div className="mb-24">
-        <div className="mb-4 flex items-center">
-          <i
-            onClick={() => navigate("/groups")}
-            className="fa-solid fa-chevron-left cursor-pointer text-3xl text-accent"
-          ></i>
-          <h2 className="mx-auto mb-0 text-3xl">{singleGroup.name}</h2>
-          <i className="fa-solid fa-chevron-right text-3xl text-accent opacity-0"></i>
-        </div>
-        <p className="mb-2">{singleGroup.description}</p>
-        <p className="mb-4">
-          <span className="font-semibold">Group Members: </span>
-          {friendsDisplay}
-        </p>
-        {groupExpenses.length < 1 ? (
-          <p className="text-center font-normal">
-            <span className="font-semibold">Budget this month:</span> $
-            {singleGroup.budget}
+        <div className="mb-4 rounded-2xl bg-card-bg px-4 pb-4 pt-4">
+          <div className="mb-4 flex items-center">
+            <i
+              onClick={() => navigate("/groups")}
+              className="fa-solid fa-chevron-left cursor-pointer text-3xl text-accent"
+            ></i>
+            <h2 className="mx-auto mb-0 text-3xl">{singleGroup.name}</h2>
+            <i className="fa-solid fa-chevron-right text-3xl text-accent opacity-0"></i>
+          </div>
+          <p className="mb-2">
+            <span className="font-semibold">Description: </span>
+            {singleGroup.description}
           </p>
-        ) : (
-          <>
-            <div className="relative mb-2 flex">
-              <div
-                className={`absolute h-8 rounded-lg transition-all duration-500 ease-out`}
-                style={{
-                  width: `${progressBarStyle.width}%`,
-                  background: `${progressBarStyle.color}`,
-                }}
-              ></div>
-              <div className="h-8 w-full rounded-lg bg-primary"></div>
-            </div>
+          <p className="mb-4">
+            <span className="font-semibold">Group Members: </span>
+            {friendsDisplay}
+          </p>
+
+          {groupExpenses.length < 1 ? (
             <p className="text-center font-normal">
-              <span className="font-semibold">Budget spending this month:</span>{" "}
-              ${totalExpenseAmount} / $
-              {parseFloat(singleGroup.budget).toFixed(2)}
+              <span className="font-semibold">Budget this month:</span> $
+              {singleGroup.budget}
             </p>
-            <PieChart label={"Categories"} pieData={pieData()} />
-          </>
+          ) : (
+            <>
+              <p className="mb-2 text-center font-normal">
+                <span className="font-semibold">
+                  Budget spending this month:
+                </span>{" "}
+                ${totalExpenseAmount} / $
+                {parseFloat(singleGroup.budget).toFixed(2)}
+              </p>
+              <div className="relative mb-2 flex">
+                <div
+                  className={`absolute h-6 rounded-lg transition-all duration-500 ease-out`}
+                  style={{
+                    width: `${progressBarStyle.width}%`,
+                    background: `${progressBarStyle.color}`,
+                  }}
+                ></div>
+                <div className="h-6 w-full rounded-lg bg-primary"></div>
+              </div>
+            </>
+          )}
+        </div>
+
+        {groupExpenses.length > 0 && (
+          <PieChart label={"Categories"} pieData={pieData()} />
         )}
 
         <div className="mt-8">
