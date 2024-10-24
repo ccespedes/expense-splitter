@@ -367,7 +367,7 @@ export default function CreateExpense() {
         <div className="mb-8">
           {watchedValues["group"] && (
             <>
-              <h2 className="mb-4">
+              <h3 className="mb-4">
                 Weight Contributions:*
                 <Tooltip
                   title={weightInfo}
@@ -379,7 +379,7 @@ export default function CreateExpense() {
                     <Icon className="fa-solid fa-circle-info rounded-full text-accent" />
                   </IconButton>
                 </Tooltip>
-              </h2>
+              </h3>
               <div className="bg-neutral/[2%] mb-4 flex items-center justify-between rounded-xl border border-primary/10 p-4">
                 <div>
                   {weightTotal !== 100 ? (
