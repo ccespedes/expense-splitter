@@ -84,11 +84,11 @@ const HomeCard = ({
               ></i>
             </div>
             <div className="mr-auto">
-              <h2 className="text-sm leading-5 tracking-tight">{groupName}</h2>
+              <h3 className="text-sm leading-5 tracking-tight">{groupName}</h3>
             </div>
-            <h2 className="rounded-md bg-primary/10 px-2 py-[0.15rem] text-sm leading-5 tracking-tight">
+            <h3 className="rounded-md bg-primary/10 px-2 py-[0.15rem] text-sm leading-5 tracking-tight">
               {groupCount}
-            </h2>
+            </h3>
           </div>
           {/* dollars and progress bar */}
           <div>
