@@ -259,7 +259,7 @@ export default function CreateExpense() {
 
   return (
     <PlainSection>
-      <h2 className="text-center">Create an Expense </h2>
+      <h2 className="text-center">Add an Expense </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-5 flex flex-col">
           <label className="mb-1" aria-required="true" htmlFor="name">

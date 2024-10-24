@@ -103,7 +103,7 @@ export default function Group() {
           className="w-full min-w-28 bg-primary"
           onClick={() => navigate("/groups/add")}
         >
-          Create a Group
+          Add a Group
         </Button>
       </ButtonFooter>
     </div>
@@ -112,7 +112,7 @@ export default function Group() {
       <NoDataPlaceholder
         title="There are no groups to display"
         subtitle="Get started by creating a group."
-        btnText="Create a Group"
+        btnText="Add a Group"
         onClick={() => navigate("/groups/add")}
       />
     </PlainSection>

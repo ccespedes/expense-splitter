@@ -230,7 +230,7 @@ function GroupDetail() {
             <NoDataPlaceholder
               title="There are no expenses to display"
               subtitle="Get started by creating an expense."
-              btnText="Create an Expense"
+              btnText="Add an Expense"
               onClick={() =>
                 navigate(`/expenses/add?groupId=${singleGroup.id}`)
               }
@@ -257,7 +257,7 @@ function GroupDetail() {
             className="w-full bg-primary md:min-w-40"
             onClick={() => navigate(`/expenses/add?groupId=${singleGroup.id}`)}
           >
-            Create an Expense
+            Add an Expense
           </Button>
         </ButtonFooter>
 

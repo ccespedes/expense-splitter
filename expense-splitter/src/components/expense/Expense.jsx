@@ -71,7 +71,7 @@ export default function Expense() {
           <NoDataPlaceholder
             title="There are no expenses to display"
             subtitle="Get started by creating a new expense"
-            btnText="Create an Expense"
+            btnText="Add an Expense"
             onClick={() => navigate("/expenses/add")}
           />
         ) : filteredExpenses.length > 0 ? (
@@ -80,7 +80,7 @@ export default function Expense() {
           <NoDataPlaceholder
             title="There are no expenses matching this search"
             subtitle="Would you like to create a new expense?"
-            btnText="Create an Expense"
+            btnText="Add an Expense"
             onClick={() => {
               navigate(-1);
             }}
@@ -91,7 +91,7 @@ export default function Expense() {
             className="w-full min-w-28 bg-primary"
             onClick={() => navigate("/expenses/add")}
           >
-            Create an Expense
+            Add an Expense
           </Button>
         </ButtonFooter>
       </div>
