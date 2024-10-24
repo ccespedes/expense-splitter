@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import NoDataPlaceholder from "./NoDataPlaceholder";
 
 const TopCard = ({
   id,
@@ -51,8 +52,6 @@ const TopCard = ({
     }));
   }, [expensePercentage]);
 
-  console.log(expenseIcons);
-
   const expenseIconsList = expenseIcons.map((expenseIcon) => (
     <div key={expenseIcon} className="flex rounded-md bg-primary/10 px-2 py-2">
       <i
@@ -65,12 +64,16 @@ const TopCard = ({
 
   return (
     <div
-      className={`mb-4 flex min-w-80 cursor-pointer items-center rounded-2xl bg-card-bg p-5`}
-      onClick={hasButtons ? null : handleInteract}
+      className={`mb-4 flex min-w-80 ${expenseIcons.length > 0 ? "cursor-pointer" : "pointer-events-auto"} items-center rounded-2xl bg-card-bg p-5`}
+      onClick={expenseIcons.length > 0 ? handleInteract : null}
+      // onClick={hasButtons ? null : handleInteract}
     >
       <div className="relative flex w-full items-center justify-between">
         <div className="flex w-full flex-col gap-4">
-          <div className="flex items-center">
+          <div
+            onClick={hasButtons ? null : handleInteract}
+            className="flex cursor-pointer items-center"
+          >
             <div className="mr-3 flex w-20 items-center justify-center rounded-2xl bg-primary/20 p-5">
               <i
                 className={`fa-solid ${catIcon} mx-auto text-4xl text-primary`}
@@ -84,27 +87,41 @@ const TopCard = ({
               </p>
             </div>
           </div>
-          <div className="flex w-full items-center justify-between rounded-xl bg-primary/5 px-[1rem] py-[1rem]">
-            <h3 className="text-sm leading-5 tracking-tight">{expenseMsg}</h3>
-            <div className="flex gap-2">{expenseIconsList}</div>
-          </div>
-          {/* dollars and progress bar */}
-          <div>
-            <div className="text-md mb-1 flex justify-between font-semibold tracking-tight opacity-80">
-              <div>${totalSpent}</div>
-              <div className="opacity-50">budget: ${budget}</div>
-            </div>
-            <div className="relative flex">
-              <div
-                className={`absolute h-3 rounded-[.3rem] transition-all duration-500 ease-out`}
-                style={{
-                  width: `${progressBarStyle.width}%`,
-                  background: `${progressBarStyle.color}`,
-                }}
-              ></div>
-              <div className="h-3 w-full rounded-[.3rem] bg-primary"></div>
-            </div>
-          </div>
+
+          {expenseIcons.length > 0 ? (
+            <>
+              <div className="flex w-full items-center justify-between rounded-xl bg-primary/5 px-[1rem] py-[1rem]">
+                <h3 className="text-sm leading-5 tracking-tight">
+                  {expenseMsg}
+                </h3>
+                <div className="flex gap-2">{expenseIconsList}</div>
+              </div>
+              {/* dollars and progress bar */}
+              <div>
+                <div className="text-md mb-1 flex justify-between font-semibold tracking-tight opacity-80">
+                  <div>${totalSpent}</div>
+                  <div className="opacity-50">budget: ${budget}</div>
+                </div>
+                <div className="relative flex">
+                  <div
+                    className={`absolute h-3 rounded-[.3rem] transition-all duration-500 ease-out`}
+                    style={{
+                      width: `${progressBarStyle.width}%`,
+                      background: `${progressBarStyle.color}`,
+                    }}
+                  ></div>
+                  <div className="h-3 w-full rounded-[.3rem] bg-primary"></div>
+                </div>
+              </div>
+            </>
+          ) : (
+            <NoDataPlaceholder
+              title="There are no expenses to display"
+              subtitle="Get started by creating an expense."
+              btnText="Add an Expense"
+              onClick={() => navigate(`/expenses/add?groupId=${id}`)}
+            />
+          )}
         </div>
       </div>
     </div>
