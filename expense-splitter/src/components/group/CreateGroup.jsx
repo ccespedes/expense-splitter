@@ -123,11 +123,11 @@ export default function CreateGroup() {
           <Button
             type="button"
             onClick={() => navigate(-1)}
-            className="w-full md:w-auto"
+            className="w-full md:max-w-48"
           >
             Cancel
           </Button>
-          <Button className="w-full bg-primary md:w-auto">Submit</Button>
+          <Button className="w-full bg-primary md:max-w-48">Submit</Button>
         </div>
       </form>
     </PlainSection>

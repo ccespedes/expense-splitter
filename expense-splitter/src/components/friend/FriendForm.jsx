@@ -119,14 +119,14 @@ const FriendForm = () => {
           <Button
             type="button"
             onClick={() => navigate(-1)}
-            className="w-full md:w-auto"
+            className="w-full md:max-w-48"
           >
             Cancel
           </Button>
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-primary md:w-auto"
+            className="w-full bg-primary md:max-w-48"
           >
             {isSubmitting ? "Submitting..." : "Submit"}
           </Button>

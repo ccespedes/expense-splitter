@@ -374,19 +374,19 @@ export default function CreateExpense() {
           <Button
             type="button"
             onClick={() => navigate(-1)}
-            className="w-full md:w-auto"
+            className="w-full md:max-w-48"
           >
             Cancel
           </Button>
           {weightTotal !== 100 ? (
             <Button
               disabled={true}
-              className="w-full cursor-not-allowed bg-primary opacity-25 md:w-auto"
+              className="w-full cursor-not-allowed bg-primary opacity-25 md:max-w-48"
             >
               Submit
             </Button>
           ) : (
-            <Button className="w-full bg-primary md:w-auto">Submit</Button>
+            <Button className="w-full bg-primary md:max-w-48">Save</Button>
           )}
         </div>
       </form>
