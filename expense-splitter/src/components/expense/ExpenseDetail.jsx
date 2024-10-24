@@ -135,8 +135,8 @@ function ExpenseDetail() {
             </p>
             <div className="flex items-center justify-between">
               <Button
-                variant="small"
-                className="rounded-xl bg-primary/10 px-4 py-2 hover:bg-primary/30"
+                variant="card"
+                className="rounded-xl bg-primary/10 px-4 py-2 hover:bg-primary/20"
                 onClick={() => {
                   navigate(`/groups/${expenseGroup.id}`);
                 }}

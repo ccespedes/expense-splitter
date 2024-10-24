@@ -17,8 +17,8 @@ const DownloadPDF = ({ filename, contentRef }) => {
   return (
     <div data-html2canvas-ignore>
       <Button
-        variant="small"
-        className="rounded-xl bg-primary/10 px-4 py-2 hover:bg-primary/30"
+        variant="card"
+        className="rounded-xl bg-primary/10 px-4 py-2 hover:bg-primary/20"
         onClick={convertToPDF}
       >
         <div className="flex items-center">
