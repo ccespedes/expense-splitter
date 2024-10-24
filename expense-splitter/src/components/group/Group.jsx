@@ -8,6 +8,7 @@ import NoDataPlaceholder from "../ui/NoDataPlaceholder";
 import ButtonFooter from "../ui/ButtonFooter";
 import TopCard from "../ui/TopCard";
 import PlainSection from "../layout/PlainSection";
+import { categories } from "../../utils/dummyData";
 
 export default function Group() {
   const navigate = useNavigate();
@@ -43,6 +44,16 @@ export default function Group() {
           .toFixed(2);
       };
 
+      const expenseIcons = () => {
+        const groupExpenses = expenses
+          .filter((expense) => expense.groupId === group.id)
+          .map((expense) => expense.category);
+
+        return categories
+          .filter((cat) => groupExpenses.includes(cat.name))
+          .map((cat) => cat.icon);
+      };
+
       // get the groupMembers
       const groupMembers = () => {
         return friends.reduce((total, friend, i) => {
@@ -63,6 +74,7 @@ export default function Group() {
             groupName={group.name}
             expenseName={group.name}
             expenseAmount={group.amount}
+            expenseIcons={expenseIcons()}
             groupMembers={groupMembers()}
             totalSpent={totalSpent()}
             budget={group.budget}

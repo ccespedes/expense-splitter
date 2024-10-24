@@ -8,6 +8,7 @@ const TopCard = ({
   groupName,
   groupMembers,
   totalSpent,
+  expenseIcons,
   budget,
   hasButtons,
 }) => {
@@ -30,7 +31,7 @@ const TopCard = ({
       : ((totalSpent / budget) * 100).toFixed();
 
   // set the percentage and color to state and disply as style
-  // tailwind is bad at rendering dynamically
+  // tailwind is not great at rendering dynamically
   useEffect(() => {
     let barColor;
     switch (true) {
@@ -50,6 +51,18 @@ const TopCard = ({
     }));
   }, [expensePercentage]);
 
+  console.log(expenseIcons);
+
+  const expenseIconsList = expenseIcons.map((expenseIcon) => (
+    <div key={expenseIcon} className="flex rounded-md bg-primary/10 px-2 py-2">
+      <i
+        className={`fa-solid ${expenseIcon} text-md mx-auto text-primary/90`}
+      ></i>
+    </div>
+  ));
+  const expenseMsg =
+    expenseIcons.length < 2 ? `1 Expense` : `${expenseIcons.length} Expenses`;
+
   return (
     <div
       className={`mb-4 flex min-w-80 cursor-pointer items-center rounded-2xl bg-card-bg p-5`}
@@ -64,30 +77,16 @@ const TopCard = ({
               ></i>
             </div>
             <div>
-              <h2 className="text-xl tracking-tighter text-accent">
-                {groupName}
-              </h2>
+              <h2 className="mb-0 tracking-tighter text-accent">{groupName}</h2>
               <p className="text-sm opacity-90">
                 <span className="font-medium">Group Members: </span>
                 {groupMembers}
               </p>
             </div>
           </div>
-          <div className="flex w-full items-center rounded-xl bg-primary/5 px-[1rem] py-[1rem]">
-            <div className="mr-2 flex rounded-md bg-primary/10 px-2 py-2">
-              <i
-                className={`fa-solid fa-gift text-md mx-auto text-primary/90`}
-              ></i>
-            </div>
-            <div className="mr-2 flex rounded-md bg-primary/10 px-2 py-2">
-              <i
-                className={`fa-solid fa-cart-shopping text-md mx-auto text-primary/90`}
-              ></i>
-            </div>
-            <div className="mr-auto">
-              <h2 className="text-sm leading-5 tracking-tight"></h2>
-            </div>
-            <h2 className="text-sm leading-5 tracking-tight">$445.00</h2>
+          <div className="flex w-full items-center justify-between rounded-xl bg-primary/5 px-[1rem] py-[1rem]">
+            <h3 className="text-sm leading-5 tracking-tight">{expenseMsg}</h3>
+            <div className="flex gap-2">{expenseIconsList}</div>
           </div>
           {/* dollars and progress bar */}
           <div>
