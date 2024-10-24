@@ -52,7 +52,9 @@ const FriendForm = () => {
 
   // Add friend to state and save to local storage
   const onSubmit = (data) => {
-    const newFriend = { ...data, id: nanoid() };
+    // check if friend exists and use its id else create new id
+    const fid = id ?? nanoid();
+    const newFriend = { ...data, id: fid };
     // Save friend to state
     if (currentFriend) {
       // Update friend in state
