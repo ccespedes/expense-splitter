@@ -98,8 +98,11 @@ export default function Group() {
         </div>
       )}
       <div>{filteredData.length > 0 && <>{filteredData}</>}</div>
-      <ButtonFooter>
-        <Button className="bg-primary" onClick={() => navigate("/groups/add")}>
+      <ButtonFooter className="md:w-[280px]">
+        <Button
+          className="w-full min-w-28 bg-primary"
+          onClick={() => navigate("/groups/add")}
+        >
           Create a Group
         </Button>
       </ButtonFooter>

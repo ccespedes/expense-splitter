@@ -238,9 +238,9 @@ function GroupDetail() {
           )}
         </div>
 
-        <ButtonFooter>
+        <ButtonFooter className={"md:w-[500px]"}>
           <Button
-            className="bg-red-700"
+            className="w-full bg-red-700 md:min-w-40"
             onClick={() => {
               toggleDialog(deleteDialogRef);
             }}
@@ -248,16 +248,16 @@ function GroupDetail() {
             Delete
           </Button>
           <Button
-            className="bg-primary"
+            className="w-full bg-primary md:min-w-40"
             onClick={() => navigate(`/groups/edit/${singleGroup.ID}`)}
           >
             Edit
           </Button>
           <Button
-            className="bg-primary"
+            className="w-full bg-primary md:min-w-40"
             onClick={() => navigate(`/expenses/add?groupId=${singleGroup.id}`)}
           >
-            Create Expense
+            Create an Expense
           </Button>
         </ButtonFooter>
 

@@ -35,9 +35,9 @@ const Friend = () => {
 
       <PlainSection>
         <FriendList input={inputText} />
-        <ButtonFooter>
+        <ButtonFooter className="md:w-[280px]">
           <Button
-            className="bg-primary"
+            className="w-full min-w-28 bg-primary"
             onClick={() => navigate("/friends/add")}
           >
             Add a Friend

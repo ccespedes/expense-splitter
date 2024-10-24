@@ -86,9 +86,9 @@ export default function Expense() {
             }}
           />
         )}
-        <ButtonFooter>
+        <ButtonFooter className="md:w-[280px]">
           <Button
-            className="bg-primary"
+            className="w-full min-w-28 bg-primary"
             onClick={() => navigate("/expenses/add")}
           >
             Create an Expense

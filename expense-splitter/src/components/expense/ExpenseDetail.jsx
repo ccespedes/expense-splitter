@@ -136,7 +136,7 @@ function ExpenseDetail() {
             <div className="flex items-center justify-between">
               <Button
                 variant="small"
-                className="rounded-xl bg-primary/10 px-4 py-2 hover:bg-primary/20"
+                className="rounded-xl bg-primary/10 px-4 py-2 hover:bg-primary/30"
                 onClick={() => {
                   navigate(`/groups/${expenseGroup.id}`);
                 }}
@@ -173,9 +173,9 @@ function ExpenseDetail() {
           />
         )}
 
-        <ButtonFooter>
+        <ButtonFooter className="md:w-[320px]">
           <Button
-            className="min-w-32 bg-red-700"
+            className="w-full min-w-32 bg-red-700"
             onClick={() => {
               setDeleteID(expenseDetails.ID);
               toggleDialog(deleteDialogRef);
@@ -184,7 +184,7 @@ function ExpenseDetail() {
             Delete
           </Button>
           <Button
-            className="min-w-32 bg-primary"
+            className="w-full min-w-32 bg-primary"
             onClick={() => navigate(`/expenses/edit/${expenseDetails.ID}`)}
           >
             Edit
