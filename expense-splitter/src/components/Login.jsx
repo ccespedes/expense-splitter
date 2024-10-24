@@ -64,7 +64,7 @@ export default function Login() {
             </div>
           </div>
 
-          <Button className="mx-auto h-14 w-[200px] bg-primary">
+          <Button className="mx-auto w-full min-w-28 bg-primary">
             Get Started
           </Button>
         </form>

@@ -80,7 +80,7 @@ export default function EditGroup() {
   return (
     <PlainSection>
       <div className="mb-5">
-        <h1 className="text-center">Edit Group</h1>
+        <h2 className="text-center">Edit Group</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-5 flex flex-col">
             <label htmlFor="name" autoComplete="on" className="mb-1">

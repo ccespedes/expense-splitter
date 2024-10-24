@@ -10,7 +10,9 @@ export default function Button({
   const buttonStyles =
     variant === "small"
       ? "py-2 px-3 rounded-md hover:bg-secondary text-sm font-light"
-      : "py-3 px-4 rounded-xl hover:bg-secondary font-light";
+      : variant === "card"
+        ? "py-2 px-3 rounded-md text-sm font-light"
+        : "py-3 px-4 rounded-xl hover:bg-secondary font-light";
 
   return (
     <button

@@ -30,7 +30,7 @@ export default function Card({
             <i className={`fa-solid ${icon} mx-auto text-2xl text-white`}></i>
           </div>
           <div>
-            <h2 className="leading-5">{title}</h2>
+            <h3 className="leading-5">{title}</h3>
             {subtitle && <p>{subtitle}</p>}
           </div>
         </div>

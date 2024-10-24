@@ -242,7 +242,7 @@ export default function CreateExpense() {
 
   return (
     <PlainSection>
-      <h1 className="text-center">Edit Expense </h1>
+      <h2 className="text-center">Edit Expense </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-5 flex flex-col">
           <label className="mb-1" aria-required="true" htmlFor="name">
@@ -348,7 +348,7 @@ export default function CreateExpense() {
         <div className="mb-8">
           {watchedValues["group"] && (
             <>
-              <h2 className="mb-4">Weight Contribution:*</h2>
+              <h3 className="mb-4">Weight Contribution:*</h3>
               <div className="bg-neutral/[2%] mb-4 flex items-center justify-between rounded-xl border border-primary/10 p-4">
                 <div>
                   {weightTotal !== 100 ? (

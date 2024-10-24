@@ -110,13 +110,11 @@ function ExpenseDetail() {
               onClick={() => navigate("/expenses")}
               className="fa-solid fa-chevron-left ml-2 cursor-pointer text-3xl text-accent"
             ></i>
-            <h2 className="mx-auto mb-0 text-3xl tracking-tighter">
-              {expenseDetails.name}
-            </h2>
+            <h2 className="mx-auto mb-0">{expenseDetails.name}</h2>
             <i className="fa-solid fa-chevron-right mr-2 text-3xl text-accent opacity-0"></i>
           </div>
           <div className="flex flex-col gap-2">
-            <h2 className="p-2 text-center text-4xl font-semibold tracking-tighter text-green-900">
+            <h2 className="p-2 text-center text-4xl font-semibold text-green-900">
               ${expenseAmount}
             </h2>
             <p>

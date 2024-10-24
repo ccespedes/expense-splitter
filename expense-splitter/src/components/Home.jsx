@@ -117,7 +117,7 @@ export default function Home() {
           {heroDisplay}
         </div>
         <div className="mb-8">
-          <h2 className="mb-4 font-medium">Recent Groups</h2>
+          <h3 className="mb-2 font-medium">Recent Groups</h3>
           {groupData.length > 0 ? (
             <>{groupDisplay}</>
           ) : (
@@ -131,7 +131,7 @@ export default function Home() {
         </div>
 
         <>
-          <h2 className="mb-4 font-medium">Recent Expenses</h2>
+          <h3 className="mb-2 font-medium">Recent Expenses</h3>
           {expenses.length > 0 ? (
             <>{expenseDisplay}</>
           ) : (
@@ -147,7 +147,7 @@ export default function Home() {
     ) : (
       <PlainSection>
         <div className="mb-8">
-          <h2 className="mb-4 font-medium">Recent Groups</h2>
+          <h3 className="mb-4 font-medium">Recent Groups</h3>
           {groupData.length > 0 ? (
             <>{groupDisplay}</>
           ) : (
@@ -161,7 +161,7 @@ export default function Home() {
         </div>
 
         <>
-          <h2 className="mb-4 font-medium">Recent Expenses</h2>
+          <h3 className="mb-4 font-medium">Recent Expenses</h3>
           {expenses.length > 0 ? (
             <>{expenseDisplay}</>
           ) : (
