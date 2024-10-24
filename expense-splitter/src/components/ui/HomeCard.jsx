@@ -68,7 +68,7 @@ const HomeCard = ({
               ></i>
             </div>
             <div>
-              <h2 className="text-xl tracking-tighter text-kush">
+              <h2 className="text-xl tracking-tighter text-accent">
                 {expenseName}
               </h2>
               <p className="text-sm opacity-90">

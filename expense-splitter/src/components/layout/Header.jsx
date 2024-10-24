@@ -107,7 +107,7 @@ export default function Header() {
       <div className="mx-4">
         {/* don't show this on login page */}
         {currentPath !== "" && (
-          <h2 className="mb-5 text-center text-[10px] font-extralight uppercase tracking-[0.5rem] opacity-70">
+          <h2 className="mb-4 text-center text-[10px] font-extralight uppercase tracking-[0.5rem] opacity-70">
             Expense | Splitter
           </h2>
         )}

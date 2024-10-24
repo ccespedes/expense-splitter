@@ -191,7 +191,7 @@ function GroupDetail() {
               className="fa-solid fa-chevron-left cursor-pointer text-3xl text-accent"
             ></i>
             <h2 className="mx-auto mb-0 text-3xl">{singleGroup.name}</h2>
-            <i className="fa-solid fa-chevron-right text-3xl text-accent opacity-0"></i>
+            <i className="fa-solid fa-chevron-right text-3xl opacity-0"></i>
           </div>
           <p className="mb-2">
             <span className="font-semibold">Description: </span>
