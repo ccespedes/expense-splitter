@@ -15,13 +15,7 @@ import {
 // Create db in local storage if none exists
 const db = new localStorageDB("database", localStorage);
 
-// Initialize the database if empty
-if (db.isNew()) {
-  db.createTable("friends", friendsSchema);
-  db.createTable("expenses", expensesSchema);
-  db.createTable("groups", groupSchema);
-  db.createTable("user", userSchema);
-
+export const buildDB = () => {
   //Populate the tables
   dummyFriends.forEach((friend) => {
     db.insert("friends", friend);
@@ -35,6 +29,17 @@ if (db.isNew()) {
   dummyUser.forEach((user) => {
     db.insert("user", user);
   });
+
+  // Write db to localstorage
+  db.commit();
+};
+
+// Initialize the database if empty
+if (db.isNew()) {
+  db.createTable("friends", friendsSchema);
+  db.createTable("expenses", expensesSchema);
+  db.createTable("groups", groupSchema);
+  db.createTable("user", userSchema);
 
   // Write db to localstorage
   db.commit();

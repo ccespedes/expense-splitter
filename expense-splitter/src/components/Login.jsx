@@ -1,14 +1,16 @@
 import { useForm } from "react-hook-form";
 import Button from "./ui/Button";
-import db from "../utils/localstoragedb";
+import db, { buildDB } from "../utils/localstoragedb";
 import { nanoid } from "nanoid";
 import { UseDataContext } from "./context/SiteContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import PlainSection from "./layout/PlainSection";
+import ButtonFooter from "./ui/ButtonFooter";
 
 export default function Login() {
-  const { user, handleSetUser, setFriends } = UseDataContext();
+  const { user, handleSetUser, setFriends, setGroupData, setExpenses } =
+    UseDataContext();
   const navigate = useNavigate();
   const {
     handleSubmit,
@@ -35,6 +37,14 @@ export default function Login() {
       navigate("/home");
     }
   }, [user]);
+
+  const populateDB = () => {
+    buildDB();
+    setFriends(db.queryAll("friends"));
+    setGroupData(db.queryAll("groups"));
+    setExpenses(db.queryAll("expenses"));
+    handleSetUser(db.queryAll("user")[0].name);
+  };
 
   return (
     <PlainSection>
@@ -64,10 +74,18 @@ export default function Login() {
             </div>
           </div>
 
-          <Button className="mx-auto w-full min-w-28 bg-primary">
+          <Button className="mx-auto mb-8 w-full min-w-28 bg-primary">
             Get Started
           </Button>
         </form>
+        <ButtonFooter className="md:w-[280px]">
+          <Button
+            className="w-full min-w-28 bg-orange-700"
+            onClick={populateDB}
+          >
+            Populate Test Data
+          </Button>
+        </ButtonFooter>
       </div>
     </PlainSection>
   );

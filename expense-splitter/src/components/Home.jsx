@@ -107,8 +107,6 @@ export default function Home() {
       );
     });
 
-  console.log(heroDisplay);
-
   return (
     // if heroDisplay exists (at least one group and one expense exists)
     heroDisplay.length > 0 ? (

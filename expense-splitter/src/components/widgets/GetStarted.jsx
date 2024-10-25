@@ -10,7 +10,6 @@ const GetStarted = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname.split("/")[1];
-  console.log("currentPath", currentPath);
 
   useEffect(() => {
     if (friends.length < 2) {

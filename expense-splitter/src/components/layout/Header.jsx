@@ -1,18 +1,37 @@
 import RoundButton from "../ui/RoundButton";
 import ProfilePic from "../../assets/ironman-headshot.png";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../assets/splitter-logo.png";
+import db from "../../utils/localstoragedb";
 
 export default function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [currentPath, setCurrentPath] = useState(
     location.pathname.split("/")[1],
   );
   const [view, setView] = useState(null);
+  const [showTest, setShowTest] = useState(false);
 
-  // console.log("location", location);
-  // console.log("currentPath", currentPath);
+  const handleMouseEnter = () => {
+    setShowTest(true);
+  };
+
+  const handleMouseOut = () => {
+    setShowTest(false);
+  };
+
+  const clearData = () => {
+    db.drop();
+    db.commit();
+    window.location.reload();
+    // navigate("/");
+  };
+
+  useEffect(() => {
+    // setShowTest(!showTest);
+  }, [showTest]);
 
   const loginView = () => {
     return (
@@ -25,29 +44,35 @@ export default function Header() {
 
   const defaultView = () => {
     return (
-      <div className="flex justify-between">
-        <div className="flex items-center gap-2">
-          <RoundButton>
-            <img
-              src={ProfilePic}
-              className="h-8 w-8 rounded-full object-cover"
-            />
-          </RoundButton>
-          <div className="tracking-normal">
-            <div className="text-xs font-light opacity-50">Welcome back,</div>
-            <div className="text-sm opacity-80">Carlos Cespedes!</div>
+      <>
+        <div className="flex justify-between">
+          <div className="flex items-center gap-2">
+            <RoundButton>
+              <img
+                src={ProfilePic}
+                className="h-8 w-8 rounded-full object-cover"
+              />
+            </RoundButton>
+            <div className="tracking-normal">
+              <div className="text-xs font-light opacity-50">Welcome back,</div>
+              <div className="text-sm opacity-80">Fred Flintstone!</div>
+            </div>
+          </div>
+          <h1 className="mx-auto mb-0 w-0 opacity-0">{currentPath}</h1>
+          <div className="flex gap-2">
+            <RoundButton>
+              <i className="fa-solid fa-magnifying-glass opacity-70"></i>
+            </RoundButton>
+            <RoundButton
+              onMouseEnter={handleMouseEnter}
+              onMouseOut={handleMouseOut}
+              onClick={clearData}
+            >
+              <i className="fa-regular fa-bell opacity-70"></i>
+            </RoundButton>
           </div>
         </div>
-        <h1 className="mx-auto mb-0 w-0 opacity-0">{currentPath}</h1>
-        <div className="flex gap-2">
-          <RoundButton>
-            <i className="fa-solid fa-magnifying-glass opacity-70"></i>
-          </RoundButton>
-          <RoundButton>
-            <i className="fa-regular fa-bell opacity-70"></i>
-          </RoundButton>
-        </div>
-      </div>
+      </>
     );
   };
 
@@ -112,6 +137,11 @@ export default function Header() {
           </h2>
         )}
         <div className="mx-auto max-w-4xl">{view}</div>
+      </div>
+      <div
+        className={`absolute left-1/2 ${showTest ? "top-8 opacity-80" : "top-36 opacity-0"} flex -translate-x-1/2 text-[8px] tracking-[.25rem] text-orange-500 transition-all duration-300`}
+      >
+        CLEAR TEST DATA
       </div>
     </div>
   );
