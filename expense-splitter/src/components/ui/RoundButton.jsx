@@ -1,8 +1,16 @@
 import React from "react";
 
-const RoundButton = ({ children, className, onClick }) => {
+const RoundButton = ({
+  children,
+  className,
+  onClick,
+  onMouseEnter,
+  onMouseOut,
+}) => {
   return (
     <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseOut}
       onClick={onClick}
       className={`${className ? className : ""} flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/10 backdrop-blur-sm`}
     >
