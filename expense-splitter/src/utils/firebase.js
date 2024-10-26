@@ -1,17 +1,15 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC3bjbJP_zu6KgjOyNPw1CyTd0R-kOA3mk",
-  authDomain: "expense-splitter-399e6.firebaseapp.com",
-  projectId: "expense-splitter-399e6",
-  storageBucket: "expense-splitter-399e6.appspot.com",
-  messagingSenderId: "1068568065908",
-  appId: "1:1068568065908:web:a4fcfca68bd29c7f3d5e21",
+  apiKey: "AIzaSyBT-Qc8Sip7-tXT7VV97ijI8WElTf3l9K4",
+  authDomain: "expense-splitter-280fd.firebaseapp.com",
+  projectId: "expense-splitter-280fd",
+  storageBucket: "expense-splitter-280fd.appspot.com",
+  messagingSenderId: "950654870467",
+  appId: "1:950654870467:web:32ab74fbfd8a4106155376",
 };
 
 // Initialize Firebase

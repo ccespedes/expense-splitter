@@ -1,13 +1,12 @@
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import db from "../../utils/localstoragedb";
 import RoundButton from "../ui/RoundButton";
 import ProfilePic from "../../assets/ironman-headshot.png";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../assets/splitter-logo.png";
-import db from "../../utils/localstoragedb";
 
 export default function Header() {
   const location = useLocation();
-  const navigate = useNavigate();
   const [currentPath, setCurrentPath] = useState(
     location.pathname.split("/")[1],
   );
@@ -22,16 +21,12 @@ export default function Header() {
     setShowTest(false);
   };
 
+  // test function to clear all data
   const clearData = () => {
     db.drop();
     db.commit();
     window.location.reload();
-    // navigate("/");
   };
-
-  useEffect(() => {
-    // setShowTest(!showTest);
-  }, [showTest]);
 
   const loginView = () => {
     return (
