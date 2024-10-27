@@ -101,7 +101,7 @@ const ReceiptUpload = ({ expenseDetails, setExpenses }) => {
         <div className="flex flex-wrap items-center gap-2 py-2">
           <label
             htmlFor="upload"
-            className="flex cursor-pointer items-center justify-center rounded-lg bg-primary px-6 py-2 text-sm font-light text-white transition-colors hover:bg-secondary"
+            className="flex cursor-pointer items-center justify-center rounded-md bg-primary px-6 py-2 text-sm font-light text-white transition-colors hover:bg-secondary"
           >
             <i className="fa-solid fa-paperclip mr-2"></i>Select File
           </label>
@@ -118,6 +118,7 @@ const ReceiptUpload = ({ expenseDetails, setExpenses }) => {
             disabled={isSubmitting || !isValid}
             className={`rounded-lg bg-primary px-6 ${isValid ? "" : "cursor-auto bg-slate-400 hover:bg-slate-400"}`}
           >
+            <i className="fa-solid fa-cloud-arrow-up mr-2"></i>
             {isSubmitting ? "Uploading..." : "Upload"}
           </Button>
           <p>

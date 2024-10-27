@@ -2,6 +2,7 @@ import db from "../../utils/localstoragedb";
 import Dialog from "../ui/Dialog";
 import { useRef } from "react";
 import deleteReceiptFromStorage from "../../utils/deleteReceipt";
+import Button from "../ui/Button";
 
 const DisplayReceipt = ({ expense, setExpenses }) => {
   const deleteReceiptRef = useRef(null);
@@ -19,18 +20,23 @@ const DisplayReceipt = ({ expense, setExpenses }) => {
   };
 
   return (
-    <>
-      <div className="relative" data-html2canvas-ignore>
-        <img src={expense.receipt_URL} alt={`Receipt for ${expense.name}`} />
-        <button
-          className="absolute right-1 top-1"
-          onClick={() => {
-            deleteReceiptRef.current.showModal();
-          }}
-        >
-          <i className="fa-solid fa-circle-xmark fa-3x text-secondary opacity-70 transition-all hover:scale-110 hover:opacity-95 hover:drop-shadow-2xl"></i>
-        </button>
+    <div className="mb-4 flex flex-col items-center rounded-2xl bg-card-bg px-4 pb-4 pt-4">
+      <div className="mb-2" data-html2canvas-ignore>
+        <img
+          src={expense.receipt_URL}
+          alt={`Receipt for ${expense.name}`}
+          className="rounded-2xl"
+        />
       </div>
+      <Button
+        variant="small"
+        className="bg-red-700 px-8"
+        onClick={() => {
+          deleteReceiptRef.current.showModal();
+        }}
+      >
+        Delete Receipt
+      </Button>
 
       <Dialog
         dialogRef={deleteReceiptRef}
@@ -40,7 +46,7 @@ const DisplayReceipt = ({ expense, setExpenses }) => {
       >
         <p>Are you sure you want to delete this receipt?</p>
       </Dialog>
-    </>
+    </div>
   );
 };
 
