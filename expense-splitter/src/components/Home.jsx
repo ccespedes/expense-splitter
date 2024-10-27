@@ -87,7 +87,7 @@ export default function Home() {
             }
           }),
         );
-        return Math.round(total * 100) / 100;
+        return (Math.round(total * 100) / 100).toFixed(2);
       };
 
       return (

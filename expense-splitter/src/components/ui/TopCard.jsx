@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NoDataPlaceholder from "./NoDataPlaceholder";
+import { formatWithCommas } from "../../utils/functions";
 
 const TopCard = ({
   id,
@@ -99,8 +100,10 @@ const TopCard = ({
               {/* dollars and progress bar */}
               <div>
                 <div className="text-md mb-1 flex justify-between font-semibold tracking-tight opacity-80">
-                  <div>${totalSpent}</div>
-                  <div className="opacity-50">budget: ${budget}</div>
+                  <div>${formatWithCommas(totalSpent)}</div>
+                  <div className="opacity-50">
+                    budget: ${formatWithCommas(budget)}
+                  </div>
                 </div>
                 <div className="relative flex">
                   <div

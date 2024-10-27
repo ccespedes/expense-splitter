@@ -13,6 +13,7 @@ import ReceiptUpload from "../upload/ReceiptUpload";
 import DisplayReceipt from "../upload/DisplayReceipt";
 import deleteReceiptFromStorage from "../../utils/deleteReceipt";
 import PlainSection from "../layout/PlainSection";
+import { formatWithCommas } from "../../utils/functions";
 
 function ExpenseDetail() {
   const { expenses, groupData, friends, setExpenses } = UseDataContext();
@@ -115,7 +116,7 @@ function ExpenseDetail() {
           </div>
           <div className="flex flex-col gap-2">
             <h2 className="p-2 text-center text-4xl font-semibold text-green-900">
-              ${expenseAmount}
+              ${formatWithCommas(expenseAmount)}
             </h2>
             <p>
               <span className="mr-1 font-semibold">Description:</span>{" "}

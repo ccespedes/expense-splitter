@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import formatDate from "../../utils/formatDate";
+import { formatWithCommas } from "../../utils/functions";
 
 const HomeCard = ({
   id,
@@ -72,7 +73,8 @@ const HomeCard = ({
                 {expenseName}
               </h2>
               <p className="text-sm opacity-90">
-                <span className="font-medium">Expense:</span> ${expenseAmount}
+                <span className="font-medium">Expense:</span> $
+                {formatWithCommas(expenseAmount)}
               </p>
               <p className="text-xs opacity-70">{formatDate(expenseDate)}</p>
             </div>
@@ -93,8 +95,10 @@ const HomeCard = ({
           {/* dollars and progress bar */}
           <div>
             <div className="text-md mb-1 flex justify-between font-semibold tracking-tight opacity-80">
-              <div>${totalSpent}</div>
-              <div className="opacity-50">budget: ${budget}</div>
+              <div>${formatWithCommas(totalSpent)}</div>
+              <div className="opacity-50">
+                budget: ${formatWithCommas(budget)}
+              </div>
             </div>
             <div className="relative flex">
               <div

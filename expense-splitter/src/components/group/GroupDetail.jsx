@@ -12,6 +12,7 @@ import { ref, deleteObject } from "firebase/storage";
 import { storage } from "../../utils/firebase";
 import { categories } from "../../utils/dummyData";
 import PlainSection from "../layout/PlainSection";
+import { formatWithCommas } from "../../utils/functions";
 
 function GroupDetail() {
   const [seeMore, setSeeMore] = useState(false);
@@ -213,8 +214,8 @@ function GroupDetail() {
                 <span className="font-semibold">
                   Budget spending this month:
                 </span>{" "}
-                ${totalExpenseAmount} / $
-                {parseFloat(singleGroup.budget).toFixed(2)}
+                ${formatWithCommas(totalExpenseAmount)} / $
+                {formatWithCommas(singleGroup.budget)}
               </p>
               <div className="relative mb-2 flex">
                 <div

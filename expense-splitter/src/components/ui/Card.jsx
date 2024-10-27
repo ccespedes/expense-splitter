@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { formatWithCommas } from "../../utils/functions";
 
 export default function Card({
   id,
@@ -38,7 +39,9 @@ export default function Card({
           // if the card has buttons, make absolute so they don't fly off the right side
           className={`${hasButtons ? "absolute right-0" : ""} flex items-center`}
         >
-          <div className="mx-4 text-lg">{price && `$${price}`}</div>
+          <div className="mx-4 text-lg">
+            {price && `$${formatWithCommas(price)}`}
+          </div>
           {hasButtons ? (
             <div className="flex items-center gap-2">{children}</div>
           ) : (
