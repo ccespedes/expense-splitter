@@ -87,7 +87,6 @@ export default function Home() {
             }
           }),
         );
-        // return (Math.round(total * 100) / 100).toString();
         const formattedTotal = total.toFixed(2);
         return formattedTotal.endsWith(".00")
           ? parseInt(total).toString()

@@ -34,14 +34,16 @@ export default function Group() {
       // latest group gets TopCard
       // use reduce to add up associated expense amounts
       const totalSpent = () => {
-        return expenses
-          .reduce((total, expense) => {
-            if (group.expenseIDs.includes(expense.id)) {
-              return total + parseFloat(expense.amount);
-            }
-            return total;
-          }, 0)
-          .toFixed(2);
+        const total = expenses.reduce((total, expense) => {
+          if (group.expenseIDs.includes(expense.id)) {
+            return total + parseFloat(expense.amount);
+          }
+          return total;
+        }, 0);
+        const formattedTotal = total.toFixed(2);
+        return formattedTotal.endsWith(".00")
+          ? parseInt(total).toString()
+          : formattedTotal;
       };
 
       const expenseIcons = () => {
