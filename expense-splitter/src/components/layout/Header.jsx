@@ -113,7 +113,7 @@ export default function Header() {
           return standardView();
         case "expenses":
           return standardView();
-        case "":
+        case "signin":
           return loginView();
         default:
           return defaultView();
@@ -126,7 +126,7 @@ export default function Header() {
     <div className="header-background flex h-[230px] flex-col bg-primary font-rubik text-white">
       <div className="mx-4">
         {/* don't show this on login page */}
-        {currentPath !== "" && (
+        {currentPath !== "signin" && (
           <h2 className="mb-4 text-center text-[10px] font-extralight uppercase tracking-[0.5rem] opacity-70">
             Expense | Splitter
           </h2>

@@ -33,7 +33,7 @@ const GetStarted = () => {
   const addGroupDialogRef = useRef(null);
   return (
     <>
-      {currentPath !== "friends" && currentPath !== "" && (
+      {currentPath !== "friends" && currentPath !== "signin" && (
         <Dialog isCustom={true} dialogRef={addFriendDialogRef}>
           <div className="flex flex-col items-center justify-center">
             <p className="mb-6 text-center">
@@ -52,7 +52,7 @@ const GetStarted = () => {
               Create a group to add expenses with friends.
             </p>
             <Button className="w-full" onClick={() => navigate("/groups/add")}>
-              Create a Group
+              Add a Group
             </Button>
           </div>
         </Dialog>

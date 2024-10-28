@@ -34,7 +34,7 @@ export default function Login() {
   useEffect(() => {
     // if user has "logged in", go to home page
     if (user) {
-      navigate("/home");
+      navigate("/");
     }
   }, [user]);
 

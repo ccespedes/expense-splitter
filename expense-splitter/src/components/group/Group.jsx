@@ -24,7 +24,7 @@ export default function Group() {
   useEffect(() => {
     // if user is not "logged in", go to login
     if (!user) {
-      navigate("/");
+      navigate("/signin");
     }
   }, [user]);
 

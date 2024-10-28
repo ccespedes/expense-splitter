@@ -21,19 +21,18 @@ const Friend = () => {
   useEffect(() => {
     // if user is not "logged in", go to login
     if (!user) {
-      navigate("/");
+      navigate("/signin");
     }
   }, [user]);
 
   return (
     <>
-      {/* <div className="mb-2">
-        {friends.length > 3 && (
-          <SearchBar input={inputText} inputHandler={inputHandler} />
-        )}
-      </div> */}
-
       <PlainSection>
+        {/* <div className="mb-2">
+          {friends.length > 3 && (
+            <SearchBar input={inputText} inputHandler={inputHandler} />
+          )}
+        </div> */}
         <FriendList input={inputText} />
         <ButtonFooter className="md:w-[280px]">
           <Button

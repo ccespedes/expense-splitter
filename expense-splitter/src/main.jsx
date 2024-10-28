@@ -17,27 +17,52 @@ import CreateGroup from "./components/group/CreateGroup";
 import CreateExpense from "./components/expense/CreateExpense";
 import EditExpense from "./components/expense/EditExpense";
 import EditGroup from "./components/group/EditGroup";
+import Error from "./components/layout/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
-      { index: true, element: <Login /> },
-      { path: "home", element: <Home /> },
+      { index: true, element: <Home />, errorElement: <Error /> },
       { path: "*", element: <NotFound /> },
-      { path: "groups", element: <Group /> },
-      { path: "groups/add", element: <CreateGroup /> },
-      { path: "groups/:groupId", element: <GroupDetail /> },
-      { path: "groups/edit/:groupId", element: <EditGroup /> },
-      { path: "friends", element: <Friend /> },
-      { path: "friends/add", element: <FriendForm /> },
-      { path: "friends/edit/:friendId", element: <FriendForm /> },
-      { path: "expenses", element: <Expense /> },
-      { path: "expenses/add", element: <CreateExpense /> },
-      { path: "expenses/:expenseId", element: <ExpenseDetail /> },
-      { path: "expenses/edit/:groupId", element: <EditExpense /> },
-      { path: "receipts", element: <ReceiptUpload /> },
+      { path: "signin", element: <Login />, errorElement: <Error /> },
+      { path: "groups", element: <Group />, errorElement: <Error /> },
+      { path: "groups/add", element: <CreateGroup />, errorElement: <Error /> },
+      {
+        path: "groups/:groupId",
+        element: <GroupDetail />,
+        errorElement: <Error />,
+      },
+      {
+        path: "groups/edit/:groupId",
+        element: <EditGroup />,
+        errorElement: <Error />,
+      },
+      { path: "friends", element: <Friend />, errorElement: <Error /> },
+      { path: "friends/add", element: <FriendForm />, errorElement: <Error /> },
+      {
+        path: "friends/edit/:friendId",
+        element: <FriendForm />,
+        errorElement: <Error />,
+      },
+      { path: "expenses", element: <Expense />, errorElement: <Error /> },
+      {
+        path: "expenses/add",
+        element: <CreateExpense />,
+        errorElement: <Error />,
+      },
+      {
+        path: "expenses/:expenseId",
+        element: <ExpenseDetail />,
+        errorElement: <Error />,
+      },
+      {
+        path: "expenses/edit/:groupId",
+        element: <EditExpense />,
+        errorElement: <Error />,
+      },
+      { path: "receipts", element: <ReceiptUpload />, errorElement: <Error /> },
     ],
   },
 ]);

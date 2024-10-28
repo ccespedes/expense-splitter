@@ -86,7 +86,6 @@ const FriendList = (props) => {
           <Button
             variant={"small"}
             onClick={() => {
-              // handleSetModal("FriendForm", friend.id);
               navigate(`/friends/edit/${friend.id}`);
             }}
           >

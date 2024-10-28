@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="over fixed bottom-0 left-1/2 z-40 flex h-[100px] w-full -translate-x-1/2 flex-col rounded-t-3xl bg-white text-primary/40">
         <nav className="m-auto w-full max-w-4xl px-4">
           <div className="mb-6 flex justify-between gap-2">
-            <NavLink to="/home">
+            <NavLink to="/">
               <IconButton icon={"house"}>Home</IconButton>
             </NavLink>
             <NavLink to="/groups">
