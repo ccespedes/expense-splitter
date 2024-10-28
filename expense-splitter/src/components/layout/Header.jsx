@@ -37,7 +37,7 @@ export default function Header() {
     );
   };
 
-  const defaultView = () => {
+  const homeView = () => {
     return (
       <>
         <div className="flex justify-between">
@@ -116,7 +116,7 @@ export default function Header() {
         case "signin":
           return loginView();
         default:
-          return defaultView();
+          return homeView();
       }
     };
     setView(getView());
