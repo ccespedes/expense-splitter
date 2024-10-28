@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import formatDate from "../../utils/formatDate";
+import { formatDate } from "../../utils/functions";
 import { formatWithCommas } from "../../utils/functions";
 
 const HomeCard = ({

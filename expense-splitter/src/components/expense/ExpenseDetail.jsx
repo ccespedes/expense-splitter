@@ -8,7 +8,7 @@ import ButtonFooter from "../ui/ButtonFooter";
 import Button from "../ui/Button";
 import db from "../../utils/localstoragedb";
 import Dialog from "../ui/Dialog";
-import formatDate from "../../utils/formatDate";
+import { formatDate } from "../../utils/functions";
 import ReceiptUpload from "../upload/ReceiptUpload";
 import DisplayReceipt from "../upload/DisplayReceipt";
 import deleteReceiptFromStorage from "../../utils/deleteReceipt";
