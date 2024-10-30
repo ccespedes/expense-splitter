@@ -14,7 +14,7 @@ export default function Header() {
   );
   const [view, setView] = useState(null);
   const [showTest, setShowTest] = useState(false);
-  const { search, setSearch, handleSearch } = UseDataContext();
+  const { search, setSearch } = UseDataContext();
 
   const handleMouseEnter = () => {
     setShowTest(true);

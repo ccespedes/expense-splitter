@@ -15,7 +15,9 @@ const TopSearch = () => {
   }, [search.input]);
 
   useEffect(() => {
-    inputRef.current.focus();
+    if (search.show) {
+      inputRef.current.focus();
+    }
   });
 
   return (
