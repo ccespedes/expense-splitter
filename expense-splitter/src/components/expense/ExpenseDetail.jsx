@@ -73,8 +73,6 @@ function ExpenseDetail() {
   // get date and format it
   const expenseDate = formatDate(expenseDetails.date);
 
-  const expenseAmount = parseFloat(expenseDetails.amount).toFixed(2);
-
   expenseDetails.weight.forEach((weight) => {
     const friendInfo = friends.find((friend) => friend.id === weight.friendId);
     pieChartData[friendInfo.name] = (
@@ -116,7 +114,7 @@ function ExpenseDetail() {
           </div>
           <div className="flex flex-col gap-2">
             <h2 className="p-2 text-center text-4xl font-semibold text-green-900">
-              ${formatWithCommas(expenseAmount)}
+              ${formatWithCommas(expenseDetails.amount)}
             </h2>
             <p>
               <span className="mr-1 font-semibold">Description:</span>{" "}
