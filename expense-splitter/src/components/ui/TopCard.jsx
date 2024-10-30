@@ -7,7 +7,7 @@ const TopCard = ({
   id,
   type,
   catIcon,
-  groupName,
+  title,
   groupMembers,
   totalSpent,
   expenseIcons,
@@ -67,7 +67,6 @@ const TopCard = ({
     <div
       className={`mb-4 flex min-w-80 ${expenseIcons.length > 0 ? "cursor-pointer" : "pointer-events-auto"} items-center rounded-2xl bg-card-bg p-5`}
       onClick={expenseIcons.length > 0 ? handleInteract : null}
-      // onClick={hasButtons ? null : handleInteract}
     >
       <div className="relative flex w-full items-center justify-between">
         <div className="flex w-full flex-col gap-4">
@@ -81,7 +80,7 @@ const TopCard = ({
               ></i>
             </div>
             <div>
-              <h2 className="mb-0 tracking-tighter text-accent">{groupName}</h2>
+              <h2 className="mb-0 tracking-tighter text-accent">{title}</h2>
               <p className="text-sm opacity-90">
                 <span className="font-medium">Group Members: </span>
                 {groupMembers}

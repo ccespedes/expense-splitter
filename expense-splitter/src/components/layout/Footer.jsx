@@ -1,7 +1,9 @@
 import { NavLink } from "react-router-dom";
 import IconButton from "../ui/IconButton";
+import { UseDataContext } from "../context/SiteContext";
 
 const Footer = () => {
+  const { handleSearch } = UseDataContext();
   return (
     <>
       <div className="over fixed bottom-0 left-1/2 z-40 flex h-[100px] w-full -translate-x-1/2 flex-col rounded-t-3xl bg-white text-primary/40">
@@ -10,13 +12,28 @@ const Footer = () => {
             <NavLink to="/">
               <IconButton icon={"house"}>Home</IconButton>
             </NavLink>
-            <NavLink to="/groups">
+            <NavLink
+              to="/groups"
+              onClick={() => {
+                handleSearch("hide");
+              }}
+            >
               <IconButton icon={"user-group"}>Groups</IconButton>
             </NavLink>
-            <NavLink to="/friends">
+            <NavLink
+              to="/friends"
+              onClick={() => {
+                handleSearch("hide");
+              }}
+            >
               <IconButton icon={"address-book"}>Friends</IconButton>
             </NavLink>
-            <NavLink to="/expenses">
+            <NavLink
+              to="/expenses"
+              onClick={() => {
+                handleSearch("hide");
+              }}
+            >
               <IconButton icon={"credit-card"}>Expenses</IconButton>
             </NavLink>
           </div>

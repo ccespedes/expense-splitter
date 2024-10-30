@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UseDataContext } from "../context/SiteContext";
-import SearchBar from "../ui/SearchBar";
 import Button from "../ui/Button";
 import ButtonFooter from "../ui/ButtonFooter";
 import Card from "../ui/Card";
@@ -11,14 +10,7 @@ import PlainSection from "../layout/PlainSection";
 
 export default function Expense() {
   const navigate = useNavigate();
-  const { user, handleSetModal, modal, expenses } = UseDataContext();
-
-  const [inputText, setInputText] = useState("");
-
-  let inputHandler = (e) => {
-    let lowerCase = e.target.value.toLowerCase();
-    setInputText(lowerCase);
-  };
+  const { user, search, expenses } = UseDataContext();
 
   useEffect(() => {
     // if user is not "logged in", go to login
@@ -48,25 +40,24 @@ export default function Expense() {
       );
     });
 
-  const filteredExpenses = expenseDisplay.filter((search) => {
-    if (inputText === "") {
-      return search;
+  const filteredExpenses = expenseDisplay.filter((expense) => {
+    if (search.input === "") {
+      return expense;
     } else {
       return (
-        search.props.title.toLowerCase().includes(inputText) ||
-        search.props.subtitle.toLowerCase().includes(inputText)
+        expense.props.title
+          .toLowerCase()
+          .includes(search.input.toLowerCase()) ||
+        expense.props.subtitle
+          .toLowerCase()
+          .includes(search.input.toLowerCase())
       );
     }
   });
 
   return (
     <PlainSection>
-      <div className="pb-8">
-        {/* <div className="mb-2">
-        {expenses.length > 3 && (
-          <SearchBar input={inputText} inputHandler={inputHandler} />
-        )}
-      </div> */}
+      <div className="pb-16">
         {expenseDisplay.length < 1 ? (
           <NoDataPlaceholder
             title="There are no expenses to display"

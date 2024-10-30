@@ -17,35 +17,20 @@ export const DataProvider = ({ children }) => {
   const [expenses, setExpenses] = useState(initialExpenses);
   const [groupData, setGroupData] = useState(initalGroup);
   const [friends, setFriends] = useState(initialFriends);
-  const [showCreateGroupForm, setShowCreateGroupForm] = useState(false);
-  const [modal, setModal] = useState({
-    show: false,
-    type: "",
-    id: "",
-    image_url: "",
-    image_alt: "",
-  });
+  const [search, setSearch] = useState({ show: false, input: "" });
 
   const handleSetUser = (username) => {
     setUser(username);
   };
 
-  const handleSetModal = (type, id, image_url, image_alt) => {
-    if (!type) {
-      setModal({ show: false });
+  const handleSearch = (task, input) => {
+    if (task === "show") {
+      setSearch((prev) => ({ ...prev, show: true }));
+    } else if (task === "hide") {
+      setSearch((prev) => ({ ...prev, show: false, input: "" }));
     } else {
-      setModal((prev) => ({
-        show: !prev.show,
-        type,
-        id,
-        image_url,
-        image_alt,
-      }));
+      setSearch((prev) => ({ ...prev, input: input }));
     }
-  };
-
-  const handleCreateGroupForm = () => {
-    setShowCreateGroupForm(!showCreateGroupForm);
   };
 
   return (
@@ -59,11 +44,9 @@ export const DataProvider = ({ children }) => {
         setFriends,
         expenses,
         setExpenses,
-        showCreateGroupForm,
-        handleCreateGroupForm,
-        modal,
-        setModal,
-        handleSetModal,
+        search,
+        setSearch,
+        handleSearch,
       }}
     >
       {children}

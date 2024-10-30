@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { UseDataContext } from "../context/SiteContext";
 import db from "../../utils/localstoragedb";
 import RoundButton from "../ui/RoundButton";
 import ProfilePic from "../../assets/ironman-headshot.png";
 import Logo from "../../assets/splitter-logo.png";
+import TopSearch from "../ui/TopSearch";
 
 export default function Header() {
   const location = useLocation();
@@ -12,6 +14,7 @@ export default function Header() {
   );
   const [view, setView] = useState(null);
   const [showTest, setShowTest] = useState(false);
+  const { search, setSearch, handleSearch } = UseDataContext();
 
   const handleMouseEnter = () => {
     setShowTest(true);
@@ -55,9 +58,6 @@ export default function Header() {
           </div>
           <h1 className="mx-auto mb-0 w-0 opacity-0">{currentPath}</h1>
           <div className="flex gap-2">
-            <RoundButton>
-              <i className="fa-solid fa-magnifying-glass opacity-70"></i>
-            </RoundButton>
             <RoundButton
               onMouseEnter={handleMouseEnter}
               onMouseOut={handleMouseOut}
@@ -77,27 +77,30 @@ export default function Header() {
         <RoundButton>
           <img src={ProfilePic} className="h-8 w-8 rounded-full object-cover" />
         </RoundButton>
-        <h1 className="mx-auto mb-0 opacity-100 transition-all duration-500">
-          {currentPath.replace(/^\w/, (char) => char.toUpperCase())}
-        </h1>
-        <RoundButton>
-          <i className="fa-solid fa-magnifying-glass opacity-70"></i>
-        </RoundButton>
-      </div>
-    );
-  };
-
-  const arrowBackView = () => {
-    return (
-      <div className="mb-4 flex items-center">
-        <RoundButton>
-          <i className="fa-solid fa-chevron-left opacity-70"></i>
-        </RoundButton>
-        <h1 className="mx-auto mb-0 opacity-100 transition-all duration-500">
-          {currentPath.replace(/^\w/, (char) => char.toUpperCase())}
-        </h1>
-        <RoundButton>
-          <i className="fa-solid fa-magnifying-glass opacity-70"></i>
+        <div className="mx-auto flex items-center justify-center opacity-100 transition-all duration-500">
+          <div className="relative flex items-center">
+            <h1
+              className={`absolute left-1/2 mb-0 -translate-x-1/2 transition-all duration-200 ${
+                search.show && "opacity-0"
+              }`}
+            >
+              {currentPath.replace(/^\w/, (char) => char.toUpperCase())}
+            </h1>
+            <div
+              className={`${!search.show && "opacity-0"} transition-all duration-200`}
+            >
+              <TopSearch />
+            </div>
+          </div>
+        </div>
+        <RoundButton
+          onClick={() =>
+            setSearch((prev) => ({ ...prev, show: !prev.show, input: "" }))
+          }
+        >
+          <i
+            className={`fa-solid ${search.show ? "fa-xmark" : "fa-magnifying-glass"}`}
+          ></i>
         </RoundButton>
       </div>
     );
@@ -120,7 +123,7 @@ export default function Header() {
       }
     };
     setView(getView());
-  }, [location.pathname, currentPath]);
+  }, [location.pathname, currentPath, search]);
 
   return (
     <div className="header-background flex h-[230px] flex-col bg-primary font-rubik text-white">

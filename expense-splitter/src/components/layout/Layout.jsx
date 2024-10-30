@@ -8,7 +8,7 @@ const Layout = () => {
     <>
       <Header />
       {/* was mb-36 */}
-      <div className="mx-auto mb-16 max-w-4xl">
+      <div className="mx-auto mb-10 max-w-4xl">
         <div className="mx-4">
           <Outlet />
           <GetStarted />

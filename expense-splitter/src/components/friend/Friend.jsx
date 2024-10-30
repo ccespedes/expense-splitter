@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UseDataContext } from "../context/SiteContext";
-import SearchBar from "../ui/SearchBar";
 import Button from "../ui/Button";
 import FriendList from "./FriendList";
 import ButtonFooter from "../ui/ButtonFooter";
@@ -9,14 +8,7 @@ import PlainSection from "../layout/PlainSection";
 
 const Friend = () => {
   const navigate = useNavigate();
-  const { user, friends } = UseDataContext();
-
-  const [inputText, setInputText] = useState("");
-
-  const inputHandler = (e) => {
-    const lowerCase = e.target.value.toLowerCase();
-    setInputText(lowerCase);
-  };
+  const { user, search } = UseDataContext();
 
   useEffect(() => {
     // if user is not "logged in", go to login
@@ -26,14 +18,9 @@ const Friend = () => {
   }, [user]);
 
   return (
-    <>
-      <PlainSection>
-        {/* <div className="mb-2">
-          {friends.length > 3 && (
-            <SearchBar input={inputText} inputHandler={inputHandler} />
-          )}
-        </div> */}
-        <FriendList input={inputText} />
+    <PlainSection>
+      <div className="pb-16">
+        <FriendList input={search.input.toLowerCase()} />
         <ButtonFooter className="md:w-[280px]">
           <Button
             className="w-full min-w-28 bg-primary"
@@ -42,8 +29,8 @@ const Friend = () => {
             Add a Friend
           </Button>
         </ButtonFooter>
-      </PlainSection>
-    </>
+      </div>
+    </PlainSection>
   );
 };
 

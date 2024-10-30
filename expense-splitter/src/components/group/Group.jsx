@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "../ui/SearchBar";
-import Button from "../ui/Button";
 import { UseDataContext } from "../context/SiteContext";
+import { categories } from "../../utils/dummyData";
+import Button from "../ui/Button";
 import Card from "../ui/Card";
 import NoDataPlaceholder from "../ui/NoDataPlaceholder";
 import ButtonFooter from "../ui/ButtonFooter";
 import TopCard from "../ui/TopCard";
 import PlainSection from "../layout/PlainSection";
-import { categories } from "../../utils/dummyData";
+import NoDataPlaceHolder from "../ui/NoDataPlaceholder";
 
 export default function Group() {
   const navigate = useNavigate();
-  const { user, groupData, expenses, friends } = UseDataContext();
+  const { user, groupData, expenses, friends, search } = UseDataContext();
 
   const [inputText, setInputText] = useState("");
 
@@ -28,7 +28,16 @@ export default function Group() {
     }
   }, [user]);
 
-  const groupDisplay = groupData
+  // filter groupDisplay for search bar
+  const filteredData = groupData.filter((group) => {
+    if (search.input === "") {
+      return group;
+    } else {
+      return group.name.toLowerCase().includes(search.input.toLowerCase());
+    }
+  });
+
+  const groupDisplay = filteredData
     .sort((a, b) => b.ID - a.ID)
     .map((group, i) => {
       // latest group gets TopCard
@@ -73,7 +82,7 @@ export default function Group() {
             id={group.id}
             type={"group"}
             catIcon={"fa-user-group"}
-            groupName={group.name}
+            title={group.name}
             expenseName={group.name}
             expenseAmount={group.amount}
             expenseIcons={expenseIcons()}
@@ -95,23 +104,20 @@ export default function Group() {
       );
     });
 
-  // filter groupDisplay for search bar
-  const filteredData = groupDisplay.filter((search) => {
-    if (inputText === "") {
-      return search;
-    } else {
-      return search.props.title.toLowerCase().includes(inputText);
-    }
-  });
-
   return groupData.length > 0 ? (
-    <div className="relative -top-[110px]">
-      {groupData.length > 3 && (
-        <div className="mb-2">
-          <SearchBar input={inputText} inputHandler={inputHandler} />
-        </div>
-      )}
-      <div>{filteredData.length > 0 && <>{filteredData}</>}</div>
+    <div className="relative -top-[110px] pb-10">
+      <div>
+        {groupDisplay.length > 0 ? (
+          <>{groupDisplay}</>
+        ) : (
+          <div className="rounded-2xl bg-card-bg p-5">
+            <NoDataPlaceHolder
+              title="No groups to display"
+              subtitle={`There are no groups that match "${search.input}"`}
+            />
+          </div>
+        )}
+      </div>
       <ButtonFooter className="md:w-[280px]">
         <Button
           className="w-full min-w-28 bg-primary"

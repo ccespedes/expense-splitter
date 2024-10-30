@@ -5,9 +5,14 @@ const NoDataPlaceholder = ({ title, subtitle, btnText, onClick }) => {
     <div className="mb-2 flex flex-col items-center justify-center rounded-2xl border border-dashed border-accent/50 p-4 py-12">
       <p className="font-semibold">{title}</p>
       <p className="text-sm">{subtitle}</p>
-      <Button onClick={onClick} className="mt-4 w-full bg-primary md:max-w-64">
-        {btnText}
-      </Button>
+      {btnText && (
+        <Button
+          onClick={onClick}
+          className="mt-4 w-full bg-primary md:max-w-64"
+        >
+          {btnText}
+        </Button>
+      )}
     </div>
   );
 };
