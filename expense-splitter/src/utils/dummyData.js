@@ -112,6 +112,30 @@ export const dummyExpenses = [
     ],
     receipt_URL: null,
   },
+  {
+    id: "QVlc7b_IqqGPWZqiCyk-a",
+    name: "Hotel Stay",
+    date: "2024-10-30T03:58:24.326Z",
+    description: "First 3 nights in the city center",
+    category: "lodging",
+    amount: "600",
+    groupId: "injE97EaNxKbBpBdNYtsA",
+    weight: [
+      {
+        friendId: "_3mCYnr4CQ496CUFqrbT2",
+        percentage: 33.333333333333336,
+      },
+      {
+        friendId: "Bk0CSMuz_mn-4KYNx5Hw6",
+        percentage: 33.333333333333336,
+      },
+      {
+        friendId: "qIt2JC0vQjEhRyIVrrXzR",
+        percentage: 33.333333333333336,
+      },
+    ],
+    receipt_URL: null,
+  },
 ];
 
 export const groupSchema = [
