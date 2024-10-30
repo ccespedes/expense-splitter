@@ -31,7 +31,18 @@ export default function PieChart({ label, pieData }) {
     const configPie = {
       type: "doughnut",
       data: dataPie,
-      options: {},
+      options: {
+        plugins: {
+          legend: {
+            labels: {
+              // This more specific font property overrides the global property
+              font: {
+                size: 15,
+              },
+            },
+          },
+        },
+      },
     };
 
     const pieChart = new Chart(chartRef.current, configPie);
