@@ -14,13 +14,6 @@ export default function Group() {
   const navigate = useNavigate();
   const { user, groupData, expenses, friends, search } = UseDataContext();
 
-  const [inputText, setInputText] = useState("");
-
-  const inputHandler = (e) => {
-    const lowerCase = e.target.value.toLowerCase();
-    setInputText(lowerCase);
-  };
-
   useEffect(() => {
     // if user is not "logged in", go to login
     if (!user) {
