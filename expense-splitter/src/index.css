@@ -24,7 +24,7 @@
   input,
   select,
   .field {
-    @apply rounded-lg bg-primary/10 p-5 font-roboto font-light placeholder:text-primary/50;
+    @apply rounded-xl bg-primary/10 p-5 font-roboto font-light placeholder:text-primary/50;
   }
   .error-text {
     @apply font-normal text-red-500;

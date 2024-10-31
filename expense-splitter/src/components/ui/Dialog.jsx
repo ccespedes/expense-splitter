@@ -23,13 +23,13 @@ const Dialog = ({ dialogRef, confirmOnClick, children, isCustom }) => {
         <>
           <div className="mb-6">{children}</div>
           <div className="flex gap-2">
-            <Button onClick={toggleDialog} className={"grow"}>
+            <Button onClick={toggleDialog} className="w-full bg-primary/70">
               Cancel
             </Button>
 
             {confirmOnClick && ( //Render 2nd button if 2nd onClick is provided
               <Button
-                className={"grow bg-primary"}
+                className="w-full bg-primary"
                 onClick={() => {
                   confirmOnClick();
                   toggleDialog();

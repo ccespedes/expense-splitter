@@ -86,6 +86,7 @@ const FriendList = ({ input }) => {
             )}
             <Button
               variant={"small"}
+              className="bg-primary"
               onClick={() => {
                 navigate(`/friends/edit/${friend.id}`);
               }}

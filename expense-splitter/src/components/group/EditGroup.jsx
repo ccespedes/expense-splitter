@@ -143,7 +143,7 @@ export default function EditGroup() {
             <Button
               type="button"
               onClick={() => navigate(-1)}
-              className="w-full md:max-w-48"
+              className="w-full bg-primary/70 md:max-w-48"
             >
               Cancel
             </Button>

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import PlainSection from "./layout/PlainSection";
 import ButtonFooter from "./ui/ButtonFooter";
+import GoogleLogo from "../assets/google-logo.png";
 
 export default function Login() {
   const { user, handleSetUser, setFriends, setGroupData, setExpenses } =
@@ -49,12 +50,21 @@ export default function Login() {
   return (
     <PlainSection>
       <div className="mb-5">
-        <h1 className="text-center">Login</h1>
+        <h2 className="mb-4 text-center">Login</h2>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="mx-auto flex max-w-md flex-col"
         >
-          <div className="mb-5 flex flex-col">
+          <Button
+            className="mx-auto mb-4 w-full min-w-28 bg-white hover:text-white"
+            textColor="text-primary/80"
+          >
+            <div className="flex items-center justify-center gap-2">
+              <img className="h-6 w-6" src={GoogleLogo} />
+              <p>Sign in with Google</p>
+            </div>
+          </Button>
+          <div className="mb-2 flex flex-col">
             <input
               placeholder="Name"
               {...register("name", { required: "name is required" })}
@@ -64,7 +74,7 @@ export default function Login() {
             </div>
           </div>
 
-          <div className="mb-8 flex flex-col">
+          <div className="mb-2 flex flex-col">
             <input
               placeholder="Email"
               {...register("email", { required: "email is required" })}
@@ -74,15 +84,15 @@ export default function Login() {
             </div>
           </div>
 
-          <Button className="mx-auto mb-8 w-full min-w-28 bg-primary">
-            Get Started
+          <Button className="mx-auto mb-2 w-full min-w-28 bg-primary">
+            Sign In
+          </Button>
+          <Button className="mx-auto mb-8 w-full min-w-28 bg-kush">
+            Create Account
           </Button>
         </form>
         <ButtonFooter className="md:w-[280px]">
-          <Button
-            className="w-full min-w-28 bg-orange-700"
-            onClick={populateDB}
-          >
+          <Button className="w-full min-w-28 bg-black/30" onClick={populateDB}>
             Populate Test Data
           </Button>
         </ButtonFooter>
