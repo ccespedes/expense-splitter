@@ -33,7 +33,7 @@ export default function Header() {
 
   const loginView = () => {
     return (
-      <div className="flex items-center justify-center text-center text-[12px] font-extralight uppercase tracking-[.6rem] opacity-70">
+      <div className="mt-8 flex items-center justify-center text-center text-[12px] font-extralight uppercase tracking-[.6rem] opacity-70">
         <img src={Logo} className="mr-4 h-12 w-auto" />
         <div>Expense Splitter</div>
       </div>
@@ -55,7 +55,6 @@ export default function Header() {
             <div className="text-sm opacity-80">Fred Flintstone!</div>
           </div>
         </div>
-        {/* <h1 className="mx-auto mb-0 w-0 opacity-0">{currentPath}</h1> */}
         <div className="flex gap-2">
           <RoundButton
             onMouseEnter={handleMouseEnter}
@@ -145,7 +144,7 @@ export default function Header() {
     <div className="header-background flex h-[230px] flex-col bg-primary font-rubik text-white">
       <div className="mx-4">
         {/* don't show this on login page */}
-        {currentPath[1] !== "signin" && (
+        {currentPath !== "signin" && (
           <h2 className="mb-3 text-center text-[10px] font-extralight uppercase tracking-[0.5rem] opacity-70">
             Expense | Splitter
           </h2>
