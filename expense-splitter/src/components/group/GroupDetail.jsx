@@ -42,6 +42,13 @@ function GroupDetail() {
     .reduce((acc, curr) => acc + curr, 0)
     .toFixed(2);
 
+  const displayTotal = () => {
+    const formattedTotal = totalExpenseAmount;
+    return formattedTotal.endsWith(".00")
+      ? parseInt(totalExpenseAmount).toString()
+      : formattedTotal;
+  };
+
   // figure out the width of the expense percentage bar
   // max it out at 100 to avoid growing outside the div
   const expensePercentage =
@@ -184,7 +191,7 @@ function GroupDetail() {
 
   return (
     <PlainSection>
-      <div className="mb-24">
+      <div className="mb-32">
         <div className="mb-4 rounded-2xl bg-card-bg px-4 pb-4 pt-4">
           <h2 className="mb-2 text-center text-3xl">{singleGroup.name}</h2>
           <p className="mb-2">
@@ -207,7 +214,7 @@ function GroupDetail() {
                 <span className="font-semibold">
                   Budget spending this month:
                 </span>{" "}
-                ${formatWithCommas(totalExpenseAmount)} / $
+                ${formatWithCommas(displayTotal())} / $
                 {formatWithCommas(singleGroup.budget)}
               </p>
               <div className="relative mb-2 flex">

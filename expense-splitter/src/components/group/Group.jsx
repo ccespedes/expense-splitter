@@ -42,6 +42,7 @@ export default function Group() {
           }
           return total;
         }, 0);
+        // return total;
         const formattedTotal = total.toFixed(2);
         return formattedTotal.endsWith(".00")
           ? parseInt(total).toString()
