@@ -4,6 +4,9 @@
 
 ![Screenshot](expense-splitter/expense-splitter.jpg)
 
+All data in this branch stored in localStorage via localStorageDB package
+(except receipt uploads)
+
 ## Overview:
 
 This app was created to have a convenient way to split the bill between a group of friends. With a focus on smooth UX, we've designed our app to feel intuitive for the user to use and understand.
