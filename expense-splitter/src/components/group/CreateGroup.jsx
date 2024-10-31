@@ -57,7 +57,7 @@ export default function CreateGroup() {
 
   return (
     <PlainSection>
-      <h1 className="text-center">Add a Group</h1>
+      <h2 className="text-center">Add a Group</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-5 flex flex-col">
           <label htmlFor="name" autoComplete="on" className="mb-1">
