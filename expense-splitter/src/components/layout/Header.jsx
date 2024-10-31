@@ -102,7 +102,7 @@ export default function Header() {
               {currentPath.replace(/^\w/, (char) => char.toUpperCase())}
             </h1>
             <div
-              className={`${!search.show && "hidden opacity-0"} transition-all duration-200`}
+              className={`${!search.show && "pointer-events-none opacity-0"} transition-all duration-200`}
             >
               <TopSearch />
             </div>
