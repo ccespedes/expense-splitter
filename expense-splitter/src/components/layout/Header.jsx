@@ -68,9 +68,6 @@ export default function Header() {
     );
   };
 
-  console.log("isNestedPath", isNestedPath);
-  console.log("search.show", search.show);
-
   const standardView = () => {
     return (
       <div className="mb-4 flex items-center">
@@ -93,21 +90,18 @@ export default function Header() {
         )}
         <div className="mx-auto flex items-center justify-center opacity-100 transition-all duration-500">
           <div className="relative flex items-center">
-            {!isNestedPath && search.show ? (
-              <div
-                className={`${!search.show && "opacity-0"} transition-all duration-200`}
-              >
-                <TopSearch />
-              </div>
-            ) : (
-              <h1
-                className={`absolute left-1/2 mb-0 -translate-x-1/2 transition-all duration-200 ${
-                  search.show && "opacity-100"
-                }`}
-              >
-                {currentPath.replace(/^\w/, (char) => char.toUpperCase())}
-              </h1>
-            )}
+            <h1
+              className={`absolute left-1/2 mb-0 -translate-x-1/2 transition-all duration-200 ${
+                search.show && "opacity-0"
+              }`}
+            >
+              {currentPath.replace(/^\w/, (char) => char.toUpperCase())}
+            </h1>
+            <div
+              className={`${!search.show && "opacity-0"} transition-all duration-200`}
+            >
+              <TopSearch />
+            </div>
           </div>
         </div>
         <RoundButton>
@@ -118,8 +112,13 @@ export default function Header() {
   };
 
   useEffect(() => {
+    if (isNestedPath) {
+      setSearch((prev) => ({ ...prev, show: false }));
+    }
+  }, [isNestedPath]);
+
+  useEffect(() => {
     const pathSegments = location.pathname.split("/");
-    console.log(pathSegments);
     setCurrentPath(pathSegments[1]);
     setIsNestedPath(!!pathSegments[2]);
   }, [location.pathname, search]);
