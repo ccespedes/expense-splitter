@@ -15,7 +15,6 @@ export default function CreateExpense() {
 
   const navigate = useNavigate();
   const { groupId } = useParams();
-  console.log("groupId", groupId);
 
   const {
     handleSubmit,
