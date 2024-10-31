@@ -3,17 +3,17 @@ export const friendsSchema = ["id", "name", "email"];
 export const dummyFriends = [
   {
     id: "_3mCYnr4CQ496CUFqrbT2",
-    name: "Fred",
+    name: "Walter White",
     email: "fred@gmail.com",
   },
   {
     id: "Bk0CSMuz_mn-4KYNx5Hw6",
-    name: "Wilma",
+    name: "Tyrion Lannister",
     email: "",
   },
   {
     id: "qIt2JC0vQjEhRyIVrrXzR",
-    name: "Barney",
+    name: "Tony Soprano",
     email: "",
   },
 ];
@@ -22,7 +22,7 @@ export const userSchema = ["name", "email", "id"];
 export const dummyUser = [
   {
     ID: 1,
-    name: "Fred",
+    name: "Walter White",
     email: "fred@gmail.com",
     id: "EXOJIPyvbAKBvbsbESDBJ",
   },

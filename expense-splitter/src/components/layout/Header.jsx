@@ -14,10 +14,14 @@ export default function Header() {
   const [isNestedPath, setIsNestedPath] = useState(false);
   const [view, setView] = useState(null);
   const [showTest, setShowTest] = useState(false);
-  const { search, setSearch } = UseDataContext();
+  const { user, search, setSearch } = UseDataContext();
 
   const handleMouseEnter = () => {
     setShowTest(true);
+    const timeout = setTimeout(() => {
+      setShowTest(false);
+      clearTimeout(timeout);
+    }, 3000);
   };
 
   const handleMouseOut = () => {
@@ -52,7 +56,7 @@ export default function Header() {
           </RoundButton>
           <div className="tracking-normal">
             <div className="text-xs font-light opacity-50">Welcome back,</div>
-            <div className="text-sm opacity-80">Fred Flintstone!</div>
+            <div className="text-sm opacity-80">{user}!</div>
           </div>
         </div>
         <div className="flex gap-2">
