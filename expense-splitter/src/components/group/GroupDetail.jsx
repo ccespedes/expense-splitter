@@ -186,14 +186,7 @@ function GroupDetail() {
     <PlainSection>
       <div className="mb-24">
         <div className="mb-4 rounded-2xl bg-card-bg px-4 pb-4 pt-4">
-          <div className="mb-4 flex items-center">
-            <i
-              onClick={() => navigate("/groups")}
-              className="fa-solid fa-chevron-left cursor-pointer text-3xl text-accent"
-            ></i>
-            <h2 className="mx-auto mb-0 text-3xl">{singleGroup.name}</h2>
-            <i className="fa-solid fa-chevron-right text-3xl opacity-0"></i>
-          </div>
+          <h2 className="mb-2 text-center text-3xl">{singleGroup.name}</h2>
           <p className="mb-2">
             <span className="font-semibold">Description: </span>
             {singleGroup.description}

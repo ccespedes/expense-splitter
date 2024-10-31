@@ -103,15 +103,7 @@ function ExpenseDetail() {
     <PlainSection>
       <div ref={downloadRef} className="mb-28">
         <div className="mb-4 rounded-2xl bg-card-bg px-4 pb-4 pt-4">
-          <div className="mb-2 flex items-center">
-            <i
-              data-html2canvas-ignore
-              onClick={() => navigate("/expenses")}
-              className="fa-solid fa-chevron-left ml-2 cursor-pointer text-3xl text-accent"
-            ></i>
-            <h2 className="mx-auto mb-0">{expenseDetails.name}</h2>
-            <i className="fa-solid fa-chevron-right mr-2 text-3xl text-accent opacity-0"></i>
-          </div>
+          <h2 className="mb-2 text-center">{expenseDetails.name}</h2>
           <div className="flex flex-col gap-2">
             <h2 className="p-2 text-center text-4xl font-semibold text-green-900">
               ${formatWithCommas(expenseDetails.amount)}
