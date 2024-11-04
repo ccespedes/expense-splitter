@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UseDataContext } from "../context/SiteContext";
-import db from "../../utils/localstoragedb";
 import RoundButton from "../ui/RoundButton";
-import ProfilePic from "../../assets/ironman-headshot.png";
 import Logo from "../../assets/splitter-logo.png";
 import TopSearch from "../ui/TopSearch";
+import ProfileMenu from "./ProfileMenu";
 
 export default function Header() {
   const location = useLocation();
@@ -14,7 +13,16 @@ export default function Header() {
   const [isNestedPath, setIsNestedPath] = useState(false);
   const [view, setView] = useState(null);
   const [showTest, setShowTest] = useState(false);
-  const { user, search, setSearch } = UseDataContext();
+  const {
+    user,
+    search,
+    setSearch,
+    menuShow,
+    setMenuShow,
+    handleSetMenuShow,
+    clearData,
+  } = UseDataContext();
+  const defaultProfilePic = user?.photoURL || "https://imgur.com/o9fpo46.png";
 
   const handleMouseEnter = () => {
     setShowTest(true);
@@ -28,12 +36,9 @@ export default function Header() {
     setShowTest(false);
   };
 
-  // test function to clear all data
-  const clearData = () => {
-    db.drop();
-    db.commit();
-    window.location.reload();
-  };
+  useEffect(() => {
+    setMenuShow(false);
+  }, [currentPath]);
 
   const loginView = () => {
     return (
@@ -47,23 +52,26 @@ export default function Header() {
   const homeView = () => {
     return (
       <div className="flex justify-between">
-        <div className="flex items-center gap-2">
-          <RoundButton>
+        <div className="relative flex items-center gap-2">
+          <RoundButton onClick={handleSetMenuShow}>
             <img
-              src={ProfilePic}
+              src={defaultProfilePic}
               className="h-8 w-8 rounded-full object-cover"
             />
           </RoundButton>
+          <div className="absolute left-0 top-12 z-50">
+            {menuShow && <ProfileMenu />}
+          </div>
           <div className="tracking-normal">
             <div className="text-xs font-light opacity-50">Welcome back,</div>
-            <div className="text-sm opacity-80">{user}!</div>
+            <div className="text-sm opacity-80">{user?.name}!</div>
           </div>
         </div>
         <div className="flex gap-2">
           <RoundButton
             onMouseEnter={handleMouseEnter}
             onMouseOut={handleMouseOut}
-            onClick={clearData}
+            onClick={() => clearData()}
           >
             <i className="fa-regular fa-bell opacity-70"></i>
           </RoundButton>
@@ -74,7 +82,7 @@ export default function Header() {
 
   const standardView = () => {
     return (
-      <div className="mb-4 flex items-center">
+      <div className="relative mb-4 flex items-center">
         {isNestedPath ? (
           <RoundButton
             onClick={() => navigate(`/${location.pathname.split("/")[1]}`)}
@@ -108,8 +116,14 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <RoundButton>
-          <img src={ProfilePic} className="h-8 w-8 rounded-full object-cover" />
+        <div className="absolute right-0 top-12 z-50">
+          {menuShow && <ProfileMenu />}
+        </div>
+        <RoundButton onClick={handleSetMenuShow}>
+          <img
+            src={defaultProfilePic}
+            className="h-8 w-8 rounded-full object-cover"
+          />
         </RoundButton>
       </div>
     );
@@ -141,7 +155,7 @@ export default function Header() {
       }
     };
     setView(getView());
-  }, [currentPath, isNestedPath, search]);
+  }, [currentPath, isNestedPath, search, menuShow]);
 
   return (
     <div className="header-background flex h-[230px] flex-col bg-primary font-rubik text-white">

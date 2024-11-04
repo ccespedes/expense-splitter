@@ -39,7 +39,10 @@ const GetStarted = () => {
             <p className="mb-6 text-center">
               Get started by adding a friend to split expenses with.
             </p>
-            <Button className="w-full" onClick={() => navigate("/friends/add")}>
+            <Button
+              className="w-full bg-primary"
+              onClick={() => navigate("/friends/add")}
+            >
               Add a Friend
             </Button>
           </div>
@@ -51,7 +54,10 @@ const GetStarted = () => {
             <p className="mb-6 text-center">
               Create a group to add expenses with friends.
             </p>
-            <Button className="w-full" onClick={() => navigate("/groups/add")}>
+            <Button
+              className="w-full bg-primary"
+              onClick={() => navigate("/groups/add")}
+            >
               Add a Group
             </Button>
           </div>

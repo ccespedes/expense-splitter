@@ -47,3 +47,12 @@
   /* color: #1c2536; */
   color: #184eb4;
 }
+
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -18,7 +18,7 @@ export const dummyFriends = [
   },
 ];
 
-export const userSchema = ["name", "email", "id"];
+export const userSchema = ["id", "name", "email", "photoURL"];
 export const dummyUser = [
   {
     ID: 1,

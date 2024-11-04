@@ -5,6 +5,7 @@ export default function Button({
   className,
   type,
   disabled,
+  name,
   textColor = "text-white/90",
 }) {
   const baseStyles = "whitespace-nowrap";
@@ -21,6 +22,7 @@ export default function Button({
       className={`${baseStyles} ${textColor} ${buttonStyles} transition-colors ${className}`}
       onClick={onClick}
       type={type}
+      name={name}
     >
       {children}
     </button>

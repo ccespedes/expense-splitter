@@ -23,7 +23,7 @@ export default function Card({
       tabIndex={hasButtons ? -1 : 0}
       onClick={hasButtons ? null : handleInteract}
       onKeyDown={hasButtons ? null : handleInteract}
-      className={`mb-2 flex ${hasButtons ? "" : "cursor-pointer"} items-center rounded-2xl bg-card-bg p-4`}
+      className={`mb-2 flex ${hasButtons ? "" : "cursor-pointer"} animate-fadeIn items-center rounded-2xl bg-card-bg p-4`}
     >
       <div className="relative flex w-full items-center justify-between">
         <div className="flex items-center">
