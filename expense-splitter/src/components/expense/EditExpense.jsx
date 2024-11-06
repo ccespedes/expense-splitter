@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import PlainSection from "../layout/PlainSection";
 
 export default function CreateExpense() {
-  const { groupData, friends, expenses, setExpenses } = UseDataContext();
+  const { groupData, friends, expenses, setExpenses, user } = UseDataContext();
   const [currentExpense, setCurrentExpense] = useState({});
   const [allFriends, setAllFriends] = useState([]);
   const [weightTotal, setWeightTotal] = useState(0);
@@ -23,6 +23,13 @@ export default function CreateExpense() {
     watch, // lets use this to track values
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    // if user is not logged in, go to signin
+    if (!user) {
+      navigate("/signin");
+    }
+  }, [user]);
 
   // watch all fields
   const watchedValues = watch();

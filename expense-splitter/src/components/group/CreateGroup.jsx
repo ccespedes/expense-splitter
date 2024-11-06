@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,12 +8,18 @@ import Button from "../ui/Button";
 import { UseDataContext } from "../context/SiteContext";
 import MultiSelectDropdown from "../ui/MultiSelectDropdown";
 import db from "../../utils/localstoragedb";
-import { useNavigate } from "react-router-dom";
 import PlainSection from "../layout/PlainSection";
 
 export default function CreateGroup() {
-  const { friends, setGroupData, handleSetModal } = UseDataContext();
+  const { user, friends, setGroupData } = UseDataContext();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // if user is not logged in, go to signin
+    if (!user) {
+      navigate("/signin");
+    }
+  }, [user]);
 
   // Define validation schema and error messages
   const schema = z.object({

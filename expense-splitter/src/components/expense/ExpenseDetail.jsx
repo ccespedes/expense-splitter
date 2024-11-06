@@ -1,9 +1,9 @@
+import { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { UseDataContext } from "../context/SiteContext";
 import Card from "../ui/Card";
 import PieChart from "../widgets/PieChart";
 import DownloadPDF from "../widgets/DownloadPDF";
-import { useRef, useState } from "react";
 import ButtonFooter from "../ui/ButtonFooter";
 import Button from "../ui/Button";
 import db from "../../utils/localstoragedb";
@@ -16,9 +16,18 @@ import PlainSection from "../layout/PlainSection";
 import { formatWithCommas } from "../../utils/functions";
 
 function ExpenseDetail() {
-  const { expenses, groupData, friends, setExpenses } = UseDataContext();
+  const { expenses, groupData, friends, setExpenses, user } = UseDataContext();
   const { expenseId } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // if user is not logged in, go to signin
+    if (!user) {
+      navigate("/signin");
+    }
+  }, [user]);
+
+  console.log(user);
 
   // Create reference to dom elements
   const deleteDialogRef = useRef(null);

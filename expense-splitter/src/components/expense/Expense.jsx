@@ -13,11 +13,11 @@ export default function Expense() {
   const { user, search, expenses } = UseDataContext();
 
   useEffect(() => {
-    // if user is not "logged in", go to login
+    // if user is not logged in, go to signin
     if (!user) {
       navigate("/signin");
     }
-  }, [user, navigate]);
+  }, [user]);
 
   // Sort expenses by db ID
   const expenseDisplay = expenses

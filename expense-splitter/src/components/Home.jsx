@@ -12,7 +12,7 @@ export default function Home() {
   const { user, groupData, expenses } = UseDataContext();
 
   useEffect(() => {
-    // if user is not "logged in", go to login
+    // if user is not logged in, go to signin
     if (!user) {
       navigate("/signin");
     }

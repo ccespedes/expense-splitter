@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createContext, useContext } from "react";
 import { auth, deleteUser } from "../../utils/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import db from "../../utils/localstoragedb";
 import "../../utils/dummyData";
 
@@ -14,12 +15,40 @@ export const DataProvider = ({ children }) => {
   const initalGroup = db.queryAll("groups");
   const initialExpenses = db.queryAll("expenses");
 
-  const [user, setUser] = useState(db.queryAll("user")[0]);
+  // const [user, setUser] = useState(db.queryAll("user")[0]);
+  const localUser = localStorage.getItem("user");
+  const [user, setUser] = useState(localUser ? JSON.parse(localUser) : null);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [expenses, setExpenses] = useState(initialExpenses);
   const [groupData, setGroupData] = useState(initalGroup);
   const [friends, setFriends] = useState(initialFriends);
   const [search, setSearch] = useState({ show: false, input: "" });
   const [menuShow, setMenuShow] = useState(false);
+
+  console.log("user", user);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in?
+        const uid = user.uid;
+        // console.log('user is logged in', uid)
+        setUser({
+          name: user.displayName,
+          email: user.email,
+          id: user.uid,
+          photoURL: user.photoURL,
+        });
+        setLoggedIn(true);
+        // setLoading(false)
+      } else {
+        // User is signed out
+        console.log("user is logged out");
+        setLoggedIn(false);
+        // setLoading(false)
+      }
+    });
+  }, []);
 
   const handleSetUser = (data) => {
     console.log("handleSetUser data", data);
@@ -29,6 +58,7 @@ export const DataProvider = ({ children }) => {
     db.commit();
     setFriends(db.queryAll("friends"));
     setUser(data);
+    localStorage.setItem("user", JSON.stringify(data));
   };
 
   const handleSetMenuShow = () => {
@@ -57,8 +87,9 @@ export const DataProvider = ({ children }) => {
   const clearData = () => {
     const user = auth.currentUser;
     console.log("user", user);
-    db.drop();
-    db.commit();
+    // db.drop();
+    // db.commit();
+    localStorage.clear(); // also clears out localStorageDB
     window.location.reload();
     // delete user from local and firebase
     // deleteUser(user)
@@ -77,6 +108,7 @@ export const DataProvider = ({ children }) => {
     <SiteContext.Provider
       value={{
         user,
+        loggedIn,
         handleSetUser,
         groupData,
         setGroupData,

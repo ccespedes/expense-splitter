@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -10,10 +10,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import PlainSection from "../layout/PlainSection";
 
 export default function EditGroup() {
-  const { friends, setGroupData, groupData, modal, handleSetModal } =
-    UseDataContext();
+  const { user, friends, setGroupData, groupData } = UseDataContext();
   const { groupId } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // if user is not logged in, go to signin
+    if (!user) {
+      navigate("/signin");
+    }
+  }, [user]);
 
   // Define validation schema and error messages
   const schema = z.object({

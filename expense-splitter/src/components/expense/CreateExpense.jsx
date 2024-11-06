@@ -10,7 +10,7 @@ import { Icon, IconButton, Tooltip } from "@mui/material";
 import PlainSection from "../layout/PlainSection";
 
 export default function CreateExpense() {
-  const { groupData, setExpenses, setGroupData, friends, modal } =
+  const { groupData, setExpenses, setGroupData, friends, user } =
     UseDataContext();
 
   const navigate = useNavigate();
@@ -28,6 +28,13 @@ export default function CreateExpense() {
     watch, // lets use this to track values
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    // if user is not logged in, go to signin
+    if (!user) {
+      navigate("/signin");
+    }
+  }, [user]);
 
   // watch all fields
   const watchedValues = watch();

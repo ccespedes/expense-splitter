@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UseDataContext } from "../context/SiteContext";
 import Button from "../ui/Button";
@@ -8,8 +8,15 @@ import Card from "../ui/Card";
 import NoDataPlaceHolder from "../ui/NoDataPlaceholder";
 
 const FriendList = ({ input }) => {
-  const { friends, groupData, expenses, setFriends } = UseDataContext();
+  const { user, friends, groupData, expenses, setFriends } = UseDataContext();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // if user is not logged in, go to signin
+    if (!user) {
+      navigate("/signin");
+    }
+  }, [user]);
 
   // Create reference to dom element
   const deleteDialogRef = useRef(null);

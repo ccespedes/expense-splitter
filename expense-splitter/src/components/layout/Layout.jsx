@@ -2,8 +2,10 @@ import Header from "./Header";
 import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
 import GetStarted from "../widgets/GetStarted";
+import { UseDataContext } from "../context/SiteContext";
 
 const Layout = () => {
+  const { user } = UseDataContext();
   return (
     <>
       <Header />
@@ -14,7 +16,7 @@ const Layout = () => {
           <GetStarted />
         </div>
       </div>
-      <Footer />
+      {user ? <Footer /> : null}
     </>
   );
 };

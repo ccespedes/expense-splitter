@@ -25,10 +25,17 @@ const FriendForm = () => {
   const params = useParams();
   // Grab data from context
   const id = params.friendId;
-  const { friends, setFriends } = UseDataContext();
+  const { user, friends, setFriends } = UseDataContext();
   // Retrieve friend from state
   const currentFriend = friends.find((friend) => friend.id === id);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // if user is not logged in, go to signin
+    if (!user) {
+      navigate("/signin");
+    }
+  }, [user]);
 
   // Destructure useForm hook
   const {

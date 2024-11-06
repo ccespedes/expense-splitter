@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UseDataContext } from "../context/SiteContext";
 import { categories } from "../../utils/dummyData";
@@ -15,7 +15,7 @@ export default function Group() {
   const { user, groupData, expenses, friends, search } = UseDataContext();
 
   useEffect(() => {
-    // if user is not "logged in", go to login
+    // if user is not logged in, go to signin
     if (!user) {
       navigate("/signin");
     }

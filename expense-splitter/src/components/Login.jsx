@@ -81,6 +81,7 @@ export default function Login() {
         id: user.uid,
         photoURL: user.photoURL,
       });
+      // navigate("/");
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -130,12 +131,13 @@ export default function Login() {
         photoURL:
           "https://imgur.com/gallery/mixer-profile-photo-ctoasterbath-oVn60Ad",
       });
+      navigate("/");
     } catch (error) {
-      setError((prev) => ({ status: true, message: error.message }));
+      setError({ status: true, message: error.message });
     }
   };
 
-  const signUp = async (email, password, name) => {
+  const signUp = async (email, password) => {
     console.log("hit firebase...", email, password);
     try {
       // sign the user up
@@ -150,16 +152,18 @@ export default function Login() {
       prepSignup();
     } catch (error) {
       console.log(error.message);
-      setError((prev) => ({ status: true, message: error.message }));
+      setError({ status: true, message: error.message });
     }
   };
 
   useEffect(() => {
     // if user has "logged in", go to home page
-    if (user) {
-      navigate("/");
+    if (!isSigningUp) {
+      if (user) {
+        navigate("/");
+      }
     }
-  }, [user]);
+  }, [user, isSigningUp]);
 
   const populateDB = () => {
     buildDB();
@@ -176,97 +180,106 @@ export default function Login() {
 
   return (
     <PlainSection>
-      <div className="mb-5">
-        <h2 className="mb-8 text-center">
-          {isSigningUp ? "Create Account" : "Login"}
-        </h2>
+      <div className="flexflex-col">
+        <div className="relative mb-2">
+          <h2 className="mb-8 text-center">
+            {isSigningUp ? "Create Account" : "Login"}
+          </h2>
 
-        {isSigningUp ? (
-          <form
-            className="animate-fadeIn mx-auto flex max-w-md flex-col"
-            onSubmit={nameEntered}
-          >
-            <div className="mb-2 flex flex-col">
-              <input
-                type="text"
-                id="name"
-                placeholder="Your name"
-                className="text-center"
-                required
-                {...register("name", { required: true })}
-              />
-              <div className="error-text">{error.status && error.message}</div>
-            </div>
-            <Button className="mx-auto mb-2 w-full min-w-28 bg-primary">
-              Continue
-            </Button>
-          </form>
-        ) : (
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="mx-auto flex max-w-md flex-col"
-          >
-            <div className="animate-fadeIn">
-              <div className="error-text mb-2 text-center">
-                {error.status && error.message}
-              </div>
-              <Button
-                onClick={googleSignIn}
-                className="mx-auto mb-4 w-full min-w-28 bg-white hover:text-white"
-                textColor="text-primary/80"
-              >
-                <div className="flex items-center justify-center gap-2">
-                  <img className="h-6 w-6" src={GoogleLogo} />
-                  <p>Sign in with Google</p>
-                </div>
-              </Button>
+          {isSigningUp ? (
+            <form
+              className="animate-fadeIn mx-auto flex max-w-md flex-col"
+              onSubmit={nameEntered}
+            >
               <div className="mb-2 flex flex-col">
                 <input
                   type="text"
-                  id="email"
-                  placeholder="Email"
+                  id="name"
+                  placeholder="Your name"
                   className="text-center"
-                  {...register("email")}
+                  required
+                  {...register("name", { required: true })}
                 />
                 <div className="error-text">
-                  {errors.email && errors.email.message}
+                  {error.status && error.message}
                 </div>
               </div>
-
-              <div className="mb-2 flex flex-col">
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Password"
-                  className="text-center"
-                  {...register("password")}
-                />
-                <div className="error-text">
-                  {errors.password && errors.password.message}
+              <Button className="mx-auto mb-2 w-full min-w-28 bg-primary">
+                Continue
+              </Button>
+            </form>
+          ) : (
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="mx-auto flex max-w-md flex-col"
+            >
+              <div className="animate-fadeIn">
+                <div className="error-text mb-2 text-center">
+                  {error.status && error.message}
                 </div>
-              </div>
+                <Button
+                  onClick={googleSignIn}
+                  className="mx-auto mb-4 w-full min-w-28 bg-white hover:text-white"
+                  textColor="text-primary/80"
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <img className="h-6 w-6" src={GoogleLogo} />
+                    <p>Sign in with Google</p>
+                  </div>
+                </Button>
+                <div className="mb-2 flex flex-col">
+                  <input
+                    type="text"
+                    id="email"
+                    placeholder="Email"
+                    className="text-center"
+                    {...register("email")}
+                  />
+                  <div className="error-text">
+                    {errors.email && errors.email.message}
+                  </div>
+                </div>
 
-              <Button
-                name="signIn"
-                onClick={() => setActionType("signIn")}
-                className="mx-auto mb-2 w-full min-w-28 bg-primary"
-              >
-                Sign In
-              </Button>
-              <Button
-                onClick={() => setActionType("signUp")}
-                className="mx-auto mb-8 w-full min-w-28 bg-kush"
-              >
-                Create Account
-              </Button>
-            </div>
-          </form>
+                <div className="mb-2 flex flex-col">
+                  <input
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                    className="text-center"
+                    {...register("password")}
+                  />
+                  <div className="error-text">
+                    {errors.password && errors.password.message}
+                  </div>
+                </div>
+
+                <Button
+                  name="signIn"
+                  onClick={() => setActionType("signIn")}
+                  className="mx-auto mb-2 w-full min-w-28 bg-primary"
+                >
+                  Sign In
+                </Button>
+                <Button
+                  onClick={() => setActionType("signUp")}
+                  className="mx-auto mb-8 w-full min-w-28 bg-kush"
+                >
+                  Create Account
+                </Button>
+              </div>
+            </form>
+          )}
+        </div>
+        {!isSigningUp && (
+          <div className="mt-auto">
+            <Button
+              className="w-full max-w-md bg-black/30"
+              onClick={populateDB}
+            >
+              Populate Test Data
+            </Button>
+          </div>
         )}
-        <ButtonFooter className="md:w-[280px]">
-          <Button className="w-full min-w-28 bg-black/30" onClick={populateDB}>
-            Populate Test Data
-          </Button>
-        </ButtonFooter>
       </div>
     </PlainSection>
   );
