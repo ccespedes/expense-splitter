@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UseDataContext } from "../context/SiteContext";
 import Button from "../ui/Button";
-import db from "../../utils/localstoragedb";
 import Dialog from "../ui/Dialog";
 import Card from "../ui/Card";
 import NoDataPlaceHolder from "../ui/NoDataPlaceholder";
+import { db, dbFriends } from "../../utils/firebase";
 
 const FriendList = ({ input }) => {
   const { user, friends, groupData, expenses, setFriends } = UseDataContext();
@@ -17,6 +17,10 @@ const FriendList = ({ input }) => {
       navigate("/signin");
     }
   }, [user]);
+
+  useEffect(() => {
+    // Any side effects based on friends update can be placed here
+  }, [friends]);
 
   // Create reference to dom element
   const deleteDialogRef = useRef(null);
@@ -36,6 +40,8 @@ const FriendList = ({ input }) => {
     db.deleteRows("friends", { id });
     db.commit();
   };
+
+  console.log("friends", friends);
 
   // filter friends for search bar
   const filteredData = friends.filter((friend) => {

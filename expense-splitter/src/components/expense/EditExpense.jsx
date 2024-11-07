@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../ui/Button";
 import { UseDataContext } from "../context/SiteContext";
-import db from "../../utils/localstoragedb";
+// import db from "../../utils/localstoragedb";
 import { categories } from "../../utils/dummyData";
 import { useNavigate, useParams } from "react-router-dom";
 import PlainSection from "../layout/PlainSection";

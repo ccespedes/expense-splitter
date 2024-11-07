@@ -19,7 +19,7 @@ const Friend = () => {
 
   return (
     <PlainSection>
-      <div className="pb-16">
+      <div className="flex flex-col-reverse pb-16">
         <FriendList input={search.input.toLowerCase()} />
         <ButtonFooter className="md:w-[280px]">
           <Button

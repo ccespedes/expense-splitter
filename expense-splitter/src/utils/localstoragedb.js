@@ -35,14 +35,14 @@ export const buildDB = () => {
 };
 
 // Initialize the database if empty
-if (db.isNew()) {
-  db.createTable("friends", friendsSchema);
-  db.createTable("expenses", expensesSchema);
-  db.createTable("groups", groupSchema);
-  db.createTable("user", userSchema);
+// if (db.isNew()) {
+//   db.createTable("friends", friendsSchema);
+//   db.createTable("expenses", expensesSchema);
+//   db.createTable("groups", groupSchema);
+//   db.createTable("user", userSchema);
 
-  // Write db to localstorage
-  db.commit();
-}
+//   // Write db to localstorage
+//   db.commit();
+// }
 
-export default db;
+// export default db;

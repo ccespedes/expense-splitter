@@ -13,10 +13,10 @@ const Layout = () => {
       <div className="mx-auto mb-10 max-w-4xl">
         <div className="mx-4">
           <Outlet />
-          <GetStarted />
+          {user && <GetStarted />}
         </div>
       </div>
-      {user ? <Footer /> : null}
+      {user && <Footer />}
     </>
   );
 };

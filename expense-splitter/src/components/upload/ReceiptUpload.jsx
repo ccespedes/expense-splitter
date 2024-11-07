@@ -4,7 +4,7 @@ import * as z from "zod";
 import { storage } from "../../utils/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Button from "../ui/Button";
-import db from "../../utils/localstoragedb";
+// import db from "../../utils/localstoragedb";
 import { useState } from "react";
 
 const MAX_FILE_SIZE = 6291456; // 1024 * 1024 * 6 = 6MB

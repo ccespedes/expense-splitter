@@ -3,20 +3,27 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { UseDataContext } from "../context/SiteContext";
 import Button from "../ui/Button";
 import Dialog from "../ui/Dialog";
+import { getFriends } from "../../utils/api";
 
 const GetStarted = () => {
-  const { friends, groupData } = UseDataContext();
+  const { friends, groupData, user } = UseDataContext();
 
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname.split("/")[1];
 
   useEffect(() => {
-    if (friends.length < 2) {
-      toggleDialog(addFriendDialogRef);
-    } else if (groupData.length === 0) {
-      toggleDialog(addGroupDialogRef);
-    }
+    const checkFriends = async () => {
+      console.log("check friends", user);
+      const friends = await getFriends(user);
+      console.log(friends);
+      if (friends.length < 2) {
+        toggleDialog(addFriendDialogRef);
+      } else if (groupData.length === 0) {
+        toggleDialog(addGroupDialogRef);
+      }
+    };
+    checkFriends();
   });
 
   const toggleDialog = (ref) => {

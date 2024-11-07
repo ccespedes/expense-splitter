@@ -6,9 +6,17 @@ import * as z from "zod";
 import { nanoid } from "nanoid";
 import Button from "../ui/Button";
 import { UseDataContext } from "../context/SiteContext";
-import db from "../../utils/localstoragedb";
+// import db from "../../utils/localstoragedb";
 import PropTypes from "prop-types";
 import PlainSection from "../layout/PlainSection";
+import { db, dbFriends } from "../../utils/firebase";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 
 // Define schema for optional email
 const optionalEmail = z.union([z.string().trim().email(), z.literal("")]);
@@ -58,28 +66,38 @@ const FriendForm = () => {
   }, [setFocus]);
 
   // Add friend to state and save to local storage
-  const onSubmit = (data) => {
-    // check if friend exists and use its id else create new id
-    const fid = id ?? nanoid();
-    const newFriend = { ...data, id: fid };
-    // Save friend to state
-    if (currentFriend) {
-      // Update friend in state
-      const index = friends.findIndex((friend) => friend.id === id);
-      setFriends([
-        ...friends.slice(0, index),
-        newFriend,
-        ...friends.slice(index + 1),
-      ]);
-    } else {
-      // Append friend to state
-      setFriends([...friends, newFriend]);
+  const onSubmit = async (data) => {
+    try {
+      const docRef = await addDoc(collection(db, dbFriends), {
+        createdAt: serverTimestamp(),
+        uid: user.id,
+        ...data,
+      });
+      console.log("post added, written with ID: ", docRef.id);
+    } catch (error) {
+      console.error("Error adding document: ", error);
     }
+    // // check if friend exists and use its id else create new id
+    // const fid = id ?? nanoid();
+    // const newFriend = { ...data, id: fid };
+    // // Save friend to state
+    // if (currentFriend) {
+    //   // Update friend in state
+    //   const index = friends.findIndex((friend) => friend.id === id);
+    //   setFriends([
+    //     ...friends.slice(0, index),
+    //     newFriend,
+    //     ...friends.slice(index + 1),
+    //   ]);
+    // } else {
+    //   // Append friend to state
+    //   setFriends([...friends, newFriend]);
+    // }
 
-    // Save friend to local storage
-    db.insertOrUpdate("friends", { id }, newFriend);
-    db.commit();
-    navigate("/friends");
+    // // Save friend to local storage
+    // db.insertOrUpdate("friends", { id }, newFriend);
+    // db.commit();
+    // navigate("/friends");
   };
 
   return (
@@ -149,3 +167,28 @@ FriendForm.propTypes = {
 };
 
 export default FriendForm;
+
+// // Add friend to state and save to local storage
+// const onSubmit = (data) => {
+//   // check if friend exists and use its id else create new id
+//   const fid = id ?? nanoid();
+//   const newFriend = { ...data, id: fid };
+//   // Save friend to state
+//   if (currentFriend) {
+//     // Update friend in state
+//     const index = friends.findIndex((friend) => friend.id === id);
+//     setFriends([
+//       ...friends.slice(0, index),
+//       newFriend,
+//       ...friends.slice(index + 1),
+//     ]);
+//   } else {
+//     // Append friend to state
+//     setFriends([...friends, newFriend]);
+//   }
+
+//   // Save friend to local storage
+//   db.insertOrUpdate("friends", { id }, newFriend);
+//   db.commit();
+//   navigate("/friends");
+// };

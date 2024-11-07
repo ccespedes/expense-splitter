@@ -1,4 +1,4 @@
-import db from "../../utils/localstoragedb";
+// import db from "../../utils/localstoragedb";
 import Dialog from "../ui/Dialog";
 import { useRef } from "react";
 import deleteReceiptFromStorage from "../../utils/deleteReceipt";
