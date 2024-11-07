@@ -271,7 +271,7 @@ export default function Login() {
           )}
         </div>
         {!isSigningUp && (
-          <div className="mt-auto">
+          <div className="mt-auto flex justify-center">
             <Button
               className="w-full max-w-md bg-black/30"
               onClick={populateDB}
