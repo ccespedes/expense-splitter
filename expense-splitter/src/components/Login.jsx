@@ -24,7 +24,7 @@ export default function Login() {
     user,
     handleSetUser,
     setFriends,
-    setGroupData,
+    setGroups,
     setExpenses,
     handleTestData,
   } = UseDataContext();
@@ -118,7 +118,6 @@ export default function Login() {
         password,
       );
       const user = userCredential.user;
-      console.log("sign in successful: ", user);
       const userObj = {
         name: user.displayName,
         email: user.email,
@@ -126,9 +125,7 @@ export default function Login() {
       };
       handleSetUser(userObj);
       // check if any friends exists, if not add user to friends db
-      // await initialFriendCheck(userObj);
       const friends = await getFriends(userObj);
-      console.log("friends: ", friends);
       if (friends.length === 0) {
         try {
           console.log("friendsInTry: ", friends);
@@ -149,27 +146,6 @@ export default function Login() {
       setError((prev) => ({ status: true, message: error.message }));
     }
   };
-
-  // const initialFriendCheck = async (user) => {
-  //   const friends = await getFriends(user);
-  //   console.log("friends: ", friends);
-  //   if (friends.length === 0) {
-  //     try {
-  //       console.log("initialFriendCheck: ", user.id);
-  //       console.log("friendsInTry: ", friends);
-  //       const docRef = await addDoc(collection(db, dbFriends), {
-  //         createdAt: serverTimestamp(),
-  //         uid: user.id,
-  //         name: user.displayName,
-  //         email: user.email,
-  //       });
-  //       console.log("post added, written with ID: ", docRef.id);
-  //       setFriends((prev) => [...prev, user]);
-  //     } catch (error) {
-  //       console.error("Error adding document: ", error);
-  //     }
-  //   }
-  // };
 
   const prepSignup = (email) => {
     setError({}); // clear any previous errors
@@ -225,19 +201,6 @@ export default function Login() {
       }
     }
   }, [user, isSigningUp]);
-
-  // const populateDB = () => {
-  //   buildDB();
-  //   setFriends(db.queryAll("friends"));
-  //   setGroupData(db.queryAll("groups"));
-  //   setExpenses(db.queryAll("expenses"));
-  //   handleTestData({
-  //     ID: 1,
-  //     name: "Walter White",
-  //     email: "fred@gmail.com",
-  //     id: "EXOJIPyvbAKBvbsbESDBJ",
-  //   });
-  // };
 
   return (
     <PlainSection>

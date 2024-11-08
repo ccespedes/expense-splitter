@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { nanoid } from "nanoid";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Button from "../ui/Button";
 import { UseDataContext } from "../context/SiteContext";
 import MultiSelectDropdown from "../ui/MultiSelectDropdown";
-// import db from "../../utils/localstoragedb";
 import PlainSection from "../layout/PlainSection";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db, dbGroups } from "../../utils/firebase";
 
 export default function CreateGroup() {
-  const { user, friends, setGroupData } = UseDataContext();
+  const { user, friends, setGroups } = UseDataContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,16 +51,19 @@ export default function CreateGroup() {
   });
 
   //onSubmit
-  const onSubmit = (values) => {
-    const id = nanoid();
-    //insert the new group data into the group database
-    db.insert("groups", { ...values, id, expenseIDs: [] });
-    db.commit();
-    //call setState to render the component
-    setGroupData(db.queryAll("groups"));
-    //close form after submit
-    // handleSetModal();
-    navigate(`/groups/${id}`);
+  const onSubmit = async (values) => {
+    try {
+      const docRef = await addDoc(collection(db, dbGroups), {
+        createdAt: serverTimestamp(),
+        uid: user.id,
+        ...values,
+        expenseIDs: [],
+      });
+      console.log("post added, written with ID: ", docRef.id);
+      navigate(`/groups/${docRef.id}`);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
   };
 
   return (

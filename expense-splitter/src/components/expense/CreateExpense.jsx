@@ -3,15 +3,22 @@ import { useForm } from "react-hook-form";
 import Button from "../ui/Button";
 import { UseDataContext } from "../context/SiteContext";
 import { nanoid } from "nanoid";
-// import db from "../../utils/localstoragedb";
 import { categories } from "../../utils/dummyData";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Icon, IconButton, Tooltip } from "@mui/material";
 import PlainSection from "../layout/PlainSection";
+import { db, dbExpenses, dbGroups } from "../../utils/firebase";
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 
 export default function CreateExpense() {
-  const { groupData, setExpenses, setGroupData, friends, user } =
-    UseDataContext();
+  const { groups, setExpenses, setGroups, friends, user } = UseDataContext();
 
   const navigate = useNavigate();
 
@@ -151,7 +158,7 @@ export default function CreateExpense() {
   ]);
 
   // get the friends in the group
-  const friendIdsArr = groupData.find(
+  const friendIdsArr = groups.find(
     (group) => group.id === watchedValues["group"],
   )?.friendIDs;
 
@@ -210,7 +217,7 @@ export default function CreateExpense() {
     );
   });
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     // get friends with non-zeros
     const friendsWithNonZeros = allFriends.filter(
       (friend) => friend.weight != "0" && friend.name,
@@ -241,23 +248,43 @@ export default function CreateExpense() {
       groupId: values.group,
     };
 
-    db.insert("expenses", { ...newExpense });
-    // update groups state with new expense id
-    setGroupData((prev) =>
-      prev.map((group) =>
-        group.id === values.group
-          ? { ...group, expenseIDs: [...group.expenseIDs, id] }
-          : group,
-      ),
-    );
-    // update groups with new expense id
-    db.update("groups", { id: values.group }, (row) => ({
-      ...row,
-      expenseIDs: [...row.expenseIDs, id],
-    }));
-    db.commit();
-    // update expenses state with new db values
-    setExpenses(db.queryAll("expenses"));
+    // add expense to db
+    try {
+      const docRef = await addDoc(collection(db, dbExpenses), {
+        createdAt: serverTimestamp(),
+        uid: user.id,
+        ...newExpense,
+      });
+      console.log("post added, written with ID: ", docRef.id);
+
+      // update groups with new expense id
+      console.log("group to update", values.group);
+      const groupRef = doc(db, dbGroups, values.group);
+      await updateDoc(groupRef, {
+        expenseIDs: arrayUnion(id),
+      });
+      navigate(`/expenses/${docRef.id}`);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+
+    // db.insert("expenses", { ...newExpense });
+    // // update groups state with new expense id
+    // setGroups((prev) =>
+    //   prev.map((group) =>
+    //     group.id === values.group
+    //       ? { ...group, expenseIDs: [...group.expenseIDs, id] }
+    //       : group,
+    //   ),
+    // );
+    // // update groups with new expense id
+    // db.update("groups", { id: values.group }, (row) => ({
+    //   ...row,
+    //   expenseIDs: [...row.expenseIDs, id],
+    // }));
+    // db.commit();
+    // // update expenses state with new db values
+    // setExpenses(db.queryAll("expenses"));
     navigate(`/expenses/${id}`);
   };
 
@@ -360,7 +387,7 @@ export default function CreateExpense() {
             })}
           >
             <option value=""></option>
-            {groupData.map((group) => (
+            {groups.map((group) => (
               <option key={group.id} value={group.id}>
                 {group.name}
               </option>

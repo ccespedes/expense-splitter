@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import PlainSection from "../layout/PlainSection";
 
 export default function CreateExpense() {
-  const { groupData, friends, expenses, setExpenses, user } = UseDataContext();
+  const { groups, friends, expenses, setExpenses, user } = UseDataContext();
   const [currentExpense, setCurrentExpense] = useState({});
   const [allFriends, setAllFriends] = useState([]);
   const [weightTotal, setWeightTotal] = useState(0);
@@ -165,7 +165,7 @@ export default function CreateExpense() {
 
   // load group values
   useEffect(() => {
-    const friendIdsArr = groupData.find(
+    const friendIdsArr = groups.find(
       (group) => group.id === watchedValues["group"],
     )?.friendIDs;
 
@@ -340,7 +340,7 @@ export default function CreateExpense() {
             })}
           >
             <option value=""></option>
-            {groupData.map((group) => (
+            {groups.map((group) => (
               <option key={group.id} value={group.id}>
                 {group.name}
               </option>

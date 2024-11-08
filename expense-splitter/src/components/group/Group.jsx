@@ -12,7 +12,7 @@ import NoDataPlaceHolder from "../ui/NoDataPlaceholder";
 
 export default function Group() {
   const navigate = useNavigate();
-  const { user, groupData, expenses, friends, search } = UseDataContext();
+  const { user, groups, expenses, friends, search } = UseDataContext();
 
   useEffect(() => {
     // if user is not logged in, go to signin
@@ -22,7 +22,7 @@ export default function Group() {
   }, [user]);
 
   // filter groupDisplay for search bar
-  const filteredData = groupData.filter((group) => {
+  const filteredData = groups.filter((group) => {
     if (search.input === "") {
       return group;
     } else {
@@ -98,7 +98,7 @@ export default function Group() {
       );
     });
 
-  return groupData.length > 0 ? (
+  return groups.length > 0 ? (
     <div className="relative -top-[110px] pb-10">
       <div>
         {groupDisplay.length > 0 ? (

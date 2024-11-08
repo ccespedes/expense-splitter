@@ -22,5 +22,17 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
 const dbFriends = "friends";
+const dbGroups = "groups";
+const dbExpenses = "expenses";
 
-export { db, storage, auth, provider, signOut, dbFriends, deleteUser };
+export {
+  db,
+  storage,
+  auth,
+  provider,
+  signOut,
+  dbFriends,
+  dbGroups,
+  dbExpenses,
+  deleteUser,
+};

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createContext, useContext } from "react";
-import { auth, deleteUser } from "../../utils/firebase";
+import { auth, dbExpenses, dbGroups, deleteUser } from "../../utils/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 // import db from "../../utils/localstoragedb";
 import { db as db, dbFriends } from "../../utils/firebase";
@@ -28,7 +28,7 @@ export const DataProvider = ({ children }) => {
   const [user, setUser] = useState(localUser ? JSON.parse(localUser) : null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [expenses, setExpenses] = useState([]);
-  const [groupData, setGroupData] = useState([]);
+  const [groups, setGroups] = useState([]);
   const [friends, setFriends] = useState([]);
   const [search, setSearch] = useState({ show: false, input: "" });
   const [menuShow, setMenuShow] = useState(false);
@@ -74,18 +74,51 @@ export const DataProvider = ({ children }) => {
         setFriends(updatedFriends);
       });
 
-      // Clean up the listener on unmount
+      return () => unsubscribe();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      const groupsRef = collection(db, dbGroups);
+      const q = query(
+        groupsRef,
+        where("uid", "==", user.id),
+        orderBy("createdAt", "desc"),
+      );
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const updatedGroups = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setGroups(updatedGroups);
+      });
+
+      return () => unsubscribe();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      const groupsRef = collection(db, dbExpenses);
+      const q = query(
+        groupsRef,
+        where("uid", "==", user.id),
+        orderBy("createdAt", "desc"),
+      );
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const updatedExpenses = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setExpenses(updatedExpenses);
+      });
+
       return () => unsubscribe();
     }
   }, [user]);
 
   const handleSetUser = (data) => {
-    console.log("handleSetUser data", data);
-    // update the db with the new user and add user to friends
-    // db.insertOrUpdate("user", { ID: 1 }, data);
-    // db.insertOrUpdate("friends", { ID: 1 }, data);
-    // db.commit();
-    // setFriends(db.queryAll("friends"));
     setUser(data);
     setFriends([...friends, data]);
     localStorage.setItem("user", JSON.stringify(data));
@@ -94,10 +127,6 @@ export const DataProvider = ({ children }) => {
   const handleSetMenuShow = () => {
     setMenuShow((prev) => !prev);
   };
-
-  useEffect(() => {
-    console.log("rendered");
-  }, [menuShow]);
 
   const handleTestData = (data) => {
     setUser(data); // set test data
@@ -140,8 +169,8 @@ export const DataProvider = ({ children }) => {
         user,
         loggedIn,
         handleSetUser,
-        groupData,
-        setGroupData,
+        groups,
+        setGroups,
         friends,
         setFriends,
         expenses,

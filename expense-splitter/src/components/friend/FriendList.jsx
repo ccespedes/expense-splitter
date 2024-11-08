@@ -5,10 +5,10 @@ import Button from "../ui/Button";
 import Dialog from "../ui/Dialog";
 import Card from "../ui/Card";
 import NoDataPlaceHolder from "../ui/NoDataPlaceholder";
-import { db, dbFriends } from "../../utils/firebase";
+import { db } from "../../utils/firebase";
 
 const FriendList = ({ input }) => {
-  const { user, friends, groupData, expenses, setFriends } = UseDataContext();
+  const { user, friends, groups, expenses, setFriends } = UseDataContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,8 +41,6 @@ const FriendList = ({ input }) => {
     db.commit();
   };
 
-  console.log("friends", friends);
-
   // filter friends for search bar
   const filteredData = friends.filter((friend) => {
     if (input === "") {
@@ -72,7 +70,7 @@ const FriendList = ({ input }) => {
                 // Put friend id in state and opens dialog
                 onClick={() => {
                   // Check if friend is part of a group
-                  if (existsIn(groupData, "friendIDs", friend.id)) {
+                  if (existsIn(groups, "friendIDs", friend.id)) {
                     setCantDeleteMsg("a group");
                     cantDeleteDialogRef.current.showModal();
                     return;

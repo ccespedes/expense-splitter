@@ -1,15 +1,7 @@
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db, dbFriends } from "./firebase";
 
 export const getFriends = async (user) => {
-  console.log("getting friends");
   try {
     const friendsRef = collection(db, dbFriends);
     const q = query(
@@ -25,8 +17,6 @@ export const getFriends = async (user) => {
       const { id } = doc;
       friends.push({ name, email, id });
     });
-
-    console.log("friends", friends);
     return friends;
   } catch (error) {
     console.error(error.message);

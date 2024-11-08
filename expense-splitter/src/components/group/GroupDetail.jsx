@@ -20,7 +20,7 @@ function GroupDetail() {
     width: 0,
     color: "#D4E2F7",
   });
-  const { groupData, setGroupData, friends, expenses, setExpenses } =
+  const { groups, setGroups, friends, expenses, setExpenses } =
     UseDataContext();
 
   // Create reference to dom elements
@@ -29,7 +29,7 @@ function GroupDetail() {
   const { groupId } = useParams();
   const navigate = useNavigate();
 
-  const singleGroup = groupData.find((group) => group.id === groupId);
+  const singleGroup = groups.find((group) => group.id === groupId);
 
   // get all the group expenses
   const groupExpenses = expenses.filter((expense) =>
@@ -128,7 +128,7 @@ function GroupDetail() {
         db.commit();
 
         //call setState to render the component
-        setGroupData(db.queryAll("groups"));
+        setGroups(db.queryAll("groups"));
         setExpenses(db.queryAll("expenses"));
 
         // after deleting, navigate to groups

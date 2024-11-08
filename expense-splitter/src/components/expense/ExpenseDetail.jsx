@@ -16,7 +16,7 @@ import PlainSection from "../layout/PlainSection";
 import { formatWithCommas } from "../../utils/functions";
 
 function ExpenseDetail() {
-  const { expenses, groupData, friends, setExpenses, user } = UseDataContext();
+  const { expenses, groups, friends, setExpenses, user } = UseDataContext();
   const { expenseId } = useParams();
   const navigate = useNavigate();
 
@@ -26,8 +26,6 @@ function ExpenseDetail() {
       navigate("/signin");
     }
   }, [user]);
-
-  console.log(user);
 
   // Create reference to dom elements
   const deleteDialogRef = useRef(null);
@@ -72,7 +70,7 @@ function ExpenseDetail() {
   }
 
   // get group connected to expense
-  const expenseGroup = groupData.filter(
+  const expenseGroup = groups.filter(
     (group) => group.id === expenseDetails.groupId,
   )[0];
 

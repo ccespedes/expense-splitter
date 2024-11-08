@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import PlainSection from "../layout/PlainSection";
 
 export default function EditGroup() {
-  const { user, friends, setGroupData, groupData } = UseDataContext();
+  const { user, friends, setGroups, groups } = UseDataContext();
   const { groupId } = useParams();
   const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ export default function EditGroup() {
   });
 
   //form properties
-  const currentGroupData = groupData.find(
+  const currentGroupData = groups.find(
     (group) => group.ID === parseInt(groupId),
   );
 
@@ -79,7 +79,7 @@ export default function EditGroup() {
     db.insertOrUpdate("groups", { ID: currentGroupData.ID }, { ...values });
     db.commit();
     //call setState to render the component
-    setGroupData(db.queryAll("groups"));
+    setGroups(db.queryAll("groups"));
     navigate(-1);
   };
 

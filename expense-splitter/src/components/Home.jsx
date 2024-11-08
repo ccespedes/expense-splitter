@@ -9,7 +9,7 @@ import PlainSection from "./layout/PlainSection";
 
 export default function Home() {
   const navigate = useNavigate();
-  const { user, groupData, expenses } = UseDataContext();
+  const { user, groups, expenses } = UseDataContext();
 
   useEffect(() => {
     // if user is not logged in, go to signin
@@ -18,7 +18,7 @@ export default function Home() {
     }
   }, [user]);
 
-  const groupDisplay = groupData
+  const groupDisplay = groups
     .sort((a, b) => b.ID - a.ID) // show latest expense up top
     .map((group, i) => {
       // show a max of 3 groups
@@ -42,7 +42,7 @@ export default function Home() {
       // show a max of 3 expenses
       if (i <= 2) {
         // get the group associated with this expense
-        const expenseGroup = groupData.find(
+        const expenseGroup = groups.find(
           (group) => group.id === expense.groupId,
         );
 
@@ -72,9 +72,7 @@ export default function Home() {
         (cat) => cat.name === expense.category,
       ).icon;
       // get the group associated with this expense
-      const expenseGroup = groupData.find(
-        (group) => group.id === expense.groupId,
-      );
+      const expenseGroup = groups.find((group) => group.id === expense.groupId);
 
       // calculate total spent
       const expenseIds = expenseGroup.expenseIDs;
@@ -119,7 +117,7 @@ export default function Home() {
         </div>
         <div className="mb-8">
           <h3 className="mb-2 font-medium">Recent Groups</h3>
-          {groupData.length > 0 ? (
+          {groups.length > 0 ? (
             <>{groupDisplay}</>
           ) : (
             <NoDataPlaceholder
@@ -149,7 +147,7 @@ export default function Home() {
       <PlainSection>
         <div className="mb-8">
           <h3 className="mb-4 font-medium">Recent Groups</h3>
-          {groupData.length > 0 ? (
+          {groups.length > 0 ? (
             <>{groupDisplay}</>
           ) : (
             <NoDataPlaceholder
