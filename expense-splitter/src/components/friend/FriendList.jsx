@@ -63,7 +63,7 @@ const FriendList = ({ input }) => {
             subtitle={friend?.email}
             hasButtons={true}
           >
-            {friend.ID === 1 ? null : (
+            {friend.admin ? null : (
               <Button
                 variant={"small"}
                 className="bg-red-700"
