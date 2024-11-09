@@ -12,8 +12,8 @@ const ProfileMenu = () => {
     try {
       await signOut(auth);
       console.log("signing out successful");
-      clearData();
-      //   console.log("auth", auth);
+      localStorage.clear(); // also clears out localStorageDB
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }

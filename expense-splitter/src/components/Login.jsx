@@ -58,7 +58,6 @@ export default function Login() {
 
   const onSubmit = (values) => {
     const { email, password } = values;
-    console.log(email, password, actionType);
     if (actionType === "signIn") {
       signIn(email, password);
     }
@@ -75,7 +74,6 @@ export default function Login() {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       // const token = credential.accessToken;
       const user = result.user;
-      console.log("signed in. user:", user);
       const userObj = {
         name: user.displayName,
         email: user.email,

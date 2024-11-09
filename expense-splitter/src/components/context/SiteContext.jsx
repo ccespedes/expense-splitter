@@ -142,27 +142,6 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  // test function to clear all data
-  const clearData = () => {
-    const user = auth.currentUser;
-    console.log("user", user);
-    // db.drop();
-    // db.commit();
-    localStorage.clear(); // also clears out localStorageDB
-    window.location.reload();
-    // delete user from local and firebase
-    // deleteUser(user)
-    //   .then(() => {
-    //     console.log("user deleted");
-    //     db.drop();
-    //     db.commit();
-    //     window.location.reload();
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-  };
-
   return (
     <SiteContext.Provider
       value={{
@@ -182,7 +161,6 @@ export const DataProvider = ({ children }) => {
         menuShow,
         setMenuShow,
         handleSetMenuShow,
-        clearData,
       }}
     >
       {children}

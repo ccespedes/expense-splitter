@@ -13,28 +13,9 @@ export default function Header() {
   const [isNestedPath, setIsNestedPath] = useState(false);
   const [view, setView] = useState(null);
   const [showTest, setShowTest] = useState(false);
-  const {
-    user,
-    search,
-    setSearch,
-    menuShow,
-    setMenuShow,
-    handleSetMenuShow,
-    clearData,
-  } = UseDataContext();
+  const { user, search, setSearch, menuShow, setMenuShow, handleSetMenuShow } =
+    UseDataContext();
   const defaultProfilePic = user?.photoURL || "https://imgur.com/o9fpo46.png";
-
-  const handleMouseEnter = () => {
-    setShowTest(true);
-    const timeout = setTimeout(() => {
-      setShowTest(false);
-      clearTimeout(timeout);
-    }, 3000);
-  };
-
-  const handleMouseOut = () => {
-    setShowTest(false);
-  };
 
   useEffect(() => {
     setMenuShow(false);
@@ -68,11 +49,7 @@ export default function Header() {
           </div>
         </div>
         <div className="flex gap-2">
-          <RoundButton
-            onMouseEnter={handleMouseEnter}
-            onMouseOut={handleMouseOut}
-            onClick={() => clearData()}
-          >
+          <RoundButton>
             <i className="fa-regular fa-bell opacity-70"></i>
           </RoundButton>
         </div>
