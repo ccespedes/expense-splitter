@@ -159,13 +159,32 @@ export default function Login() {
       // set users display name
       updateProfile(auth.currentUser, { displayName: name });
       console.log("user display name set: ", name);
-      handleSetUser({
+      const userObj = {
         name: name,
         email: creds.email,
         id: creds.id,
         photoURL:
           "https://imgur.com/gallery/mixer-profile-photo-ctoasterbath-oVn60Ad",
-      });
+      };
+      handleSetUser(userObj);
+      // check if any friends exists, if not add user to friends db
+      const friends = await getFriends(userObj);
+      if (friends.length === 0) {
+        try {
+          console.log("friendsInTry: ", friends);
+          const docRef = await addDoc(collection(db, dbFriends), {
+            createdAt: serverTimestamp(),
+            uid: creds.id,
+            name: name,
+            email: creds.email,
+            admin: true,
+          });
+          console.log("post added, written with ID: ", docRef.id);
+          setFriends((prev) => [...prev, user]);
+        } catch (error) {
+          console.error("Error adding document: ", error);
+        }
+      }
       navigate("/");
     } catch (error) {
       setError({ status: true, message: error.message });
