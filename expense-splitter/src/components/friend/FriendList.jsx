@@ -5,7 +5,8 @@ import Button from "../ui/Button";
 import Dialog from "../ui/Dialog";
 import Card from "../ui/Card";
 import NoDataPlaceHolder from "../ui/NoDataPlaceholder";
-import { db } from "../../utils/firebase";
+import { db, dbFriends } from "../../utils/firebase";
+import { deleteDoc, doc } from "firebase/firestore";
 
 const FriendList = ({ input }) => {
   const { user, friends, groups, expenses, setFriends } = UseDataContext();
@@ -34,11 +35,10 @@ const FriendList = ({ input }) => {
   };
 
   // Delete friend if matches id
-  const handleDeleteFriend = (id) => {
+  const handleDeleteFriend = async (id) => {
     setFriends(friends.filter((friend) => friend.id !== id));
-    // Delete friend from local storage
-    db.deleteRows("friends", { id });
-    db.commit();
+    await deleteDoc(doc(db, dbFriends, id));
+    console.log("friend deleted: ", id);
   };
 
   // filter friends for search bar
