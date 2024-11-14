@@ -8,7 +8,13 @@ import { UseDataContext } from "../context/SiteContext";
 import PropTypes from "prop-types";
 import PlainSection from "../layout/PlainSection";
 import { db, dbFriends } from "../../utils/firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 
 // Define schema for optional email
 const optionalEmail = z.union([z.string().trim().email(), z.literal("")]);
@@ -25,7 +31,7 @@ const FriendForm = () => {
   const params = useParams();
   // Grab data from context
   const id = params.friendId;
-  const { user, friends, setFriends } = UseDataContext();
+  const { user, friends } = UseDataContext();
   // Retrieve friend from state
   const currentFriend = friends.find((friend) => friend.id === id);
   const navigate = useNavigate();
@@ -59,15 +65,23 @@ const FriendForm = () => {
 
   // Add friend to firestore
   const onSubmit = async (data) => {
-    try {
-      const docRef = await addDoc(collection(db, dbFriends), {
-        createdAt: serverTimestamp(),
-        uid: user.id,
-        ...data,
-      });
-      console.log("post added, written with ID: ", docRef.id);
-    } catch (error) {
-      console.error("Error adding document: ", error);
+    // if id exists, update friend
+    if (id) {
+      const docRef = doc(db, dbFriends, id);
+      await updateDoc(docRef, data);
+      console.log("friend updated");
+    } else {
+      // if id does not exist, add new friend
+      try {
+        const docRef = await addDoc(collection(db, dbFriends), {
+          createdAt: serverTimestamp(),
+          uid: user.id,
+          ...data,
+        });
+        console.log("friend added, written with ID: ", docRef.id);
+      } catch (error) {
+        console.error("Error adding document: ", error);
+      }
     }
     navigate("/friends");
   };
