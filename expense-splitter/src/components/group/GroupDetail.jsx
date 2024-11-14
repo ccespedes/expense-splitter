@@ -195,8 +195,6 @@ function GroupDetail() {
     return <Navigate to={"/404"} />;
   }
 
-  console.log("singleGroup: ", singleGroup);
-
   return (
     <PlainSection>
       <div className="mb-32">
