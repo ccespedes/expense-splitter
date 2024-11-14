@@ -34,6 +34,15 @@ function ExpenseDetail() {
 
   const [deleteID, setDeleteID] = useState(null);
 
+  if (expenses.length === 0) {
+    // Show a loading state or return early
+    return (
+      <PlainSection>
+        <h1>Loading...</h1>
+      </PlainSection>
+    );
+  }
+
   // get expense details
   const expenseDetails = expenses.find((expense) => expense.id === expenseId);
   console.log(expenses);
@@ -64,7 +73,7 @@ function ExpenseDetail() {
 
   // Redirect to 404 page if expense not found
   if (!expenseDetails) {
-    return <Navigate to={"404"} />;
+    return <Navigate to={"/404"} />;
   }
 
   // get group connected to expense
