@@ -5,12 +5,12 @@ import { z } from "zod";
 import Button from "../ui/Button";
 import { UseDataContext } from "../context/SiteContext";
 import MultiSelectDropdown from "../ui/MultiSelectDropdown";
-// import db from "../../utils/localstoragedb";
 import { useNavigate, useParams } from "react-router-dom";
 import PlainSection from "../layout/PlainSection";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 export default function EditGroup() {
-  const { user, friends, setGroups, groups } = UseDataContext();
+  const { user, friends, setGroups, groups, loadingGroups } = UseDataContext();
   const { groupId } = useParams();
   const navigate = useNavigate();
 
@@ -43,12 +43,12 @@ export default function EditGroup() {
   });
 
   //form properties
-  const currentGroupData = groups.find(
-    (group) => group.ID === parseInt(groupId),
-  );
+  const currentGroupData = groups.find((group) => group.id === groupId);
+
+  console.log("currentGroupData", currentGroupData);
 
   //save the list of friends
-  const editFriends = currentGroupData.friendIDs;
+  const editFriends = currentGroupData ? currentGroupData.friendIDs : [];
 
   const {
     handleSubmit,
@@ -75,13 +75,23 @@ export default function EditGroup() {
 
   //onSubmit
   const onSubmit = (values) => {
-    //updating the group data in groups database
-    db.insertOrUpdate("groups", { ID: currentGroupData.ID }, { ...values });
-    db.commit();
-    //call setState to render the component
-    setGroups(db.queryAll("groups"));
-    navigate(-1);
+    console.log("values", values);
+    // //updating the group data in groups database
+    // db.insertOrUpdate("groups", { ID: currentGroupData.ID }, { ...values });
+    // db.commit();
+    // //call setState to render the component
+    // setGroups(db.queryAll("groups"));
+    // navigate(-1);
   };
+
+  if (loadingGroups) {
+    // Show LoadingSpinner while loading is true
+    return (
+      <PlainSection>
+        <LoadingSpinner />
+      </PlainSection>
+    );
+  }
 
   return (
     <PlainSection>
