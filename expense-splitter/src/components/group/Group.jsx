@@ -21,6 +21,8 @@ export default function Group() {
     }
   }, [user]);
 
+  console.log("groups", groups);
+
   // filter groupDisplay for search bar
   const filteredData = groups.filter((group) => {
     if (search.input === "") {

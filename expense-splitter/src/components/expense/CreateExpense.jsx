@@ -241,7 +241,6 @@ export default function CreateExpense() {
       return { friendId: friend.id, percentage: finalWeight };
     });
     const newExpense = {
-      id,
       ...values,
       date: new Date(),
       weight: weightObj,
@@ -255,37 +254,17 @@ export default function CreateExpense() {
         uid: user.id,
         ...newExpense,
       });
-      console.log("post added, written with ID: ", docRef.id);
+      const newExpenseId = docRef.id;
 
       // update groups with new expense id
-      console.log("group to update", values.group);
       const groupRef = doc(db, dbGroups, values.group);
       await updateDoc(groupRef, {
-        expenseIDs: arrayUnion(id),
+        expenseIDs: arrayUnion(newExpenseId),
       });
-      navigate(`/expenses/${docRef.id}`);
+      navigate(`/expenses/${newExpenseId}`);
     } catch (error) {
       console.error("Error adding document: ", error);
     }
-
-    // db.insert("expenses", { ...newExpense });
-    // // update groups state with new expense id
-    // setGroups((prev) =>
-    //   prev.map((group) =>
-    //     group.id === values.group
-    //       ? { ...group, expenseIDs: [...group.expenseIDs, id] }
-    //       : group,
-    //   ),
-    // );
-    // // update groups with new expense id
-    // db.update("groups", { id: values.group }, (row) => ({
-    //   ...row,
-    //   expenseIDs: [...row.expenseIDs, id],
-    // }));
-    // db.commit();
-    // // update expenses state with new db values
-    // setExpenses(db.queryAll("expenses"));
-    navigate(`/expenses/${id}`);
   };
 
   const weightInfo =

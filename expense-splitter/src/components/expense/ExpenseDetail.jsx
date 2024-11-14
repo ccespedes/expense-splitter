@@ -6,7 +6,6 @@ import PieChart from "../widgets/PieChart";
 import DownloadPDF from "../widgets/DownloadPDF";
 import ButtonFooter from "../ui/ButtonFooter";
 import Button from "../ui/Button";
-// import db from "../../utils/localstoragedb";
 import Dialog from "../ui/Dialog";
 import { formatDate } from "../../utils/functions";
 import ReceiptUpload from "../upload/ReceiptUpload";
@@ -14,6 +13,8 @@ import DisplayReceipt from "../upload/DisplayReceipt";
 import deleteReceiptFromStorage from "../../utils/deleteReceipt";
 import PlainSection from "../layout/PlainSection";
 import { formatWithCommas } from "../../utils/functions";
+import { db, dbExpenses } from "../../utils/firebase";
+import { deleteDoc, doc } from "firebase/firestore";
 
 function ExpenseDetail() {
   const { expenses, groups, friends, setExpenses, user } = UseDataContext();
@@ -35,6 +36,7 @@ function ExpenseDetail() {
 
   // get expense details
   const expenseDetails = expenses.find((expense) => expense.id === expenseId);
+  console.log(expenses);
 
   // Closes or opens the dialog
   const toggleDialog = (ref) => {
@@ -47,12 +49,8 @@ function ExpenseDetail() {
   };
 
   //delete an expense
-  const deleteExpense = () => {
-    db.deleteRows("expenses", { id: expenseDetails.id });
-    db.commit();
-    //call setState to render the component
-    setExpenses(db.queryAll("expenses"));
-    // after deleting, navigate to groups
+  const deleteExpense = async () => {
+    await deleteDoc(doc(db, dbExpenses, expenseDetails.id));
     navigate("/expenses");
   };
 

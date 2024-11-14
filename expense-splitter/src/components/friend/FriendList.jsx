@@ -23,6 +23,8 @@ const FriendList = ({ input }) => {
     // Any side effects based on friends update can be placed here
   }, [friends]);
 
+  console.log(friends);
+
   // Create reference to dom element
   const deleteDialogRef = useRef(null);
   const cantDeleteDialogRef = useRef(null);
@@ -36,8 +38,8 @@ const FriendList = ({ input }) => {
 
   // Delete friend if matches id
   const handleDeleteFriend = async (id) => {
-    setFriends(friends.filter((friend) => friend.id !== id));
-    await deleteDoc(doc(db, dbFriends, id));
+    // setFriends(friends.filter((friend) => friend.id !== id));
+    // await deleteDoc(doc(db, dbFriends, id));
     console.log("friend deleted: ", id);
   };
 

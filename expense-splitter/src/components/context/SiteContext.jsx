@@ -91,6 +91,7 @@ export const DataProvider = ({ children }) => {
           id: doc.id,
           ...doc.data(),
         }));
+        console.log("set initial groups", updatedGroups);
         setGroups(updatedGroups);
       });
 
@@ -100,9 +101,9 @@ export const DataProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      const groupsRef = collection(db, dbExpenses);
+      const expensesRef = collection(db, dbExpenses);
       const q = query(
-        groupsRef,
+        expensesRef,
         where("uid", "==", user.id),
         orderBy("createdAt", "desc"),
       );
@@ -111,6 +112,7 @@ export const DataProvider = ({ children }) => {
           id: doc.id,
           ...doc.data(),
         }));
+        console.log("set initial expenses", updatedExpenses);
         setExpenses(updatedExpenses);
       });
 
