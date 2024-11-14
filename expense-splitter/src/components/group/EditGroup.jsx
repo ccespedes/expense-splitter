@@ -8,6 +8,8 @@ import MultiSelectDropdown from "../ui/MultiSelectDropdown";
 import { useNavigate, useParams } from "react-router-dom";
 import PlainSection from "../layout/PlainSection";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import { doc, updateDoc } from "firebase/firestore";
+import { db, dbGroups } from "../../utils/firebase";
 
 export default function EditGroup() {
   const { user, friends, setGroups, groups, loadingGroups } = UseDataContext();
@@ -74,14 +76,11 @@ export default function EditGroup() {
   }, [currentGroupData, reset]);
 
   //onSubmit
-  const onSubmit = (values) => {
-    console.log("values", values);
-    // //updating the group data in groups database
-    // db.insertOrUpdate("groups", { ID: currentGroupData.ID }, { ...values });
-    // db.commit();
-    // //call setState to render the component
-    // setGroups(db.queryAll("groups"));
-    // navigate(-1);
+  const onSubmit = async (values) => {
+    // updating the group data in groups database
+    const docRef = doc(db, dbGroups, groupId);
+    await updateDoc(docRef, values);
+    navigate(-1);
   };
 
   if (loadingGroups) {
