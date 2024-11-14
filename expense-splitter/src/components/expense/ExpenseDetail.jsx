@@ -189,7 +189,7 @@ function ExpenseDetail() {
           </Button>
           <Button
             className="w-full min-w-32 bg-primary"
-            onClick={() => navigate(`/expenses/edit/${expenseDetails.ID}`)}
+            onClick={() => navigate(`/expenses/edit/${expenseDetails.id}`)}
           >
             Edit
           </Button>
