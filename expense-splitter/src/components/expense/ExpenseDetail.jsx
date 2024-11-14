@@ -15,6 +15,7 @@ import PlainSection from "../layout/PlainSection";
 import { formatWithCommas } from "../../utils/functions";
 import { db, dbExpenses } from "../../utils/firebase";
 import { deleteDoc, doc } from "firebase/firestore";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 function ExpenseDetail() {
   const { expenses, groups, friends, setExpenses, user } = UseDataContext();
@@ -35,10 +36,10 @@ function ExpenseDetail() {
   const [deleteID, setDeleteID] = useState(null);
 
   if (expenses.length === 0) {
-    // Show a loading state or return early
+    // Show a loading state before rendering
     return (
       <PlainSection>
-        <h1>Loading...</h1>
+        <LoadingSpinner />
       </PlainSection>
     );
   }

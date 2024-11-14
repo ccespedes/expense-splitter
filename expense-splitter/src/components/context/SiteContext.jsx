@@ -17,13 +17,6 @@ const SiteContext = createContext(null);
 export const UseDataContext = () => useContext(SiteContext);
 
 export const DataProvider = ({ children }) => {
-  // initialize data from localStorageDB
-  // const initialFriends = db.queryAll("friends");
-  // const initialFriends = getFriends();
-  // const initalGroup = db.queryAll("groups");
-  // const initialExpenses = db.queryAll("expenses");
-
-  // const [user, setUser] = useState(db.queryAll("user")[0]);
   const localUser = localStorage.getItem("user");
   const [user, setUser] = useState(localUser ? JSON.parse(localUser) : null);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -32,6 +25,8 @@ export const DataProvider = ({ children }) => {
   const [friends, setFriends] = useState([]);
   const [search, setSearch] = useState({ show: false, input: "" });
   const [menuShow, setMenuShow] = useState(false);
+  const [loadingGroups, setLoadingGroups] = useState(true);
+  const [loadingExpenses, setLoadingExpenses] = useState(true);
 
   // console.log("user", user);
 
@@ -91,8 +86,8 @@ export const DataProvider = ({ children }) => {
           id: doc.id,
           ...doc.data(),
         }));
-        console.log("set initial groups", updatedGroups);
         setGroups(updatedGroups);
+        setLoadingGroups(false);
       });
 
       return () => unsubscribe();
@@ -112,8 +107,8 @@ export const DataProvider = ({ children }) => {
           id: doc.id,
           ...doc.data(),
         }));
-        console.log("set initial expenses", updatedExpenses);
         setExpenses(updatedExpenses);
+        setLoadingExpenses(false);
       });
 
       return () => unsubscribe();
@@ -151,10 +146,12 @@ export const DataProvider = ({ children }) => {
         loggedIn,
         handleSetUser,
         groups,
+        loadingGroups,
         setGroups,
         friends,
         setFriends,
         expenses,
+        loadingExpenses,
         setExpenses,
         search,
         setSearch,

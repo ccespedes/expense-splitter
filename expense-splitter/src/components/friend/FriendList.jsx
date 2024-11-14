@@ -7,6 +7,8 @@ import Card from "../ui/Card";
 import NoDataPlaceHolder from "../ui/NoDataPlaceholder";
 import { db, dbFriends } from "../../utils/firebase";
 import { deleteDoc, doc } from "firebase/firestore";
+import LoadingSpinner from "../ui/LoadingSpinner";
+import PlainSection from "../layout/PlainSection";
 
 const FriendList = ({ input }) => {
   const { user, friends, groups, expenses, setFriends } = UseDataContext();
@@ -18,12 +20,6 @@ const FriendList = ({ input }) => {
       navigate("/signin");
     }
   }, [user]);
-
-  useEffect(() => {
-    // Any side effects based on friends update can be placed here
-  }, [friends]);
-
-  console.log(friends);
 
   // Create reference to dom element
   const deleteDialogRef = useRef(null);
@@ -42,6 +38,11 @@ const FriendList = ({ input }) => {
     await deleteDoc(doc(db, dbFriends, id));
     console.log("friend deleted: ", id);
   };
+
+  if (friends.length === 0) {
+    // Show a loading state before rendering
+    return <LoadingSpinner />;
+  }
 
   // filter friends for search bar
   const filteredData = friends.filter((friend) => {

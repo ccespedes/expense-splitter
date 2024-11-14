@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../ui/Button";
 import { UseDataContext } from "../context/SiteContext";
-// import db from "../../utils/localstoragedb";
 import { categories } from "../../utils/dummyData";
 import { useNavigate, useParams } from "react-router-dom";
 import PlainSection from "../layout/PlainSection";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 export default function CreateExpense() {
-  const { groups, friends, expenses, setExpenses, user } = UseDataContext();
+  const { groups, friends, expenses, loadingExpenses, setExpenses, user } =
+    UseDataContext();
   const [currentExpense, setCurrentExpense] = useState({});
   const [allFriends, setAllFriends] = useState([]);
   const [weightTotal, setWeightTotal] = useState(0);
@@ -41,7 +42,7 @@ export default function CreateExpense() {
     );
     setCurrentExpense(initialExpense);
 
-    const friendIdsArr = initialExpense.weight?.map(
+    const friendIdsArr = initialExpense?.weight?.map(
       (friend) => friend.friendId,
     );
 
@@ -245,6 +246,15 @@ export default function CreateExpense() {
     setExpenses(db.queryAll("expenses"));
     navigate(-1);
   };
+
+  if (loadingExpenses) {
+    // Show LoadingSpinner while loading is true
+    return (
+      <PlainSection>
+        <LoadingSpinner />
+      </PlainSection>
+    );
+  }
 
   return (
     <PlainSection>

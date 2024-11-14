@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UseDataContext } from "./context/SiteContext";
 import Card from "./ui/Card";
@@ -6,10 +6,11 @@ import NoDataPlaceholder from "./ui/NoDataPlaceholder";
 import HomeCard from "./ui/HomeCard";
 import { categories } from "../utils/dummyData";
 import PlainSection from "./layout/PlainSection";
+import LoadingSpinner from "./ui/LoadingSpinner";
 
 export default function Home() {
   const navigate = useNavigate();
-  const { user, groups, expenses } = UseDataContext();
+  const { user, groups, expenses, loadingGroups } = UseDataContext();
 
   useEffect(() => {
     // if user is not logged in, go to signin
@@ -18,10 +19,18 @@ export default function Home() {
     }
   }, [user]);
 
+  if (loadingGroups) {
+    // Show LoadingSpinner while loading is true
+    return (
+      <PlainSection>
+        <LoadingSpinner />
+      </PlainSection>
+    );
+  }
+
   const groupDisplay = groups
-    .sort((a, b) => b.ID - a.ID) // show latest expense up top
+    .sort((a, b) => b.ID - a.ID)
     .map((group, i) => {
-      // show a max of 3 groups
       if (i <= 2) {
         return (
           <Card
@@ -37,11 +46,9 @@ export default function Home() {
     });
 
   const expenseDisplay = expenses
-    .sort((a, b) => b.ID - a.ID) // show latest expense up top
+    .sort((a, b) => b.ID - a.ID)
     .map((expense, i) => {
-      // show a max of 3 expenses
       if (i <= 2) {
-        // get the group associated with this expense
         const expenseGroup = groups.find(
           (group) => group.id === expense.groupId,
         );
@@ -65,16 +72,13 @@ export default function Home() {
     });
 
   const heroDisplay = expenses
-    .sort((a, b) => b.ID - a.ID) // show latest expense up top
+    .sort((a, b) => b.ID - a.ID)
     .map((expense, i) => {
-      // get the category icon
       const catIcon = categories.find(
         (cat) => cat.name === expense.category,
       ).icon;
-      // get the group associated with this expense
       const expenseGroup = groups.find((group) => group.id === expense.groupId);
 
-      // calculate total spent
       const expenseIds = expenseGroup.expenseIDs;
       const totalSpent = () => {
         let total = 0;
@@ -108,71 +112,68 @@ export default function Home() {
       );
     });
 
-  return (
-    // if heroDisplay exists (at least one group and one expense exists)
-    heroDisplay.length > 0 ? (
-      <div className="relative -top-[110px]">
-        <div className="-ml-4 -mr-4 mb-8 flex overflow-x-auto pr-4">
-          {heroDisplay}
-        </div>
-        <div className="mb-8">
-          <h3 className="mb-2 font-medium">Recent Groups</h3>
-          {groups.length > 0 ? (
-            <>{groupDisplay}</>
-          ) : (
-            <NoDataPlaceholder
-              title="There are no groups to display"
-              subtitle="Get started by creating a group."
-              btnText="Add a Group"
-              onClick={() => navigate("/groups/add")}
-            />
-          )}
-        </div>
-
-        <>
-          <h3 className="mb-2 font-medium">Recent Expenses</h3>
-          {expenses.length > 0 ? (
-            <>{expenseDisplay}</>
-          ) : (
-            <NoDataPlaceholder
-              title="There are no expenses to display"
-              subtitle="Get started by creating an expense."
-              btnText="Add Expense"
-              onClick={() => navigate("/expenses/add")}
-            />
-          )}
-        </>
+  return heroDisplay.length > 0 ? (
+    <div className="relative -top-[110px]">
+      <div className="-ml-4 -mr-4 mb-8 flex overflow-x-auto pr-4">
+        {heroDisplay}
       </div>
-    ) : (
-      <PlainSection>
-        <div className="mb-8">
-          <h3 className="mb-4 font-medium">Recent Groups</h3>
-          {groups.length > 0 ? (
-            <>{groupDisplay}</>
-          ) : (
-            <NoDataPlaceholder
-              title="There are no groups to display"
-              subtitle="Get started by creating a group."
-              btnText="Add a Group"
-              onClick={() => navigate("/groups/add")}
-            />
-          )}
-        </div>
+      <div className="mb-8">
+        <h3 className="mb-2 font-medium">Recent Groups</h3>
+        {groups.length > 0 ? (
+          <>{groupDisplay}</>
+        ) : (
+          <NoDataPlaceholder
+            title="There are no groups to display"
+            subtitle="Get started by creating a group."
+            btnText="Add a Group"
+            onClick={() => navigate("/groups/add")}
+          />
+        )}
+      </div>
 
-        <>
-          <h3 className="mb-4 font-medium">Recent Expenses</h3>
-          {expenses.length > 0 ? (
-            <>{expenseDisplay}</>
-          ) : (
-            <NoDataPlaceholder
-              title="There are no expenses to display"
-              subtitle="Get started by creating an expense."
-              btnText="Add an Expense"
-              onClick={() => navigate("/expenses/add")}
-            />
-          )}
-        </>
-      </PlainSection>
-    )
+      <>
+        <h3 className="mb-2 font-medium">Recent Expenses</h3>
+        {expenses.length > 0 ? (
+          <>{expenseDisplay}</>
+        ) : (
+          <NoDataPlaceholder
+            title="There are no expenses to display"
+            subtitle="Get started by creating an expense."
+            btnText="Add Expense"
+            onClick={() => navigate("/expenses/add")}
+          />
+        )}
+      </>
+    </div>
+  ) : (
+    <PlainSection>
+      <div className="mb-8">
+        <h3 className="mb-4 font-medium">Recent Groups</h3>
+        {groups.length > 0 ? (
+          <>{groupDisplay}</>
+        ) : (
+          <NoDataPlaceholder
+            title="There are no groups to display"
+            subtitle="Get started by creating a group."
+            btnText="Add a Group"
+            onClick={() => navigate("/groups/add")}
+          />
+        )}
+      </div>
+
+      <>
+        <h3 className="mb-4 font-medium">Recent Expenses</h3>
+        {expenses.length > 0 ? (
+          <>{expenseDisplay}</>
+        ) : (
+          <NoDataPlaceholder
+            title="There are no expenses to display"
+            subtitle="Get started by creating an expense."
+            btnText="Add an Expense"
+            onClick={() => navigate("/expenses/add")}
+          />
+        )}
+      </>
+    </PlainSection>
   );
 }

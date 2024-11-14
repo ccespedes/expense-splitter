@@ -13,6 +13,7 @@ import { categories } from "../../utils/dummyData";
 import PlainSection from "../layout/PlainSection";
 import { formatWithCommas } from "../../utils/functions";
 import { deleteDoc, doc } from "firebase/firestore";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 function GroupDetail() {
   const [seeMore, setSeeMore] = useState(false);
@@ -20,8 +21,7 @@ function GroupDetail() {
     width: 0,
     color: "#D4E2F7",
   });
-  const { groups, setGroups, friends, expenses, setExpenses } =
-    UseDataContext();
+  const { groups, friends, expenses } = UseDataContext();
 
   // Create reference to dom elements
   const deleteDialogRef = useRef(null);
@@ -76,11 +76,6 @@ function GroupDetail() {
       color: barColor,
     }));
   }, [expensePercentage]);
-
-  // 404 if no ID found
-  if (!singleGroup) {
-    return <Navigate to={"/404"} />;
-  }
 
   // pie data
   const pieData = () => {
@@ -186,6 +181,22 @@ function GroupDetail() {
       );
     });
 
+  if (groups.length === 0) {
+    // Show a loading state before rendering
+    return (
+      <PlainSection>
+        <LoadingSpinner />
+      </PlainSection>
+    );
+  }
+
+  // 404 if no ID found
+  if (!singleGroup) {
+    return <Navigate to={"/404"} />;
+  }
+
+  console.log("singleGroup: ", singleGroup);
+
   return (
     <PlainSection>
       <div className="mb-32">
@@ -258,7 +269,7 @@ function GroupDetail() {
           </Button>
           <Button
             className="w-full bg-primary md:min-w-40"
-            onClick={() => navigate(`/groups/edit/${singleGroup.ID}`)}
+            onClick={() => navigate(`/groups/edit/${singleGroup.id}`)}
           >
             Edit
           </Button>

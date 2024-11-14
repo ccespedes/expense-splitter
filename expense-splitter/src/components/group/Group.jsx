@@ -9,10 +9,12 @@ import ButtonFooter from "../ui/ButtonFooter";
 import TopCard from "../ui/TopCard";
 import PlainSection from "../layout/PlainSection";
 import NoDataPlaceHolder from "../ui/NoDataPlaceholder";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 export default function Group() {
   const navigate = useNavigate();
-  const { user, groups, expenses, friends, search } = UseDataContext();
+  const { user, groups, loadingGroups, expenses, friends, search } =
+    UseDataContext();
 
   useEffect(() => {
     // if user is not logged in, go to signin
@@ -21,7 +23,14 @@ export default function Group() {
     }
   }, [user]);
 
-  console.log("groups", groups);
+  if (loadingGroups) {
+    // Show LoadingSpinner while loading is true
+    return (
+      <PlainSection>
+        <LoadingSpinner />
+      </PlainSection>
+    );
+  }
 
   // filter groupDisplay for search bar
   const filteredData = groups.filter((group) => {

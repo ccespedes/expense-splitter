@@ -7,10 +7,11 @@ import Card from "../ui/Card";
 import NoDataPlaceholder from "../ui/NoDataPlaceholder";
 import { categories } from "../../utils/dummyData";
 import PlainSection from "../layout/PlainSection";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 export default function Expense() {
   const navigate = useNavigate();
-  const { user, search, expenses } = UseDataContext();
+  const { user, search, expenses, loadingExpenses } = UseDataContext();
 
   useEffect(() => {
     // if user is not logged in, go to signin
@@ -18,6 +19,15 @@ export default function Expense() {
       navigate("/signin");
     }
   }, [user]);
+
+  if (loadingExpenses) {
+    // Show LoadingSpinner while loading is true
+    return (
+      <PlainSection>
+        <LoadingSpinner />
+      </PlainSection>
+    );
+  }
 
   // Sort expenses by db ID
   const expenseDisplay = expenses
