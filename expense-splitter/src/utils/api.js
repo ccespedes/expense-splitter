@@ -1,5 +1,5 @@
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
-import { db, dbFriends } from "./firebase";
+import { db, dbFriends, dbGroups } from "./firebase";
 
 export const getFriends = async (user) => {
   try {
@@ -18,6 +18,28 @@ export const getFriends = async (user) => {
       friends.push({ name, email, id });
     });
     return friends;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const getGroups = async (user) => {
+  try {
+    const groupsRef = collection(db, dbGroups);
+    const q = query(
+      groupsRef,
+      where("uid", "==", user.id),
+      orderBy("createdAt", "desc"),
+    );
+
+    const querySnapshot = await getDocs(q);
+    const groups = [];
+    querySnapshot.forEach((doc) => {
+      const { name, budget } = doc.data();
+      const { id } = doc;
+      groups.push({ name, budget, id });
+    });
+    return groups;
   } catch (error) {
     console.error(error.message);
   }

@@ -3,10 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { UseDataContext } from "../context/SiteContext";
 import Button from "../ui/Button";
 import Dialog from "../ui/Dialog";
-import { getFriends } from "../../utils/api";
+import { getFriends, getGroups } from "../../utils/api";
 
 const GetStarted = () => {
-  const { friends, groups, user } = UseDataContext();
+  const { groups, user } = UseDataContext();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,12 +17,17 @@ const GetStarted = () => {
       const friends = await getFriends(user);
       if (friends.length < 2) {
         toggleDialog(addFriendDialogRef);
-      } else if (groups.length === 0) {
-        toggleDialog(addGroupDialogRef);
       }
     };
     checkFriends();
-  });
+    const checkGroups = async () => {
+      const groups = await getGroups(user);
+      if (groups.length === 0) {
+        toggleDialog(addGroupDialogRef);
+      }
+    };
+    checkGroups();
+  }, []);
 
   const toggleDialog = (ref) => {
     if (!ref.current) {
