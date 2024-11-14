@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { UseDataContext } from "../context/SiteContext";
-// import db from "../../utils/localstoragedb";
 import Button from "../ui/Button";
 import Card from "../ui/Card";
 import Dialog from "../ui/Dialog";
@@ -9,10 +8,11 @@ import PieChart from "../widgets/PieChart";
 import NoDataPlaceholder from "../ui/NoDataPlaceholder";
 import ButtonFooter from "../ui/ButtonFooter";
 import { ref, deleteObject } from "firebase/storage";
-import { storage } from "../../utils/firebase";
+import { db, dbExpenses, dbGroups, storage } from "../../utils/firebase";
 import { categories } from "../../utils/dummyData";
 import PlainSection from "../layout/PlainSection";
 import { formatWithCommas } from "../../utils/functions";
+import { deleteDoc, doc } from "firebase/firestore";
 
 function GroupDetail() {
   const [seeMore, setSeeMore] = useState(false);
@@ -120,16 +120,13 @@ function GroupDetail() {
     // Delete all receipts from firebase
     Promise.all(deleteReceiptPromises)
       .then(() => {
-        // Delete from local storage
+        // Delete expenses
         groupExpenses.forEach((expense) => {
-          db.deleteRows("expenses", { id: expense.id });
+          deleteDoc(doc(db, dbExpenses, expense.id));
         });
-        db.deleteRows("groups", { id: id });
-        db.commit();
 
-        //call setState to render the component
-        setGroups(db.queryAll("groups"));
-        setExpenses(db.queryAll("expenses"));
+        // Delete group
+        deleteDoc(doc(db, dbGroups, id));
 
         // after deleting, navigate to groups
         navigate("/groups");
