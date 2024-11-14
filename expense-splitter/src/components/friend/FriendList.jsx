@@ -38,8 +38,8 @@ const FriendList = ({ input }) => {
 
   // Delete friend if matches id
   const handleDeleteFriend = async (id) => {
-    // setFriends(friends.filter((friend) => friend.id !== id));
-    // await deleteDoc(doc(db, dbFriends, id));
+    setFriends(friends.filter((friend) => friend.id !== id));
+    await deleteDoc(doc(db, dbFriends, id));
     console.log("friend deleted: ", id);
   };
 
