@@ -46,7 +46,6 @@ function ExpenseDetail() {
 
   // get expense details
   const expenseDetails = expenses.find((expense) => expense.id === expenseId);
-  console.log(expenses);
 
   // Closes or opens the dialog
   const toggleDialog = (ref) => {

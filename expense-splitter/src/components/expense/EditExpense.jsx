@@ -6,6 +6,8 @@ import { categories } from "../../utils/dummyData";
 import { useNavigate, useParams } from "react-router-dom";
 import PlainSection from "../layout/PlainSection";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import { doc, updateDoc } from "firebase/firestore";
+import { db, dbExpenses } from "../../utils/firebase";
 
 export default function CreateExpense() {
   const { groups, friends, expenses, loadingExpenses, setExpenses, user } =
@@ -37,55 +39,54 @@ export default function CreateExpense() {
 
   // load current expense and friends in state on initial render
   useEffect(() => {
-    const initialExpense = expenses.find(
-      (expense) => expense.ID === parseInt(groupId),
-    );
-    setCurrentExpense(initialExpense);
+    const initialExpense = expenses.find((expense) => expense.id === groupId);
 
-    const friendIdsArr = initialExpense?.weight?.map(
-      (friend) => friend.friendId,
-    );
+    if (initialExpense) {
+      setCurrentExpense(initialExpense);
 
-    const friendsInGroup = friends.filter((friend) =>
-      friendIdsArr.includes(friend.id),
-    );
+      const friendIdsArr = initialExpense.weight?.map(
+        (friend) => friend.friendId,
+      );
 
-    const friendObjs = initialExpense.weight.map((item) => {
-      if (friendIdsArr.includes(item.friendId)) {
-        const friendName = friendsInGroup?.filter(
-          (friend) => friend.id === item.friendId,
-        );
-        const dollarValue =
-          (parseFloat(item.percentage) * initialExpense.amount) / 100;
-        return {
-          id: item.friendId,
-          weight: item.percentage.toString(),
-          name: friendName[0]?.name,
-          dollar: dollarValue.toString(),
-        };
-      }
-    });
+      const friendsInGroup = friends.filter((friend) =>
+        friendIdsArr.includes(friend.id),
+      );
 
-    setAllFriends(friendObjs);
+      const friendData = initialExpense.weight
+        .map((item) => {
+          const friend = friendsInGroup.find((f) => f.id === item.friendId);
+          if (friend) {
+            const dollarValue =
+              (parseFloat(item.percentage) * initialExpense.amount) / 100;
+            return {
+              id: item.friendId,
+              weight: item.percentage.toString(),
+              name: friend.name,
+              dollar: dollarValue.toString(),
+            };
+          }
+        })
+        .filter(Boolean);
 
-    // get the friend values for weights
-    // populate the initial form values
-    const friendValues = friendObjs.reduce((acc, friend) => {
-      acc[friend.name] = parseFloat(friend.weight).toFixed(2);
-      return acc;
-    }, {});
+      setAllFriends(friendData);
 
-    const valuesObj = {
-      name: currentExpense.name || "",
-      description: currentExpense.description || "",
-      category: currentExpense.category || "",
-      amount: currentExpense.amount || "",
-      group: currentExpense.groupId || "",
-      receipt_URL: currentExpense.receipt_URL || "",
-      ...friendValues,
-    };
-    reset(valuesObj);
-  }, [currentExpense]);
+      // get the friend values for weights
+      // populate the initial form values
+      const friendValues = friendData.reduce((acc, friend) => {
+        acc[friend.name] = parseFloat(friend.weight).toFixed(2);
+        return acc;
+      }, {});
+
+      const initialValues = {
+        ...initialExpense,
+        ...friendData.reduce((acc, friend) => {
+          acc[friend.name] = friend.weight;
+          return acc;
+        }, {}),
+      };
+      reset(initialValues);
+    }
+  }, [groupId, expenses, friends]);
 
   // calculate weight data
   useEffect(() => {
@@ -161,6 +162,7 @@ export default function CreateExpense() {
     // only update state when friend values change
   }, [
     allFriends.map((friend) => watchedValues[friend.name]).join(),
+    expenses,
     watchedValues["amount"],
   ]);
 
@@ -226,8 +228,8 @@ export default function CreateExpense() {
     );
   });
 
-  const onSubmit = (values) => {
-    const { ID } = expenses.find((expense) => expense.id === currentExpense.id);
+  const onSubmit = async (values) => {
+    const { id } = expenses.find((expense) => expense.id === currentExpense.id);
     const weightObj = allFriends.map((friend) => ({
       friendId: friend.id,
       percentage: parseFloat(friend.weight),
@@ -240,14 +242,12 @@ export default function CreateExpense() {
       weight: weightObj,
       groupId: values.group,
     };
-    db.insertOrUpdate("expenses", { ID: ID }, { ...updatedExpense });
-    db.commit();
-    // update expenses state with new db values
-    setExpenses(db.queryAll("expenses"));
+    const docRef = doc(db, dbExpenses, id);
+    await updateDoc(docRef, updatedExpense);
     navigate(-1);
   };
 
-  if (loadingExpenses) {
+  if (loadingExpenses || !currentExpense) {
     // Show LoadingSpinner while loading is true
     return (
       <PlainSection>
