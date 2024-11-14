@@ -6,7 +6,7 @@ import Dialog from "../ui/Dialog";
 import { getFriends, getGroups } from "../../utils/api";
 
 const GetStarted = () => {
-  const { groups, user } = UseDataContext();
+  const { user } = UseDataContext();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,6 +17,8 @@ const GetStarted = () => {
       const friends = await getFriends(user);
       if (friends.length < 2) {
         toggleDialog(addFriendDialogRef);
+      } else {
+        checkGroups();
       }
     };
     checkFriends();
@@ -26,8 +28,7 @@ const GetStarted = () => {
         toggleDialog(addGroupDialogRef);
       }
     };
-    checkGroups();
-  }, []);
+  }, [location.pathname]);
 
   const toggleDialog = (ref) => {
     if (!ref.current) {
