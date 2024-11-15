@@ -1,22 +1,17 @@
-// import db from "../../utils/localstoragedb";
 import Dialog from "../ui/Dialog";
 import { useRef } from "react";
 import deleteReceiptFromStorage from "../../utils/deleteReceipt";
 import Button from "../ui/Button";
+import { doc, updateDoc } from "firebase/firestore";
+import { db, dbExpenses } from "../../utils/firebase";
 
 const DisplayReceipt = ({ expense, setExpenses }) => {
   const deleteReceiptRef = useRef(null);
 
-  const deleteReceiptURL = () => {
-    // Remove url form local storage
-    db.update("expenses", { id: expense.id }, (expense) => {
-      expense.receipt_URL = null;
-      return expense;
-    });
-    db.commit();
-
-    // Update state
-    setExpenses(db.queryAll("expenses"));
+  const deleteReceiptURL = async () => {
+    // Remove url form db
+    const docRef = doc(db, dbExpenses, expense.id);
+    await updateDoc(docRef, { receipt_URL: null });
   };
 
   return (
