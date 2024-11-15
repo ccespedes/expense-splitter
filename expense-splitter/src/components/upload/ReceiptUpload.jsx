@@ -1,11 +1,11 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { storage } from "../../utils/firebase";
+import { db, dbExpenses, storage } from "../../utils/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { doc, updateDoc } from "firebase/firestore";
 import Button from "../ui/Button";
-// import db from "../../utils/localstoragedb";
-import { useState } from "react";
 
 const MAX_FILE_SIZE = 6291456; // 1024 * 1024 * 6 = 6MB
 const ACCEPTED_TYPES = [
@@ -61,13 +61,8 @@ const ReceiptUpload = ({ expenseDetails, setExpenses }) => {
     // Get url
     const url = await getDownloadURL(snapshot.ref);
     // save to DB
-    db.update("expenses", { id: expenseDetails.id }, (expense) => {
-      expense.receipt_URL = url;
-      return expense;
-    });
-    db.commit();
-    // Update state
-    setExpenses(db.queryAll("expenses"));
+    const docRef = doc(db, dbExpenses, expenseDetails.id);
+    await updateDoc(docRef, { receipt_URL: url });
   };
 
   const formatBytes = (bytes) => {
